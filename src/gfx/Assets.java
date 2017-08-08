@@ -18,7 +18,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] start_btn, quit_btn, minus_btn, plus_btn, dropdown_btn;
 	public static BufferedImage[] back_btn, back_written_btn, forward_btn, backward_btn;
 	public static BufferedImage[] heroes;
-	public static BufferedImage[] settings;
+	public static BufferedImage[] settings, move, attack, item, end_turn;
 	public static BufferedImage[] en, de;
 	public static BufferedImage tile1, tile2, tile3, tile4, tile5, tile6;
 	public static BufferedImage intro_logo;
@@ -29,7 +29,6 @@ public class Assets implements Settings, Translations{
 		font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
 		
 		//init sheets
-		SpriteSheet menu_sheet = new SpriteSheet(ImageLoader.loadImage("/menues/menu.png"));
 		SpriteSheet tiles_sheet = new SpriteSheet(ImageLoader.loadImage("/tiles/sheet_1.png"));
 		SpriteSheet buttons_sheet = new SpriteSheet(ImageLoader.loadImage("/menues/buttons.png"));
 		SpriteSheet buttons_hover_sheet = new SpriteSheet(ImageLoader.loadImage("/menues/buttons_hover.png"));
@@ -57,14 +56,18 @@ public class Assets implements Settings, Translations{
 		backward_btn = new BufferedImage[2];
 		heroes = new BufferedImage[HERONAMES.length];
 		settings = new BufferedImage[2];
+		move = new BufferedImage[2];
+		attack = new BufferedImage[2];
+		item = new BufferedImage[2];
+		end_turn = new BufferedImage[2];
 		en = new BufferedImage[2];
 		de = new BufferedImage[2];
 
 		//init menu images
-		start_btn[0] = menu_sheet.crop(0, 0, width * 2, height);
-		start_btn[1] = menu_sheet.crop(0, height, width * 2, height);
-		quit_btn[0] = menu_sheet.crop(0, height * 2, width * 2, height);
-		quit_btn[1] = menu_sheet.crop(0, height * 3, width * 2, height);
+		start_btn[0] = buttons_sheet.crop(128, 0, 128, 64);
+		start_btn[1] = buttons_hover_sheet.crop(128, 0, 128, 64);
+		quit_btn[0] = buttons_sheet.crop(128, 64, 128, 64);
+		quit_btn[1] = buttons_hover_sheet.crop(128, 64, 128, 64);
 		
 		back_written_btn[0] = buttons_sheet.crop(0, 0, 128, 64);
 		back_written_btn[1] = buttons_hover_sheet.crop(0, 0, 128, 64);
@@ -84,6 +87,14 @@ public class Assets implements Settings, Translations{
 		//init ingame images
 		settings[0] = buttons_sheet.crop(96, 96, width, height);
 		settings[1] = buttons_hover_sheet.crop(96, 96, width, height);
+		move[0] = buttons_sheet.crop(0, 160, width * 2, height);
+		move[1] = buttons_hover_sheet.crop(0, 160, width * 2, height);
+		attack[0] = buttons_sheet.crop(0, 192, width * 2, height);
+		attack[1] = buttons_hover_sheet.crop(0, 192, width * 2, height);
+		item[0] = buttons_sheet.crop(0, 224, width * 2, height);
+		item[1] = buttons_hover_sheet.crop(0, 224, width * 2, height);
+		end_turn[0] = buttons_sheet.crop(0, 256, width * 2, height);
+		end_turn[1] = buttons_hover_sheet.crop(0, 256, width * 2, height);
 		
 		//init country logos
 		en[0] = countries_sheet.crop(0, 0, width, height);

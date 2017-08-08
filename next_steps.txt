@@ -1,6 +1,5 @@
 next steps
 	- implement click effect for every menu button
-	- resize start and quit button
 	- render entites on same tile at different points
 	
 questziele:

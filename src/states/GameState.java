@@ -10,6 +10,7 @@ import gfx.Assets;
 import main.Handler;
 import main.Settings;
 import ui.ingame.IngameUI;
+import ui.ingame.TaskMenu;
 import worlds.World;
 
 public class GameState extends State implements Settings{
@@ -20,6 +21,7 @@ public class GameState extends State implements Settings{
 	
 	private ArrayList<Entity> players;
 	private IngameUI ingameUI;
+	private TaskMenu taskMenu;
 	
 	private int turns;
 	private boolean[] turnEnded;
@@ -34,6 +36,7 @@ public class GameState extends State implements Settings{
 		turns = 0;
 		players = new ArrayList<Entity>();
 		ingameUI = new IngameUI(handler);
+		taskMenu = new TaskMenu(handler);
 	}
 	
 	@Override
@@ -43,6 +46,7 @@ public class GameState extends State implements Settings{
 			e.tick();
 		}
 		ingameUI.tick();
+		taskMenu.tick();
 	}
 
 	@Override
@@ -52,6 +56,7 @@ public class GameState extends State implements Settings{
 			e.render(g);
 		}
 		ingameUI.render(g);
+		taskMenu.render(g);
 	}
 	
 	public void start(){
