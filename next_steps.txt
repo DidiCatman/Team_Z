@@ -1,0 +1,11 @@
+next steps
+	- implement click effect for every menu button
+	- resize start and quit button
+	- render entites on same tile at different points
+	
+questziele:
+1. finde ein bestimmtes token (2 auf der map und unter einem 
+ 	ist zufällig das missionsziel token)
+2. erreiche ein bestimmtes level 
+3. finde einen bestimmten gegenstand durch raum durchsuchen
+4. töte einen bestimmten boss
