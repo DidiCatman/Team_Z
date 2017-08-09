@@ -1,6 +1,8 @@
 next steps
-	- implement click effect for every menu button
 	- render entites on same tile at different points
+		-> EntityManager @ renderPlayer
+	- ingame task menu actions need functions
+	- implement click effect for every menu button
 	
 questziele:
 1. finde ein bestimmtes token (2 auf der map und unter einem 

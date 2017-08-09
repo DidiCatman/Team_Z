@@ -23,9 +23,9 @@ public class HeroChooser implements Settings, Translations{
 	}
 	
 	private void initButtons() {
-		forward = new MyUIImageButton[4];
-		backward = new MyUIImageButton[4];
-		selectedHeroIndex = new int[4];
+		forward = new MyUIImageButton[MAXPLAYERNUMBER];
+		backward = new MyUIImageButton[MAXPLAYERNUMBER];
+		selectedHeroIndex = new int[MAXPLAYERNUMBER];
 		
 		for(int i = 0; i < MAXPLAYERNUMBER; i++){
 			int x = i;

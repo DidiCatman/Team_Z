@@ -3,6 +3,7 @@ package ui.ingame;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import entities.Player;
 import gfx.Assets;
 import gfx.Text;
 import main.Handler;
@@ -22,7 +23,7 @@ public class Inventory implements Settings, Translations{
 	}
 	
 	private void initButtons() {
-		settings = new MyUIImageButton(handler, 300, 562, Assets.settings){
+		settings = new MyUIImageButton(handler, 410, 515, Assets.settings){
 			@Override
 			public void initAction(){
 				System.out.println(WORDS[handler.getGame().getLanguage()][2]);
@@ -45,6 +46,11 @@ public class Inventory implements Settings, Translations{
 		
 		//draw turns
 		String turns = String.valueOf("Turns: " + handler.getGame().getGameState().getTurns());
-		Text.drawString(g, turns, 195, 530, false, Color.BLACK, Assets.font28);
+		Text.drawString(g, turns, 195, 558, false, Color.BLACK, Assets.font28);
+		
+		//draw hero name
+		Player player = handler.getGame().getGameState().getTurnPlayer();
+		String name = String.valueOf("#" + (player.getId() + 1) + " " + player.getHeroName());
+		Text.drawString(g, name, 195, 530, false, Color.BLACK, Assets.font28);
 	}
 }

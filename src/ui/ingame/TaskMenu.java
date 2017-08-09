@@ -38,7 +38,7 @@ public class TaskMenu {
 		end = new MyUIImageButton(handler, 530, 555, Assets.end_turn){
 			@Override
 			public void initAction(){
-				System.out.println("NIY - end turn");
+				handler.getGame().getGameState().endTurn();
 			}
 		};
 	}

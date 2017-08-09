@@ -29,8 +29,8 @@ public class PlayerCount implements Settings, Translations{
 		plus_btn = new MyUIImageButton(handler, 150, 100, Assets.plus_btn){
 			@Override
 			public void initAction(){
-				if(playerCount >= 4){
-					playerCount = 2;
+				if(playerCount >= MAXPLAYERNUMBER){
+					playerCount = 1;
 				}else{
 					playerCount++;
 				}
@@ -40,8 +40,8 @@ public class PlayerCount implements Settings, Translations{
 		minus_btn = new MyUIImageButton(handler, 50, 100, Assets.minus_btn){
 			@Override
 			public void initAction(){
-				if(playerCount <= 2){
-					playerCount = 4;
+				if(playerCount <= 1){
+					playerCount = MAXPLAYERNUMBER;
 				}else{
 					playerCount--;
 				}
@@ -54,6 +54,7 @@ public class PlayerCount implements Settings, Translations{
 				for(int i = 0; i < playerCount; i++){
 					handler.getGame().getGameState().addPlayer(handler.getGame().getGameOptionsState().getHeroChooser().getSelectedHeroIndex()[i]);
 				}
+				handler.getGame().getGameState().start();
 				State.setState(handler.getGame().gameState);
 			}
 		};

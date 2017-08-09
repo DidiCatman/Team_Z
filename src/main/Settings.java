@@ -15,5 +15,5 @@ public interface Settings {
 	public final static int DEFAULT_ATTACK = 3;
 	public final static int DEFAULT_PLAYER_HEALTH = 3;
 		
-	public final static int MAXPLAYERNUMBER = 4;
+	public final static int MAXPLAYERNUMBER = 6;
 }
