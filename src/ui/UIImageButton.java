@@ -7,17 +7,18 @@ import java.awt.image.BufferedImage;
 
 import main.Handler;
 
-public class MyUIImageButton extends MyUIObject{
+public class UIImageButton extends UIObject{
 	
 	private Handler handler;
 	private BufferedImage[] images;
 	private BufferedImage current_image;
 	private int x, y, width, height;
 	private Rectangle rec;
+	private boolean active;
 	private long lastClickTimer, clickCoolDown = 250, clickTimer = clickCoolDown;
 
 
-	public MyUIImageButton(Handler handler, int x, int y, BufferedImage images[]){
+	public UIImageButton(Handler handler, int x, int y, BufferedImage images[]){
 		this.handler = handler;
 		this.images = images;
 		this.x = x;
@@ -26,6 +27,7 @@ public class MyUIImageButton extends MyUIObject{
 		height = images[0].getHeight();
 		rec = new Rectangle(x, y, width, height);
 		current_image = images[0];
+		active = false;
 	}
 	
 	public void tick(){
@@ -54,6 +56,10 @@ public class MyUIImageButton extends MyUIObject{
 			//set click timer to zero when click is acepted event
 			clickTimer = 0;
 		}
+		
+		if(active){
+			current_image = images[2];
+		}
 	}
 	
 	public void render(Graphics g){
@@ -66,8 +72,20 @@ public class MyUIImageButton extends MyUIObject{
 		
 	}
 	
+	//GETTERS & SETTERS
 	public void setImages(BufferedImage[] img){
 		images = img;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+		if(active = false){
+			current_image = images[0];
+		}
 	}
 	
 }

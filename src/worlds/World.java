@@ -11,6 +11,7 @@ public class World implements Settings{
 
 	private Handler handler;
 	private int width, height;
+	private int spawn_x, spawn_y;
 	private int[][] tiles;
 	private int map_x_offset, map_y_offset;
 	
@@ -26,7 +27,8 @@ public class World implements Settings{
 	public void render(Graphics g){		
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
-				getTile(x, y).render(g, x * MAPTILESIZE + map_x_offset, y * MAPTILESIZE + map_y_offset);
+				Tile t = getTile(x, y);
+				t.render(g, x * MAPTILESIZE + map_x_offset, y * MAPTILESIZE + map_y_offset);
 			}
 		}
 	}
@@ -47,6 +49,8 @@ public class World implements Settings{
 		String[] tokens = file.split("\\s+");
 		width = Utils.parseInt(tokens[0]);
 		height = Utils.parseInt(tokens[1]);
+		spawn_x = Utils.parseInt(tokens[2]);
+		spawn_y = Utils.parseInt(tokens[3]);
 		
 		if(width == 3){
 			map_x_offset = 40;
@@ -59,7 +63,7 @@ public class World implements Settings{
 		tiles = new int[width][height];
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
-				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 2]);
+				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
 			}
 		}
 	}
@@ -87,6 +91,22 @@ public class World implements Settings{
 
 	public int getMap_y_offset() {
 		return map_y_offset;
+	}
+
+	public int getSpawn_x() {
+		return spawn_x;
+	}
+
+	public void setSpawn_x(int spawn_x) {
+		this.spawn_x = spawn_x;
+	}
+
+	public int getSpawn_y() {
+		return spawn_y;
+	}
+
+	public void setSpawn_y(int spawn_y) {
+		this.spawn_y = spawn_y;
 	}
 	
 }

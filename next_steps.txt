@@ -1,6 +1,14 @@
 next steps
-	- implement click effect for every menu button
+	- map rendering initialize with minimaptiles
+	- PlayerActions need functions
 	- render entites on same tile at different points
+		-> EntityManager @ renderPlayer
+	- ingame task menu actions need functions
+	- fog of war für häuser und ecken bei wegen
+	- anzahl der gegner für spielfeld darstellen
+	- item button weg, dafür rechts leiste mit weiteren menu
+	- boolean für movable tiles in settings menu
+	
 	
 questziele:
 1. finde ein bestimmtes token (2 auf der map und unter einem 

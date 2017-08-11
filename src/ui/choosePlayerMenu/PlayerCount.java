@@ -9,7 +9,7 @@ import main.Handler;
 import main.Settings;
 import main.Translations;
 import states.State;
-import ui.MyUIImageButton;
+import ui.UIImageButton;
 
 public class PlayerCount implements Settings, Translations{
 	
@@ -17,7 +17,7 @@ public class PlayerCount implements Settings, Translations{
 	private int playerCount;
 	private long lastClickTimer, clickCoolDown = 250, clickTimer = clickCoolDown;
 
-	private MyUIImageButton plus_btn, minus_btn, start_btn;
+	private UIImageButton plus_btn, minus_btn, start_btn;
 	
 	public PlayerCount(Handler handler){
 		this.handler = handler;
@@ -26,34 +26,35 @@ public class PlayerCount implements Settings, Translations{
 	}
 	
 	private void initButtons() {		
-		plus_btn = new MyUIImageButton(handler, 150, 100, Assets.plus_btn){
+		plus_btn = new UIImageButton(handler, 150, 100, Assets.plus_btn){
 			@Override
 			public void initAction(){
-				if(playerCount >= 4){
-					playerCount = 2;
+				if(playerCount >= MAXPLAYERNUMBER){
+					playerCount = 1;
 				}else{
 					playerCount++;
 				}
 			}
 		};
 		
-		minus_btn = new MyUIImageButton(handler, 50, 100, Assets.minus_btn){
+		minus_btn = new UIImageButton(handler, 50, 100, Assets.minus_btn){
 			@Override
 			public void initAction(){
-				if(playerCount <= 2){
-					playerCount = 4;
+				if(playerCount <= 1){
+					playerCount = MAXPLAYERNUMBER;
 				}else{
 					playerCount--;
 				}
 			}
 		};
 		
-		start_btn = new MyUIImageButton(handler, 50, 500, Assets.start_btn){
+		start_btn = new UIImageButton(handler, 50, 500, Assets.start_btn){
 			@Override
 			public void initAction(){
 				for(int i = 0; i < playerCount; i++){
 					handler.getGame().getGameState().addPlayer(handler.getGame().getGameOptionsState().getHeroChooser().getSelectedHeroIndex()[i]);
 				}
+				handler.getGame().getGameState().start();
 				State.setState(handler.getGame().gameState);
 			}
 		};

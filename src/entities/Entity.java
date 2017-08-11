@@ -8,11 +8,10 @@ import main.Settings;
 
 public abstract class Entity implements Settings{
 	
-	private Handler handler;
-	private int tilex, tiley;
-	@SuppressWarnings("unused")
+	protected Handler handler;
+	protected int tilex, tiley;
 	private int health, maxHealth;
-	private BufferedImage image;
+	protected BufferedImage image;
 	
 	public Entity(Handler handler, int tilex, int tiley, int maxHealth, BufferedImage image){
 		this.handler = handler;
@@ -25,10 +24,43 @@ public abstract class Entity implements Settings{
 	
 	public abstract void tick();
 	
-	public void render(Graphics g){
-		int xoff = handler.getWorld().getMap_x_offset();
-		int yoff = handler.getWorld().getMap_y_offset();
-		g.drawImage(image, tilex * TILESIZE + xoff, tiley * TILESIZE + yoff, null);
+	public abstract void render(Graphics g);
+
+	
+	//not abstract
+	
+	//GETTERS & SETTERS
+	public int getTilex() {
+		return tilex;
 	}
+
+	public void setTilex(int tilex) {
+		this.tilex = tilex;
+	}
+
+	public int getTiley() {
+		return tiley;
+	}
+
+	public void setTiley(int tiley) {
+		this.tiley = tiley;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
+	}
+	
 	
 }
