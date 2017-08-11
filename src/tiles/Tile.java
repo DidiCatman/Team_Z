@@ -48,10 +48,6 @@ public class Tile implements Settings{
 		return false;
 	}
 	
-	public int getId(){
-		return id;
-	}
-	
 	private void loadMiniTiles(String path){
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");
@@ -62,5 +58,14 @@ public class Tile implements Settings{
 				minitiles[x][y] = Utils.parseInt(tokens[x + y * MINIMAPTILES]);
 			}
 		}
+	}
+	
+	//GETTERS & SETTERS
+	public int getId(){
+		return id;
+	}
+
+	public int[][] getMinitiles() {
+		return minitiles;
 	}
 }

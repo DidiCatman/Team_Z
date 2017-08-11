@@ -1,10 +1,7 @@
 package worlds;
 
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
 
-import gfx.Assets;
 import main.Handler;
 import main.Settings;
 import tiles.Tile;
@@ -18,17 +15,13 @@ public class World implements Settings{
 	private int[][] tiles;
 	private int map_x_offset, map_y_offset;
 	
-	private boolean selector;
-	
 	public World(Handler handler, String path, int lvl){
 		this.handler = handler;
-		selector = false;
 		
 		loadWorld(path);
 	}
 	
 	public void tick(){
-		selector = handler.getGame().getGameState().isShowMoves();
 	}
 	
 	public void render(Graphics g){		
@@ -36,15 +29,6 @@ public class World implements Settings{
 			for(int x = 0; x < width; x++){
 				Tile t = getTile(x, y);
 				t.render(g, x * MAPTILESIZE + map_x_offset, y * MAPTILESIZE + map_y_offset);
-				
-				//Draw selector
-				if(selector){
-					Point p = new Point(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY());
-					Rectangle rec = new Rectangle(x * TILESIZE + map_x_offset, y * TILESIZE + map_y_offset, TILESIZE, TILESIZE);
-					if(rec.contains(p)){
-						g.drawImage(Assets.selector, x * TILESIZE + map_x_offset, y * TILESIZE + map_y_offset, null);
-					}
-				}
 			}
 		}
 	}

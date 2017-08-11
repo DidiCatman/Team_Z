@@ -1,8 +1,13 @@
 next steps
+	- map rendering initialize with minimaptiles
 	- PlayerActions need functions
 	- render entites on same tile at different points
 		-> EntityManager @ renderPlayer
 	- ingame task menu actions need functions
+	- fog of war für häuser und ecken bei wegen
+	- anzahl der gegner für spielfeld darstellen
+	- item button weg, dafür rechts leiste mit weiteren menu
+	- boolean für movable tiles in settings menu
 	
 	
 questziele:
