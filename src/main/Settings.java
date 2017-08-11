@@ -11,8 +11,9 @@ public interface Settings {
 	public final static int MAPTILESIZE = 240;
 	public final static int TILESIZE = 81;
 	public final static int ENTITYSIZE = 16;
+	public final static int MINIMAPTILES = 3;
 
-	public final static int DEFAULT_ATTACK = 3;
+	public final static int DEFAULT_ATTACK = 1;
 	public final static int DEFAULT_PLAYER_HEALTH = 3;
 		
 	public final static int MAXPLAYERNUMBER = 6;

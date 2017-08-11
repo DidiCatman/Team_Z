@@ -3,18 +3,18 @@ package ui.ingame;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import entities.Player;
+import entities.player.Player;
 import gfx.Assets;
 import gfx.Text;
 import main.Handler;
 import main.Settings;
 import main.Translations;
-import ui.MyUIImageButton;
+import ui.UIImageButton;
 
 public class Inventory implements Settings, Translations{
 	
 	private Handler handler;
-	private MyUIImageButton settings;
+	private UIImageButton settings;
 
 	public Inventory(Handler handler){
 		this.handler = handler;
@@ -23,7 +23,7 @@ public class Inventory implements Settings, Translations{
 	}
 	
 	private void initButtons() {
-		settings = new MyUIImageButton(handler, 410, 515, Assets.settings){
+		settings = new UIImageButton(handler, 410, 515, Assets.settings){
 			@Override
 			public void initAction(){
 				System.out.println(WORDS[handler.getGame().getLanguage()][2]);

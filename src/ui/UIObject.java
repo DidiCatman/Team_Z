@@ -1,6 +1,6 @@
 package ui;
 
-public abstract class MyUIObject {
+public abstract class UIObject {
 
 	public abstract void initAction();
 	

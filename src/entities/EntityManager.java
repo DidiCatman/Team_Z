@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import entities.player.Player;
 import main.Handler;
 
 public class EntityManager {
