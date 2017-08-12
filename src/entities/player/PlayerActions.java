@@ -8,20 +8,20 @@ import java.util.ArrayList;
 import gfx.Assets;
 import main.Handler;
 import main.Settings;
-import tiles.Tile;
 
 public class PlayerActions implements Settings{
 	
 	private Handler handler;
-	private ArrayList<Rectangle> movableTiles;
+	private ArrayList<Point> movableTiles;
 	
 	public PlayerActions(Handler handler){
 		this.handler = handler;
-		this.movableTiles = new ArrayList<Rectangle>();
+		movableTiles = new ArrayList<Point>();
 	}
 	
 	public void tick(){
 		if(handler.getGame().getGameState().isShowMoves()){
+			getMovableTiles();
 			tickSelector();
 		}
 		
@@ -29,22 +29,60 @@ public class PlayerActions implements Settings{
 			System.out.println("show attacks");
 		}
 		
-		if(handler.getGame().getGameState().isShowItems()){
+		if(handler.getGame().getGameState().isShowSearchables()){
 			System.out.println("show items");
 		}
 	}
 	
+	private void getMovableTiles() {
+		movableTiles = new ArrayList<Point>();
+		int width = handler.getWorld().getWidth();
+		int height = handler.getWorld().getHeight();
+		
+		Player p = handler.getGame().getGameState().getTurnPlayer();
+		for(int y = 0; y < handler.getWorld().getHeight() * TILESIZE; y++){
+			for(int x = 0; x < handler.getWorld().getWidth() * TILESIZE; x++){
+				if(!handler.getWorld().getTile(x, y).isClosed()){
+					if(p.getTilex() == x && p.getTiley() + 1 == y){
+						if(p.getTiley() + 1 < height){
+							movableTiles.add(new Point(x,y));
+						}
+					}else if(p.getTilex() == x && p.getTiley() - 1 == y){
+						if(p.getTiley() - 1 >= 0){
+							movableTiles.add(new Point(x,y));
+						}
+					}
+					if(p.getTiley() == y && p.getTilex() + 1 == x){
+						if(p.getTilex() + 1 < width){
+							movableTiles.add(new Point(x,y));
+						}
+					}else if(p.getTiley() == y && p.getTilex() - 1 == x){
+						if(p.getTilex() - 1 >= 0){
+							movableTiles.add(new Point(x,y));
+						}
+					}
+				}
+			}
+		}
+	}
+
 	private void tickSelector(){
 		if(handler.getMouseManager().isLeftPressed()){
-			for(int y = 0; y < handler.getWorld().getHeight() * MINIMAPTILES; y++){
-				for(int x = 0; x < handler.getWorld().getWidth() * MINIMAPTILES; x++){
-					//Draw selector
-					Point p = new Point(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY());
-					Rectangle rec = new Rectangle(x * TILESIZE + handler.getWorld().getMap_x_offset(), y * TILESIZE + handler.getWorld().getMap_y_offset(), TILESIZE, TILESIZE);
-					if(rec.contains(p)){
-						Tile t = handler.getWorld().getTile(x/3, y/3);
-						
-						System.out.println(t.getMinitiles()[x%3][y%3]);
+			Point p = new Point(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY());
+			
+			int x = p.x/TILESIZE;
+			int y = p.y/TILESIZE;
+			
+			//get tile rectangle
+			Rectangle rec = new Rectangle(x * TILESIZE + handler.getWorld().getMap_x_offset(), y * TILESIZE + handler.getWorld().getMap_y_offset(), TILESIZE, TILESIZE);
+			if(rec.contains(p)){
+				if(x >= 0 && x < handler.getWorld().getWidth() && y >= 0 && y < handler.getWorld().getHeight()){
+					Point temp = new Point(x,y);
+					if(movableTiles.contains(temp)){
+						handler.getGame().getGameState().getTurnPlayer().setTilex(temp.x);
+						handler.getGame().getGameState().getTurnPlayer().setTiley(temp.y);
+						handler.getGame().getGameState().getTurnPlayer().decreaseActionPoints();
+						return;
 					}
 				}
 			}
@@ -61,44 +99,29 @@ public class PlayerActions implements Settings{
 			
 		}
 		
-		if(handler.getGame().getGameState().isShowItems()){
+		if(handler.getGame().getGameState().isShowSearchables()){
 			
 		}
 	}
 	
 	private void renderShowMoveSelector(Graphics g){
-		for(int y = 0; y < handler.getWorld().getHeight() * MINIMAPTILES; y++){
-			for(int x = 0; x < handler.getWorld().getWidth() * MINIMAPTILES; x++){
-				//Draw selector
-				Point p = new Point(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY());
-				Rectangle rec = new Rectangle(x * TILESIZE + handler.getWorld().getMap_x_offset(), y * TILESIZE + handler.getWorld().getMap_y_offset(), TILESIZE, TILESIZE);
-				if(rec.contains(p)){
-					g.drawImage(Assets.selector, x * TILESIZE + handler.getWorld().getMap_x_offset(), y * TILESIZE + handler.getWorld().getMap_y_offset(), TILESIZE, TILESIZE, null);
-				}
+		Point p = new Point(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY());
+		
+		int x = p.x/TILESIZE;
+		int y = p.y/TILESIZE;
+		
+		//get tile rectangle
+		Rectangle rec = new Rectangle(x * TILESIZE + handler.getWorld().getMap_x_offset(), y * TILESIZE + handler.getWorld().getMap_y_offset(), TILESIZE, TILESIZE);
+		if(rec.contains(p)){
+			if(x >= 0 && x < handler.getWorld().getWidth() && y >= 0 && y < handler.getWorld().getHeight()){
+				g.drawImage(Assets.selector, x * TILESIZE + handler.getWorld().getMap_x_offset(), y * TILESIZE + handler.getWorld().getMap_y_offset(), TILESIZE, TILESIZE, null);
 			}
 		}
 	}
 	
 	private void renderShowMoveFields(Graphics g){
-		Player p = handler.getGame().getGameState().getTurnPlayer();
-		int xoff = handler.getWorld().getMap_x_offset();
-		int yoff = handler.getWorld().getMap_y_offset();
-		
-		int[][] array = handler.getWorld().getTile(p.getTilex()/3, p.getTiley()/3).getMinitiles();
-
-		for(int y = 0; y < MINIMAPTILES; y++){
-			for(int x = 0; x < MINIMAPTILES; x++){
-				if(array[x][y] == 0){
-					int tilex = (p.getTilex()/3) * MAPTILESIZE + x * TILESIZE + xoff;
-					int tiley = (p.getTiley()/3) * MAPTILESIZE + y * TILESIZE + yoff;
-					System.out.println("Movable Tile @ " + tilex + " | " + tiley);
-					movableTiles.add(new Rectangle(tilex, tiley, TILESIZE, TILESIZE));
-				}
-			}
-		}
-		
-		for(Rectangle rec: movableTiles){
-			g.drawImage(Assets.movable_tile, rec.x, rec.y, rec.width, rec.height, null);
+		for(Point p: movableTiles){
+			g.drawImage(Assets.movable_tile, p.x * TILESIZE + handler.getWorld().getMap_x_offset(), p.y * TILESIZE + handler.getWorld().getMap_y_offset(), TILESIZE, TILESIZE, null);
 		}
 	}
 	

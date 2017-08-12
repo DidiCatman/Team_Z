@@ -38,6 +38,7 @@ public class Inventory implements Settings, Translations{
 	public void render(Graphics g){
 		//draw inventory backgrounds
 		g.drawImage(Assets.ingame_inventar_background, 0, 500, null);
+		g.drawImage(Assets.ingame_inventar_background_right, 750, 0, null);
 		g.drawImage(Assets.hands_inventar_background, 0, 500, Assets.hands_inventar_background.getWidth(), Assets.hands_inventar_background.getHeight(), null);
 		g.drawImage(Assets.hands_inventar_background, WIDTH - Assets.hands_inventar_background.getWidth(), 500, Assets.hands_inventar_background.getWidth(), Assets.hands_inventar_background.getHeight(), null);
 		

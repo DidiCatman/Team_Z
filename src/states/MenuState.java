@@ -17,14 +17,14 @@ public class MenuState extends State implements Settings{
 	}
 	
 	private void initButtons() {
-		start_btn = new UIImageButton(handler, 50, 300, Assets.start_btn){
+		start_btn = new UIImageButton(handler, 75, 480, Assets.start_btn){
 			@Override
 			public void initAction(){
 				State.setState(handler.getGame().gameOptionsState);
 			}
 		};
 		
-		quit_btn = new UIImageButton(handler, 50, 400, Assets.quit_btn){
+		quit_btn = new UIImageButton(handler, 300, 480, Assets.quit_btn){
 			@Override
 			public void initAction(){
 				System.exit(0);

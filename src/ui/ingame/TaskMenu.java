@@ -9,7 +9,7 @@ import ui.UIImageButton;
 public class TaskMenu {
 	
 	private Handler handler;
-	private UIImageButton move, attack, item, end;
+	private UIImageButton move, attack, search, end;
 
 	public TaskMenu(Handler handler){
 		this.handler = handler;
@@ -31,7 +31,7 @@ public class TaskMenu {
 				handler.getGame().getGameState().setShowAttacks(false);
 				handler.getGame().getGameState().setShowItems(false);
 				attack.setActive(false);
-				item.setActive(false);
+				search.setActive(false);
 				System.out.println("NIY - move");
 			}
 		};
@@ -49,19 +49,19 @@ public class TaskMenu {
 				handler.getGame().getGameState().setShowMoves(false);
 				handler.getGame().getGameState().setShowItems(false);
 				move.setActive(false);
-				item.setActive(false);
+				search.setActive(false);
 				System.out.println("NIY - attack");
 			}
 		};
-		item = new UIImageButton(handler, 455, 555, Assets.item){
+		search = new UIImageButton(handler, 455, 555, Assets.search){
 			@Override
 			public void initAction(){
-				if(!handler.getGame().getGameState().isShowItems()){
+				if(!handler.getGame().getGameState().isShowSearchables()){
 					handler.getGame().getGameState().setShowItems(true);
-					item.setActive(true);
+					search.setActive(true);
 				}else{
 					handler.getGame().getGameState().setShowItems(false);
-					item.setActive(false);
+					search.setActive(false);
 				}
 				
 				handler.getGame().getGameState().setShowMoves(false);
@@ -81,7 +81,7 @@ public class TaskMenu {
 				handler.getGame().getGameState().setShowItems(false);
 				move.setActive(false);
 				attack.setActive(false);
-				item.setActive(false);
+				search.setActive(false);
 			}
 		};
 	}
@@ -89,14 +89,14 @@ public class TaskMenu {
 	public void tick(){
 		move.tick();
 		attack.tick();
-		item.tick();
+		search.tick();
 		end.tick();
 	}
 	
 	public void render(Graphics g){
 		move.render(g);
 		attack.render(g);
-		item.render(g);
+		search.render(g);
 		end.render(g);
 	}
 	

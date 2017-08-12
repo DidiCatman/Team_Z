@@ -25,12 +25,12 @@ public class GameState extends State implements Settings, Translations{
 	
 	private int turns;
 	private boolean[] turnEnded;
-	private boolean showMoves, showAttacks, showItems;
+	private boolean showMoves, showAttacks, showSearchables;
 	
 	public GameState(Handler handler){
 		super(handler);
 		counter = 0;
-		world = new World(handler, "res/worlds/world0.txt", counter);
+		world = new World(handler, "res/worlds/world1.txt", counter);
 		handler.setWorld(world);
 		start_tilex = handler.getWorld().getSpawn_x();
 		start_tiley = handler.getWorld().getSpawn_y();
@@ -42,7 +42,7 @@ public class GameState extends State implements Settings, Translations{
 		turnEnded = new boolean[entityManager.getPlayers().size()];
 		showMoves = false;
 		showAttacks = false;
-		showItems = false;
+		showSearchables = false;
 	}
 	
 	@Override
@@ -99,6 +99,9 @@ public class GameState extends State implements Settings, Translations{
 		//end of round
 		calculateEnemySteps();
 		Arrays.fill(turnEnded, Boolean.FALSE);
+		for(Player p: entityManager.getPlayers()){
+			p.setActionCounter(DEFAULT_ACTIONS);
+		}
 		turns++;
 		return (Player) entityManager.getPlayers().get(0);
 	}
@@ -124,12 +127,16 @@ public class GameState extends State implements Settings, Translations{
 		this.showAttacks = showAttacks;
 	}
 
-	public boolean isShowItems() {
-		return showItems;
+	public boolean isShowSearchables() {
+		return showSearchables;
 	}
 
 	public void setShowItems(boolean showItems) {
-		this.showItems = showItems;
+		this.showSearchables = showItems;
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 
 }

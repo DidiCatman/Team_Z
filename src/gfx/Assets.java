@@ -18,12 +18,12 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] start_btn, quit_btn, minus_btn, plus_btn, dropdown_btn;
 	public static BufferedImage[] back_btn, back_written_btn, forward_btn, backward_btn;
 	public static BufferedImage[] heroes;
-	public static BufferedImage[] settings, move, attack, item, end_turn;
+	public static BufferedImage[] settings, move, attack, search, end_turn;
 	public static BufferedImage[] en, de;
-	public static BufferedImage tile1, tile2, tile3, tile4, tile5, tile6;
+	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
 	public static BufferedImage selector, movable_tile;
 	public static BufferedImage intro_logo;
-	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background;
+	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background, ingame_inventar_background_right;
 	
 
 	public static void init(){
@@ -31,7 +31,7 @@ public class Assets implements Settings, Translations{
 		
 		//init sheets
 		SpriteSheet tiles_old_sheet = new SpriteSheet(ImageLoader.loadImage("/tiles/sheet_1.png"));
-		SpriteSheet tiles_sheet = new SpriteSheet(ImageLoader.loadImage("/tiles/tiles.png"));
+		SpriteSheet tiles_spritesheet = new SpriteSheet(ImageLoader.loadImage("/tiles/tilesheet.png"));
 		SpriteSheet specialTiles_sheet = new SpriteSheet(ImageLoader.loadImage("/tiles/specialTiles.png"));
 		SpriteSheet buttons_sheet = new SpriteSheet(ImageLoader.loadImage("/menues/buttons.png"));
 		SpriteSheet buttons_hover_sheet = new SpriteSheet(ImageLoader.loadImage("/menues/buttons_hover.png"));
@@ -55,7 +55,7 @@ public class Assets implements Settings, Translations{
 		settings = new BufferedImage[3];
 		move = new BufferedImage[3];
 		attack = new BufferedImage[3];
-		item = new BufferedImage[3];
+		search = new BufferedImage[3];
 		end_turn = new BufferedImage[2];
 		en = new BufferedImage[2];
 		de = new BufferedImage[2];
@@ -94,9 +94,9 @@ public class Assets implements Settings, Translations{
 		attack[0] = buttons_sheet.crop(0, 192, width * 2, height);
 		attack[1] = buttons_hover_sheet.crop(0, 192, width * 2, height);
 		attack[2] = buttons_active_sheet.crop(0, 192, width * 2, height);
-		item[0] = buttons_sheet.crop(0, 224, width * 2, height);
-		item[1] = buttons_hover_sheet.crop(0, 224, width * 2, height);
-		item[2] = buttons_active_sheet.crop(0, 224, width * 2, height);
+		search[0] = buttons_sheet.crop(0, 224, width * 2, height);
+		search[1] = buttons_hover_sheet.crop(0, 224, width * 2, height);
+		search[2] = buttons_active_sheet.crop(0, 224, width * 2, height);
 		
 		//init country logos
 		en[0] = countries_sheet.crop(0, 0, width, height);
@@ -107,12 +107,14 @@ public class Assets implements Settings, Translations{
 		//init tiles
 		grass = tiles_old_sheet.crop(width * 2, 0, width, height);
 		
-		tile1 = tiles_sheet.crop(0, 0, TILESIZE, TILESIZE);
-		tile2 = tiles_sheet.crop(TILESIZE, 0, TILESIZE, TILESIZE);
-		tile3 = tiles_sheet.crop(TILESIZE * 2, 0, TILESIZE, TILESIZE);
-		tile4 = tiles_sheet.crop(0, TILESIZE, TILESIZE, TILESIZE);
-		tile5 = tiles_sheet.crop(TILESIZE, TILESIZE, TILESIZE, TILESIZE);
-		tile6 = tiles_sheet.crop(TILESIZE * 2, TILESIZE, TILESIZE, TILESIZE);
+		tile_single = tiles_spritesheet.crop(0, 0, TILESIZE, TILESIZE);
+		tile_north = tiles_spritesheet.crop(TILESIZE, 0, TILESIZE, TILESIZE);
+		tile_east = tiles_spritesheet.crop(TILESIZE * 2, 0, TILESIZE, TILESIZE);
+		tile_south = tiles_spritesheet.crop(0, TILESIZE, TILESIZE, TILESIZE);
+		tile_west = tiles_spritesheet.crop(TILESIZE, TILESIZE, TILESIZE, TILESIZE);
+		tile_double_hor = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE, TILESIZE, TILESIZE);
+		tile_double_ver = tiles_spritesheet.crop(0, TILESIZE * 2, TILESIZE, TILESIZE);
+		tile_road = tiles_spritesheet.crop(TILESIZE, TILESIZE * 2, TILESIZE, TILESIZE);
 		
 		//init special tiles
 		selector = specialTiles_sheet.crop(0, 0, TILESIZE/3, TILESIZE/3);
@@ -122,6 +124,7 @@ public class Assets implements Settings, Translations{
 		main_background = backgrounds.crop(0, 0, WIDTH, HEIGHT);
 		ingame_inventar_background = backgrounds.crop(0, HEIGHT, WIDTH, 160);
 		hands_inventar_background = backgrounds.crop(0, 700, 195, 100);
+		ingame_inventar_background_right = backgrounds.crop(0, 800, 150, 500);
 		intro_logo = intro.crop(0, 0, WIDTH, HEIGHT);
 		
 		//init heroes images

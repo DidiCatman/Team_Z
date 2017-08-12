@@ -28,7 +28,7 @@ public class World implements Settings{
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
 				Tile t = getTile(x, y);
-				t.render(g, x * MAPTILESIZE + map_x_offset, y * MAPTILESIZE + map_y_offset);
+				t.render(g, x * TILESIZE + map_x_offset, y * TILESIZE + map_y_offset);
 			}
 		}
 	}
@@ -51,13 +51,8 @@ public class World implements Settings{
 		height = Utils.parseInt(tokens[1]);
 		spawn_x = Utils.parseInt(tokens[2]);
 		spawn_y = Utils.parseInt(tokens[3]);
-		
-		if(width == 3){
-			map_x_offset = 40;
-		}else if(width == 2){
-			map_x_offset = 160;
-		}
-		
+
+		map_x_offset = 10;
 		map_y_offset = 10;
 		
 		tiles = new int[width][height];
@@ -66,6 +61,16 @@ public class World implements Settings{
 				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
 			}
 		}
+		
+		System.out.println();
+		System.out.println("MAP:");
+		for(int y = 0; y < height; y++){
+			for(int x = 0; x < width; x++){
+				System.out.print(tiles[x][y] + " ");
+			}
+			System.out.println();
+		}
+		System.out.println();
 	}
 	
 	//GETTERS & SETTERS
