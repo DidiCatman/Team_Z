@@ -39,7 +39,6 @@ public class EntityManager {
 		
 		//detect same positions
 		
-		
 		//render all players
 		for(Player p: players){
 			if(p.equals(handler.getGame().getGameState().getTurnPlayer()))

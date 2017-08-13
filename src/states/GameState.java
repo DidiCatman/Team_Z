@@ -10,7 +10,6 @@ import main.Handler;
 import main.Settings;
 import main.Translations;
 import ui.ingame.IngameUI;
-import ui.ingame.TaskMenu;
 import worlds.World;
 
 public class GameState extends State implements Settings, Translations{
@@ -21,7 +20,6 @@ public class GameState extends State implements Settings, Translations{
 	
 	private EntityManager entityManager;
 	private IngameUI ingameUI;
-	private TaskMenu taskMenu;
 	
 	private int turns;
 	private boolean[] turnEnded;
@@ -36,7 +34,6 @@ public class GameState extends State implements Settings, Translations{
 		start_tiley = handler.getWorld().getSpawn_y();
 		entityManager = new EntityManager(handler);
 		ingameUI = new IngameUI(handler);
-		taskMenu = new TaskMenu(handler);
 		
 		turns = 0;
 		turnEnded = new boolean[entityManager.getPlayers().size()];
@@ -50,7 +47,6 @@ public class GameState extends State implements Settings, Translations{
 		world.tick();
 		entityManager.tick();
 		ingameUI.tick();
-		taskMenu.tick();
 	}
 
 	@Override
@@ -58,7 +54,6 @@ public class GameState extends State implements Settings, Translations{
 		world.render(g);
 		entityManager.render(g);
 		ingameUI.render(g);
-		taskMenu.render(g);
 	}
 	
 	//set start values to the game
@@ -79,11 +74,23 @@ public class GameState extends State implements Settings, Translations{
 		for(int i = 0; i < turnEnded.length; i++){
 			if(turnEnded[i] == false){
 				turnEnded[i] = true;
+				
+				showMoves = false;
+				showAttacks = false;
+				showSearchables = false;
+				
 				return;
 			}
 		}
+
+		showMoves = false;
+		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getMove().setActive(false);
+		showAttacks = false;
+		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getAttack().setActive(false);
+		showSearchables = false;
+		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getSearch().setActive(false);
 	}
-	
+
 	private void calculateEnemySteps(){
 		System.out.println("NIY - Calculate enemy steps");
 	}
@@ -137,6 +144,10 @@ public class GameState extends State implements Settings, Translations{
 
 	public EntityManager getEntityManager() {
 		return entityManager;
+	}
+	
+	public IngameUI getIngameUI() {
+		return ingameUI;
 	}
 
 }

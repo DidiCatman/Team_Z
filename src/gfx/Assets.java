@@ -21,7 +21,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] settings, move, attack, search, end_turn;
 	public static BufferedImage[] en, de;
 	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
-	public static BufferedImage selector, movable_tile;
+	public static BufferedImage selector, movable_tile, heart, heart_empty;
 	public static BufferedImage intro_logo;
 	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background, ingame_inventar_background_right;
 	
@@ -97,6 +97,8 @@ public class Assets implements Settings, Translations{
 		search[0] = buttons_sheet.crop(0, 224, width * 2, height);
 		search[1] = buttons_hover_sheet.crop(0, 224, width * 2, height);
 		search[2] = buttons_active_sheet.crop(0, 224, width * 2, height);
+		heart = buttons_sheet.crop(64, 128, width, height);
+		heart_empty = buttons_sheet.crop(96, 128, width, height);
 		
 		//init country logos
 		en[0] = countries_sheet.crop(0, 0, width, height);

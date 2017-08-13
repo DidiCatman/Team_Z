@@ -15,15 +15,17 @@ public class Inventory implements Settings, Translations{
 	
 	private Handler handler;
 	private UIImageButton settings;
+	private TaskMenu taskMenu;
 
 	public Inventory(Handler handler){
 		this.handler = handler;
+		taskMenu = new TaskMenu(handler);
 		
 		initButtons();
 	}
 	
 	private void initButtons() {
-		settings = new UIImageButton(handler, 410, 515, Assets.settings){
+		settings = new UIImageButton(handler, 332, 560, Assets.settings){
 			@Override
 			public void initAction(){
 				System.out.println(WORDS[handler.getGame().getLanguage()][2]);
@@ -33,6 +35,7 @@ public class Inventory implements Settings, Translations{
 
 	public void tick(){
 		settings.tick();
+		taskMenu.tick();
 	}
 	
 	public void render(Graphics g){
@@ -45,13 +48,31 @@ public class Inventory implements Settings, Translations{
 		//draw buttons
 		settings.render(g);
 		
-		//draw turns
-		String turns = String.valueOf("Turns: " + handler.getGame().getGameState().getTurns());
-		Text.drawString(g, turns, 195, 558, false, Color.BLACK, Assets.font28);
-		
-		//draw hero name
+		//draw hero name text
 		Player player = handler.getGame().getGameState().getTurnPlayer();
 		String name = String.valueOf("#" + (player.getId() + 1) + " " + player.getHeroName());
 		Text.drawString(g, name, 195, 530, false, Color.BLACK, Assets.font28);
+		
+		//draw action points text
+		String actions = String.valueOf("Actions: " + handler.getGame().getGameState().getTurnPlayer().getActionCounter());
+		Text.drawString(g, actions, 195, 555, false, Color.BLACK, Assets.font28);
+		
+		//render health bar
+		int health = handler.getGame().getGameState().getTurnPlayer().getHealth();
+		for(int i = 0; i < DEFAULT_PLAYER_HEALTH; i++){
+			if(i <= health){
+				g.drawImage(Assets.heart, 195 + i * 42, 560, null);
+			}else{
+				g.drawImage(Assets.heart_empty, 195 + i * 42, 560, null);
+			}
+		}
+		
+		//render task menu
+		taskMenu.render(g);
+	}
+
+	//GETTERS & SETTERS
+	public TaskMenu getTaskMenu() {
+		return taskMenu;
 	}
 }

@@ -35,6 +35,12 @@ public class Player extends Entity implements Translations{
 		g.drawImage(image, tilex * TILESIZE + xoff, tiley * TILESIZE + yoff, null);
 	}
 	
+	public void render(Graphics g, int x_off) {
+		int xoff = handler.getWorld().getMap_x_offset();
+		int yoff = handler.getWorld().getMap_y_offset();
+		g.drawImage(image, tilex * TILESIZE + xoff + x_off, tiley * TILESIZE + yoff, null);
+	}
+	
 	public void renderActive(Graphics g) {
 		int xoff = handler.getWorld().getMap_x_offset();
 		int yoff = handler.getWorld().getMap_y_offset();
