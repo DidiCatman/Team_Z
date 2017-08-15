@@ -12,6 +12,7 @@ public class Player extends Entity implements Translations{
 	
 	private String heroname;
 	private int id;
+	private int xoffset;
 	private int actionCounter;
 	private PlayerActions actions;
 
@@ -21,6 +22,7 @@ public class Player extends Entity implements Translations{
 		this.id = id;
 		actions = new PlayerActions(handler);
 		actionCounter = DEFAULT_ACTIONS;
+		xoffset = id * 16;
 	}
 
 	@Override
@@ -35,10 +37,10 @@ public class Player extends Entity implements Translations{
 		g.drawImage(image, tilex * TILESIZE + xoff, tiley * TILESIZE + yoff, null);
 	}
 	
-	public void render(Graphics g, int x_off) {
+	public void renderWithOffset(Graphics g) {
 		int xoff = handler.getWorld().getMap_x_offset();
 		int yoff = handler.getWorld().getMap_y_offset();
-		g.drawImage(image, tilex * TILESIZE + xoff + x_off, tiley * TILESIZE + yoff, null);
+		g.drawImage(image, tilex * TILESIZE + xoff + xoffset, tiley * TILESIZE + yoff, null);
 	}
 	
 	public void renderActive(Graphics g) {
@@ -79,6 +81,10 @@ public class Player extends Entity implements Translations{
 
 	public void setActionCounter(int actionCounter) {
 		this.actionCounter = actionCounter;
+	}
+
+	public void setXoffset(int xoffset) {
+		this.xoffset = xoffset;
 	}
 
 }

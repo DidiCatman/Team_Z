@@ -1,7 +1,8 @@
 next steps
+	- finish player ui 
+		-> other players with tooltip infos
+		-> setting game menu 
 	- PlayerActions need functions
-	- render entites on same tile at different points
-		-> EntityManager @ renderPlayer
 	- fog of war für häuser und ecken bei wegen
 	- anzahl der gegner für spielfeld darstellen
 	

@@ -1,7 +1,6 @@
 package entities;
 
 import java.awt.Graphics;
-import java.awt.Point;
 import java.util.ArrayList;
 
 import entities.player.Player;
@@ -30,24 +29,31 @@ public class EntityManager {
 		renderPlayers(g);
 	}
 	
-	private void renderPlayers(Graphics g) {
-		//get positions of players
-		Point[] positions = new Point[players.size()];
+	private void renderPlayers(Graphics g) {		
+		//set xoffset to all players
 		for(int i = 0; i < players.size(); i++){
-			positions[i] = players.get(i).getTile();
+			int count = 0;
+			//render active player
+			if(players.get(i).equals(handler.getGame().getGameState().getTurnPlayer())){
+				players.get(i).setXoffset(0);
+				break;
+			}
+			for(int x = 0; x < i; x++){
+				if(players.get(x).getTile().equals(players.get(i).getTile())){
+					count++;
+				}
+			}
+			players.get(i).setXoffset(count * 16);
 		}
 		
-		//detect same positions
-		
-		//render all players
+		//render players
 		for(Player p: players){
-			if(p.equals(handler.getGame().getGameState().getTurnPlayer()))
-				continue;
-			p.render(g);
+			if(p.equals(handler.getGame().getGameState().getTurnPlayer())){
+				p.renderActive(g);
+			}else{
+				p.renderWithOffset(g);
+			}
 		}
-		
-		//render active player on top in tile middle
-		handler.getGame().getGameState().getTurnPlayer().renderActive(g);
 	}
 
 	public void addPlayer(Player player){

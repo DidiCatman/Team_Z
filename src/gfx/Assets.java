@@ -23,7 +23,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
 	public static BufferedImage selector, movable_tile, heart, heart_empty;
 	public static BufferedImage intro_logo;
-	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background, ingame_inventar_background_right;
+	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background;
 	
 
 	public static void init(){
@@ -124,15 +124,17 @@ public class Assets implements Settings, Translations{
 		
 		//init Backgrounds
 		main_background = backgrounds.crop(0, 0, WIDTH, HEIGHT);
-		ingame_inventar_background = backgrounds.crop(0, HEIGHT, WIDTH, 160);
-		hands_inventar_background = backgrounds.crop(0, 700, 195, 100);
-		ingame_inventar_background_right = backgrounds.crop(0, 800, 150, 500);
+		ingame_inventar_background = backgrounds.crop(0, HEIGHT, WIDTH, HEIGHT);
+		hands_inventar_background = backgrounds.crop(0, HEIGHT * 2, 145, 90);
+		
 		intro_logo = intro.crop(0, 0, WIDTH, HEIGHT);
 		
 		//init heroes images
 		heroes[0] = ImageLoader.loadImage("/creatures/heroes/hero1.png");
 		heroes[1] = ImageLoader.loadImage("/creatures/heroes/hero2.png");
 		heroes[2] = ImageLoader.loadImage("/creatures/heroes/hero3.png");
-		heroes[3] = ImageLoader.loadImage("/creatures/heroes/hero1.png");
+		heroes[3] = ImageLoader.loadImage("/creatures/heroes/hero4.png");
+		heroes[4] = ImageLoader.loadImage("/creatures/heroes/hero5.png");
+		heroes[5] = ImageLoader.loadImage("/creatures/heroes/hero6.png");
 	}
 }

@@ -17,7 +17,7 @@ public class TaskMenu {
 	}
 	
 	private void initButtons() {
-		move = new UIImageButton(handler, 555, 515, Assets.move){
+		move = new UIImageButton(handler, 600, 515, Assets.move){
 			@Override
 			public void initAction(){
 				if(!handler.getGame().getGameState().isShowMoves()){
@@ -34,7 +34,7 @@ public class TaskMenu {
 				search.setActive(false);
 			}
 		};
-		attack = new UIImageButton(handler, 630, 515, Assets.attack){
+		attack = new UIImageButton(handler, 675, 515, Assets.attack){
 			@Override
 			public void initAction(){
 				if(!handler.getGame().getGameState().isShowAttacks()){
@@ -52,7 +52,7 @@ public class TaskMenu {
 				System.out.println("NIY - attack");
 			}
 		};
-		search = new UIImageButton(handler, 555, 555, Assets.search){
+		search = new UIImageButton(handler, 600, 555, Assets.search){
 			@Override
 			public void initAction(){
 				if(!handler.getGame().getGameState().isShowSearchables()){
@@ -70,7 +70,7 @@ public class TaskMenu {
 				System.out.println("NIY - item");
 			}
 		};
-		end = new UIImageButton(handler, 630, 555, Assets.end_turn){
+		end = new UIImageButton(handler, 675, 555, Assets.end_turn){
 			@Override
 			public void initAction(){
 				handler.getGame().getGameState().endTurn();

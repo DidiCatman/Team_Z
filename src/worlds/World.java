@@ -53,7 +53,7 @@ public class World implements Settings{
 		spawn_y = Utils.parseInt(tokens[3]);
 
 		map_x_offset = 10;
-		map_y_offset = 10;
+		map_y_offset = 8;
 		
 		tiles = new int[width][height];
 		for(int y = 0; y < height; y++){
