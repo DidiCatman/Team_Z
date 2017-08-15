@@ -61,16 +61,6 @@ public class World implements Settings{
 				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
 			}
 		}
-		
-		System.out.println();
-		System.out.println("MAP:");
-		for(int y = 0; y < height; y++){
-			for(int x = 0; x < width; x++){
-				System.out.print(tiles[x][y] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println();
 	}
 	
 	//GETTERS & SETTERS

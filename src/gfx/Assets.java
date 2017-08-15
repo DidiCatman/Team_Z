@@ -11,7 +11,7 @@ public class Assets implements Settings, Translations{
 	private static final int width = 32, height = 32;
 	
 	//fonts
-	public static Font font28;
+	public static Font font28, font18;
 	
 	//images
 	public static BufferedImage grass, wall;
@@ -28,6 +28,7 @@ public class Assets implements Settings, Translations{
 
 	public static void init(){
 		font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
+		font18 = FontLoader.loadFont("res/fonts/slkscr.ttf", 18);
 		
 		//init sheets
 		SpriteSheet tiles_old_sheet = new SpriteSheet(ImageLoader.loadImage("/tiles/sheet_1.png"));

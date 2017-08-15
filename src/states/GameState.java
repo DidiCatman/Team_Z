@@ -60,6 +60,7 @@ public class GameState extends State implements Settings, Translations{
 	public void start(){
 		turnEnded = new boolean[entityManager.getPlayers().size()];
 		Arrays.fill(turnEnded, Boolean.FALSE);
+		handler.getGame().getGameState().getIngameUI().getInventory().getPlayerMenu().start();
 	}
 	
 	//add player from the choosePlayerMenu

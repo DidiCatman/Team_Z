@@ -16,10 +16,12 @@ public class Inventory implements Settings, Translations{
 	private Handler handler;
 	private UIImageButton settings;
 	private TaskMenu taskMenu;
+	private PlayerMenu playerMenu;
 
 	public Inventory(Handler handler){
 		this.handler = handler;
 		taskMenu = new TaskMenu(handler);
+		playerMenu = new PlayerMenu(handler);
 		
 		initButtons();
 	}
@@ -36,6 +38,7 @@ public class Inventory implements Settings, Translations{
 	public void tick(){
 		settings.tick();
 		taskMenu.tick();
+		playerMenu.tick();
 	}
 	
 	public void render(Graphics g){
@@ -67,12 +70,17 @@ public class Inventory implements Settings, Translations{
 			}
 		}
 		
-		//render task menu
+		//render menus
 		taskMenu.render(g);
+		playerMenu.render(g);
 	}
 
 	//GETTERS & SETTERS
 	public TaskMenu getTaskMenu() {
 		return taskMenu;
+	}
+
+	public PlayerMenu getPlayerMenu() {
+		return playerMenu;
 	}
 }
