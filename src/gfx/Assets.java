@@ -23,7 +23,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
 	public static BufferedImage selector, movable_tile, heart, heart_empty;
 	public static BufferedImage intro_logo;
-	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background;
+	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background, tooltip_background;
 	
 
 	public static void init(){
@@ -127,6 +127,7 @@ public class Assets implements Settings, Translations{
 		main_background = backgrounds.crop(0, 0, WIDTH, HEIGHT);
 		ingame_inventar_background = backgrounds.crop(0, HEIGHT, WIDTH, HEIGHT);
 		hands_inventar_background = backgrounds.crop(0, HEIGHT * 2, 145, 90);
+		tooltip_background = backgrounds.crop(0, 1290, 650, 400);
 		
 		intro_logo = intro.crop(0, 0, WIDTH, HEIGHT);
 		
