@@ -5,7 +5,7 @@ import gfx.Assets;
 public class Tile5 extends Tile {
 
 	public Tile5(int id) {
-		super(Assets.tile_west, id, true);
+		super(Assets.tile_east, id, true);
 	}
 	
 	public boolean isClosed(){

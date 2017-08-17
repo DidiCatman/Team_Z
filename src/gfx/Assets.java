@@ -21,7 +21,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] settings, move, attack, search, end_turn;
 	public static BufferedImage[] en, de;
 	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
-	public static BufferedImage selector, movable_tile, heart, heart_empty;
+	public static BufferedImage selector, movable_tile, heart, heart_empty, doors_hor, doors_hor_open, doors_ver, doors_ver_open;
 	public static BufferedImage intro_logo;
 	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background, tooltip_background;
 	
@@ -112,9 +112,9 @@ public class Assets implements Settings, Translations{
 		
 		tile_single = tiles_spritesheet.crop(0, 0, TILESIZE, TILESIZE);
 		tile_north = tiles_spritesheet.crop(TILESIZE, 0, TILESIZE, TILESIZE);
-		tile_east = tiles_spritesheet.crop(TILESIZE * 2, 0, TILESIZE, TILESIZE);
+		tile_west = tiles_spritesheet.crop(TILESIZE * 2, 0, TILESIZE, TILESIZE);
 		tile_south = tiles_spritesheet.crop(0, TILESIZE, TILESIZE, TILESIZE);
-		tile_west = tiles_spritesheet.crop(TILESIZE, TILESIZE, TILESIZE, TILESIZE);
+		tile_east = tiles_spritesheet.crop(TILESIZE, TILESIZE, TILESIZE, TILESIZE);
 		tile_double_hor = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE, TILESIZE, TILESIZE);
 		tile_double_ver = tiles_spritesheet.crop(0, TILESIZE * 2, TILESIZE, TILESIZE);
 		tile_road = tiles_spritesheet.crop(TILESIZE, TILESIZE * 2, TILESIZE, TILESIZE);
@@ -122,6 +122,10 @@ public class Assets implements Settings, Translations{
 		//init special tiles
 		selector = specialTiles_sheet.crop(0, 0, TILESIZE/3, TILESIZE/3);
 		movable_tile = specialTiles_sheet.crop(0, TILESIZE/3, TILESIZE/3, TILESIZE/3);
+		doors_hor = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE * 2, 6, 21);
+		doors_hor_open = tiles_spritesheet.crop(TILESIZE * 2 + 6, TILESIZE * 2, 6, 21);
+		doors_ver = tiles_spritesheet.crop(TILESIZE * 2 + 12, TILESIZE * 2, 21, 6);
+		doors_ver_open = tiles_spritesheet.crop(TILESIZE * 2 + 12, TILESIZE * 2 + 6, 21, 6);
 		
 		//init Backgrounds
 		main_background = backgrounds.crop(0, 0, WIDTH, HEIGHT);

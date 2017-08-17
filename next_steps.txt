@@ -1,7 +1,10 @@
 next steps
-	- finish player ui 
-		-> other players with tooltip infos
+	- finish player ui
+		-> item list
+		-> player tooltip informations
 		-> setting game menu 
+	- implement Items and ItemManager
+	- houses with searchable treasures
 	- PlayerActions need functions
 	- fog of war für häuser und ecken bei wegen
 	- anzahl der gegner für spielfeld darstellen
