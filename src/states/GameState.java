@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.Arrays;
 
 import entities.EntityManager;
+import entities.HouseManager;
 import entities.player.Player;
 import gfx.Assets;
 import main.Handler;
@@ -19,6 +20,7 @@ public class GameState extends State implements Settings, Translations{
 	private int start_tilex, start_tiley;
 	
 	private EntityManager entityManager;
+	private HouseManager houseManager;
 	private IngameUI ingameUI;
 	
 	private int turns;
@@ -28,12 +30,13 @@ public class GameState extends State implements Settings, Translations{
 	public GameState(Handler handler){
 		super(handler);
 		counter = 0;
-		world = new World(handler, "res/worlds/world1.txt", counter);
+		entityManager = new EntityManager(handler);
+		ingameUI = new IngameUI(handler);
+		world = new World(this.handler, "res/worlds/world1.txt", counter);
 		handler.setWorld(world);
 		start_tilex = handler.getWorld().getSpawn_x();
 		start_tiley = handler.getWorld().getSpawn_y();
-		entityManager = new EntityManager(handler);
-		ingameUI = new IngameUI(handler);
+		houseManager = new HouseManager(handler);
 		
 		turns = 0;
 		turnEnded = new boolean[entityManager.getPlayers().size()];
@@ -52,6 +55,8 @@ public class GameState extends State implements Settings, Translations{
 	@Override
 	public void render(Graphics g) {
 		world.render(g);
+		//render doors
+		houseManager.render(g);
 		entityManager.render(g);
 		ingameUI.render(g);
 	}
@@ -61,6 +66,7 @@ public class GameState extends State implements Settings, Translations{
 		turnEnded = new boolean[entityManager.getPlayers().size()];
 		Arrays.fill(turnEnded, Boolean.FALSE);
 		handler.getGame().getGameState().getIngameUI().getInventory().getPlayerMenu().start();
+		world.loadHouses();
 	}
 	
 	//add player from the choosePlayerMenu
@@ -145,6 +151,10 @@ public class GameState extends State implements Settings, Translations{
 
 	public EntityManager getEntityManager() {
 		return entityManager;
+	}
+	
+	public HouseManager getHouseManager(){
+		return houseManager;
 	}
 	
 	public IngameUI getIngameUI() {

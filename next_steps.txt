@@ -1,10 +1,13 @@
 next steps
+	- houses with searchable treasures
+		-> init open door function
+			-> dialoge to choose from 2 doors
+		-> init items and treasures
 	- finish player ui
 		-> item list
 		-> player tooltip informations
 		-> setting game menu 
 	- implement Items and ItemManager
-	- houses with searchable treasures
 	- PlayerActions need functions
 	- fog of war für häuser und ecken bei wegen
 	- anzahl der gegner für spielfeld darstellen
