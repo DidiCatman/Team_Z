@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 import entities.EntityManager;
 import entities.HouseManager;
+import entities.Spawn;
+import entities.SpawnManager;
 import entities.player.Player;
 import gfx.Assets;
 import main.Handler;
@@ -21,6 +23,7 @@ public class GameState extends State implements Settings, Translations{
 	
 	private EntityManager entityManager;
 	private HouseManager houseManager;
+	private SpawnManager spawnManager;
 	private IngameUI ingameUI;
 	
 	private int turns;
@@ -37,6 +40,7 @@ public class GameState extends State implements Settings, Translations{
 		start_tilex = handler.getWorld().getSpawn_x();
 		start_tiley = handler.getWorld().getSpawn_y();
 		houseManager = new HouseManager(handler);
+		spawnManager = new SpawnManager(handler);
 		
 		turns = 0;
 		turnEnded = new boolean[entityManager.getPlayers().size()];
@@ -57,6 +61,7 @@ public class GameState extends State implements Settings, Translations{
 		world.render(g);
 		//render doors
 		houseManager.render(g);
+		spawnManager.render(g);
 		entityManager.render(g);
 		ingameUI.render(g);
 	}
@@ -67,6 +72,7 @@ public class GameState extends State implements Settings, Translations{
 		Arrays.fill(turnEnded, Boolean.FALSE);
 		handler.getGame().getGameState().getIngameUI().getInventory().getPlayerMenu().start();
 		world.loadHouses();
+		addSpawn(8,6);
 	}
 	
 	//add player from the choosePlayerMenu
@@ -74,6 +80,11 @@ public class GameState extends State implements Settings, Translations{
 		int id = entityManager.getPlayers().size();
 		Player p = new Player(handler, start_tilex, start_tiley, DEFAULT_PLAYER_HEALTH, hero, HERONAMES[hero], id, Assets.heroes[hero]);
 		entityManager.addPlayer(p);
+	}
+	
+	public void addSpawn(int x, int y){
+		Spawn s = new Spawn(handler, 7, 5);
+		spawnManager.addSpawn(s);
 	}
 	
 	//set turn values ready for next turn
@@ -112,6 +123,7 @@ public class GameState extends State implements Settings, Translations{
 		
 		//end of round
 		calculateEnemySteps();
+		spawnManager.tick();
 		Arrays.fill(turnEnded, Boolean.FALSE);
 		for(Player p: entityManager.getPlayers()){
 			p.setActionCounter(DEFAULT_ACTIONS);

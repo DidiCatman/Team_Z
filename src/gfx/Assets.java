@@ -21,7 +21,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] settings, move, attack, search, end_turn;
 	public static BufferedImage[] en, de;
 	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
-	public static BufferedImage selector, movable_tile, heart, heart_empty, doors_hor, doors_hor_open, doors_ver, doors_ver_open;
+	public static BufferedImage selector, movable_tile, heart, heart_empty, doors_hor, doors_hor_open, doors_ver, doors_ver_open, zombi_spawn_active;
 	public static BufferedImage intro_logo;
 	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background, tooltip_background;
 	
@@ -126,6 +126,7 @@ public class Assets implements Settings, Translations{
 		doors_hor_open = tiles_spritesheet.crop(TILESIZE * 2 + 6, TILESIZE * 2, 6, 21);
 		doors_ver = tiles_spritesheet.crop(TILESIZE * 2 + 12, TILESIZE * 2, 21, 6);
 		doors_ver_open = tiles_spritesheet.crop(TILESIZE * 2 + 12, TILESIZE * 2 + 6, 21, 6);
+		zombi_spawn_active = tiles_spritesheet.crop(TILESIZE * 2 + 33, TILESIZE *2, 48, 21);
 		
 		//init Backgrounds
 		main_background = backgrounds.crop(0, 0, WIDTH, HEIGHT);
