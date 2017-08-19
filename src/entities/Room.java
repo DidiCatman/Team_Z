@@ -4,6 +4,7 @@ import main.Handler;
 
 public class Room {
 	
+	@SuppressWarnings("unused")
 	private Handler handler;
 	private int tilex, tiley;
 	private int id;

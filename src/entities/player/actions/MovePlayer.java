@@ -1,38 +1,31 @@
-package entities.player;
+package entities.player.actions;
 
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import entities.player.Player;
 import gfx.Assets;
 import main.Handler;
 import main.Settings;
 
-public class PlayerActions implements Settings{
+public class MovePlayer implements Settings{
 	
 	private Handler handler;
 	private ArrayList<Point> movableTiles;
-	
-	public PlayerActions(Handler handler){
+
+	public MovePlayer(Handler handler){
 		this.handler = handler;
 		movableTiles = new ArrayList<Point>();
 	}
 	
 	public void tick(){
-		if(handler.getGame().getGameState().isShowMoves()){
-			getMovableTiles();
-			tickSelector();
-		}
-		
-		if(handler.getGame().getGameState().isShowAttacks()){
-			System.out.println("show attacks");
-		}
-		
-		if(handler.getGame().getGameState().isShowSearchables()){
-			System.out.println("show items");
-		}
+		getMovableTiles();
+		tickSelector();
 	}
+	
+
 	
 	private void getMovableTiles() {
 		movableTiles = new ArrayList<Point>();
@@ -42,7 +35,7 @@ public class PlayerActions implements Settings{
 		Player p = handler.getGame().getGameState().getTurnPlayer();
 		for(int y = 0; y < handler.getWorld().getHeight() * TILESIZE; y++){
 			for(int x = 0; x < handler.getWorld().getWidth() * TILESIZE; x++){
-				if(!handler.getWorld().getTile(x, y).isClosed()){
+				if(!handler.getWorld().getTile(x, y).isLocked()){
 					if(p.getTilex() == x && p.getTiley() + 1 == y){
 						if(p.getTiley() + 1 < height){
 							movableTiles.add(new Point(x,y));
@@ -88,20 +81,10 @@ public class PlayerActions implements Settings{
 			}
 		}
 	}
-
+	
 	public void render(Graphics g){
-		if(handler.getGame().getGameState().isShowMoves()){
-			renderShowMoveSelector(g);
-			renderShowMoveFields(g);
-		}
-		
-		if(handler.getGame().getGameState().isShowAttacks()){
-			
-		}
-		
-		if(handler.getGame().getGameState().isShowSearchables()){
-			
-		}
+		renderShowMoveSelector(g);
+		renderShowMoveFields(g);
 	}
 	
 	private void renderShowMoveSelector(Graphics g){
@@ -124,5 +107,4 @@ public class PlayerActions implements Settings{
 			g.drawImage(Assets.movable_tile, p.x * TILESIZE + handler.getWorld().getMap_x_offset(), p.y * TILESIZE + handler.getWorld().getMap_y_offset(), TILESIZE, TILESIZE, null);
 		}
 	}
-	
 }

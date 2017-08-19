@@ -9,7 +9,7 @@ import ui.UIImageButton;
 public class TaskMenu {
 	
 	private Handler handler;
-	private UIImageButton move, attack, search, end;
+	private UIImageButton move, attack, search, open;
 
 	public TaskMenu(Handler handler){
 		this.handler = handler;
@@ -30,8 +30,10 @@ public class TaskMenu {
 				
 				handler.getGame().getGameState().setShowAttacks(false);
 				handler.getGame().getGameState().setShowItems(false);
+				handler.getGame().getGameState().setShowOpenDoors(false);
 				attack.setActive(false);
 				search.setActive(false);
+				open.setActive(false);
 			}
 		};
 		attack = new UIImageButton(handler, 675, 515, Assets.attack){
@@ -47,8 +49,10 @@ public class TaskMenu {
 				
 				handler.getGame().getGameState().setShowMoves(false);
 				handler.getGame().getGameState().setShowItems(false);
+				handler.getGame().getGameState().setShowOpenDoors(false);
 				move.setActive(false);
 				search.setActive(false);
+				open.setActive(false);
 				System.out.println("NIY - attack");
 			}
 		};
@@ -65,15 +69,23 @@ public class TaskMenu {
 				
 				handler.getGame().getGameState().setShowMoves(false);
 				handler.getGame().getGameState().setShowAttacks(false);
+				handler.getGame().getGameState().setShowOpenDoors(false);
 				move.setActive(false);
 				attack.setActive(false);
+				open.setActive(false);
 				System.out.println("NIY - item");
 			}
 		};
-		end = new UIImageButton(handler, 675, 555, Assets.end_turn){
+		open = new UIImageButton(handler, 675, 555, Assets.open_doors){
 			@Override
 			public void initAction(){
-				handler.getGame().getGameState().endTurn();
+				if(!handler.getGame().getGameState().isShowOpenDoors()){
+					handler.getGame().getGameState().setShowOpenDoors(true);
+					open.setActive(true);
+				}else{
+					handler.getGame().getGameState().setShowOpenDoors(false);
+					open.setActive(false);
+				}
 				
 				handler.getGame().getGameState().setShowMoves(false);
 				handler.getGame().getGameState().setShowAttacks(false);
@@ -81,6 +93,7 @@ public class TaskMenu {
 				move.setActive(false);
 				attack.setActive(false);
 				search.setActive(false);
+				System.out.println("NIY - open");
 			}
 		};
 	}
@@ -89,14 +102,14 @@ public class TaskMenu {
 		move.tick();
 		attack.tick();
 		search.tick();
-		end.tick();
+		open.tick();
 	}
 	
 	public void render(Graphics g){
 		move.render(g);
 		attack.render(g);
 		search.render(g);
-		end.render(g);
+		open.render(g);
 	}
 
 	//GETTERS & SETTERS
@@ -112,8 +125,8 @@ public class TaskMenu {
 		return search;
 	}
 
-	public UIImageButton getEnd() {
-		return end;
+	public UIImageButton getOpenDoors() {
+		return open;
 	}
 	
 }

@@ -25,7 +25,7 @@ public class GameState extends State implements Settings, Translations{
 	
 	private int turns;
 	private boolean[] turnEnded;
-	private boolean showMoves, showAttacks, showSearchables;
+	private boolean showMoves, showAttacks, showSearchables, showOpenDoors;
 	
 	public GameState(Handler handler){
 		super(handler);
@@ -43,6 +43,7 @@ public class GameState extends State implements Settings, Translations{
 		showMoves = false;
 		showAttacks = false;
 		showSearchables = false;
+		showOpenDoors = false;
 	}
 	
 	@Override
@@ -85,6 +86,7 @@ public class GameState extends State implements Settings, Translations{
 				showMoves = false;
 				showAttacks = false;
 				showSearchables = false;
+				showOpenDoors = false;
 				
 				return;
 			}
@@ -96,6 +98,8 @@ public class GameState extends State implements Settings, Translations{
 		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getAttack().setActive(false);
 		showSearchables = false;
 		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getSearch().setActive(false);
+		showSearchables = false;
+		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getOpenDoors().setActive(false);
 	}
 
 	private void calculateEnemySteps(){
@@ -129,24 +133,32 @@ public class GameState extends State implements Settings, Translations{
 		return showMoves;
 	}
 
-	public void setShowMoves(boolean showMoves) {
-		this.showMoves = showMoves;
+	public void setShowMoves(boolean var) {
+		this.showMoves = var;
 	}
 
 	public boolean isShowAttacks() {
 		return showAttacks;
 	}
 
-	public void setShowAttacks(boolean showAttacks) {
-		this.showAttacks = showAttacks;
+	public void setShowAttacks(boolean var) {
+		this.showAttacks = var;
 	}
 
 	public boolean isShowSearchables() {
 		return showSearchables;
 	}
 
-	public void setShowItems(boolean showItems) {
-		this.showSearchables = showItems;
+	public void setShowItems(boolean var) {
+		this.showSearchables = var;
+	}
+
+	public boolean isShowOpenDoors() {
+		return showOpenDoors;
+	}
+
+	public void setShowOpenDoors(boolean var) {
+		this.showOpenDoors = var;
 	}
 
 	public EntityManager getEntityManager() {

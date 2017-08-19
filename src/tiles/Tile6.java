@@ -8,7 +8,7 @@ public class Tile6 extends Tile {
 		super(Assets.tile_double_hor, id, true);
 	}
 	
-	public boolean isClosed(){
+	public boolean isLocked(){
 		return true;
 	}
 

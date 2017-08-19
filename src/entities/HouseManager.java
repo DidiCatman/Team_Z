@@ -31,7 +31,6 @@ public class HouseManager {
 	}
 	
 	public void initDoors(){
-		ArrayList<House> houses = handler.getGame().getGameState().getHouseManager().getHouses();
 		World w = handler.getWorld();
 		for(int i = 0; i < houses.size(); i++){
 			for(int r = 0; r < houses.get(i).getRooms().size(); r++){
@@ -50,12 +49,20 @@ public class HouseManager {
 				}else if(ty + 1 < w.getHeight() && w.getTile(tx, ty + 1).getId() == 8){
 					houses.get(i).setRoom(r);
 					houses.get(i).setDoor(3);
-				} //detect south tile
+				}
+				//detect south tile
 				else if(ty - 1 >= 0 && w.getTile(tx, ty - 1).getId() == 8){
 					houses.get(i).setRoom(r);
 					houses.get(i).setDoor(4);
 				}
 			}
+		}
+		
+		//print rooms with doors once
+		int count = 1;
+		for(House h: houses){
+			System.out.println("House " + count + " with Room " + h.getRoom() + " has a door");
+			count++;
 		}
 	}
 	

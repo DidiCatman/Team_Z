@@ -18,7 +18,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] start_btn, quit_btn, minus_btn, plus_btn, dropdown_btn;
 	public static BufferedImage[] back_btn, back_written_btn, forward_btn, backward_btn;
 	public static BufferedImage[] heroes;
-	public static BufferedImage[] settings, move, attack, search, end_turn;
+	public static BufferedImage[] settings, move, attack, search, open_doors;
 	public static BufferedImage[] en, de;
 	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
 	public static BufferedImage selector, movable_tile, heart, heart_empty, doors_hor, doors_hor_open, doors_ver, doors_ver_open;
@@ -57,7 +57,7 @@ public class Assets implements Settings, Translations{
 		move = new BufferedImage[3];
 		attack = new BufferedImage[3];
 		search = new BufferedImage[3];
-		end_turn = new BufferedImage[2];
+		open_doors = new BufferedImage[3];
 		en = new BufferedImage[2];
 		de = new BufferedImage[2];
 
@@ -83,8 +83,9 @@ public class Assets implements Settings, Translations{
 		backward_btn[1] = buttons_hover_sheet.crop(0, 128, width, height);
 		
 		//init ingame images
-		end_turn[0] = buttons_sheet.crop(0, 256, width * 2, height);
-		end_turn[1] = buttons_hover_sheet.crop(0, 256, width * 2, height);
+		open_doors[0] = buttons_sheet.crop(0, 256, width * 2, height);
+		open_doors[1] = buttons_hover_sheet.crop(0, 256, width * 2, height);
+		open_doors[2] = buttons_active_sheet.crop(0, 256, width * 2, height);
 		
 		settings[0] = buttons_sheet.crop(96, 96, width, height);
 		settings[1] = buttons_hover_sheet.crop(96, 96, width, height);
