@@ -41,16 +41,20 @@ public class OpenDoor implements Settings{
 				}
 				for(int i = 0; i < openableDoors.size(); i++){
 					if(rec[i].contains(mouse)){
-						System.out.println("try to open door at [" + rec[i].getX()/TILESIZE + "][" + rec[i].getY()/TILESIZE + "]");
+						System.out.println("try to open door at [" + (int) rec[i].getX()/TILESIZE + "][" + (int) rec[i].getY()/TILESIZE + "]");
 						chooseDoor = false;
+						openDoor(openableDoors.get(i));
 					}
 				}
 			}
 		}else if(openableDoors.size() == 0){
 			System.out.println("no door found to open ");
 		}else{
-			System.out.println("open door");
+			Point p = openableDoors.get(0);
+			System.out.println("open door at [" + p.getX() + "][" + p.getY() + "]");
+			openDoor(openableDoors.get(0));
 		}
+		System.out.println("openable doors: " + openableDoors.size());
 	}
 	
 	private void getLockedDoors(){
@@ -59,28 +63,47 @@ public class OpenDoor implements Settings{
 		ArrayList<House> houses = handler.getGame().getGameState().getHouseManager().getHouses();
 		//check all rooms of all houses
 		for(int h = 0; h < houses.size(); h++){
-			//get room with door
-			int room = houses.get(h).getRoom();
-			Room r = houses.get(h).getRooms().get(room);
-			//if door is on east side
-			if(houses.get(h).getDoor() == 1){
-				if(r.getTilex() + 1 == player_pos.getX() && r.getTiley() == player_pos.getY()){
-					openableDoors.add(new Point(r.getTilex(), r.getTiley()));
+			if(!houses.get(h).isOpen()){
+				//get room with door
+				int room = houses.get(h).getRoom();
+				Room r = houses.get(h).getRooms().get(room);
+				//if door is on east side
+				if(houses.get(h).getDoor() == 1){
+					if(r.getTilex() + 1 == player_pos.getX() && r.getTiley() == player_pos.getY()){
+						openableDoors.add(new Point(r.getTilex(), r.getTiley()));
+					}
+				//if door is on west side
+				}else if(houses.get(h).getDoor() == 2){
+					if(r.getTilex() - 1 == player_pos.getX() && r.getTiley() == player_pos.getY()){
+						openableDoors.add(new Point(r.getTilex(), r.getTiley()));
+					}
+				//if door is on south side
+				}else if(houses.get(h).getDoor() == 3){
+					if(r.getTiley() + 1 == player_pos.getY() && r.getTilex() == player_pos.getX()){
+						openableDoors.add(new Point(r.getTilex(), r.getTiley()));
+					}
+				//if door is on north side
+				}else if(houses.get(h).getDoor() == 4){
+					if(r.getTiley() - 1 == player_pos.getY() && r.getTilex() == player_pos.getX()){
+						openableDoors.add(new Point(r.getTilex(), r.getTiley()));
+					}
 				}
-			//if door is on west side
-			}else if(houses.get(h).getDoor() == 2){
-				if(r.getTilex() - 1 == player_pos.getX() && r.getTiley() == player_pos.getY()){
-					openableDoors.add(new Point(r.getTilex(), r.getTiley()));
-				}
-			//if door is on south side
-			}else if(houses.get(h).getDoor() == 3){
-				if(r.getTiley() + 1 == player_pos.getY() && r.getTilex() == player_pos.getX()){
-					openableDoors.add(new Point(r.getTilex(), r.getTiley()));
-				}
-			//if door is on north side
-			}else if(houses.get(h).getDoor() == 4){
-				if(r.getTiley() - 1 == player_pos.getY() && r.getTilex() == player_pos.getX()){
-					openableDoors.add(new Point(r.getTilex(), r.getTiley()));
+			}
+		}
+	}
+	
+	private void openDoor(Point p){
+		ArrayList<House> houses = handler.getGame().getGameState().getHouseManager().getHouses();
+		for(int h = 0; h < houses.size(); h++){
+			for(int r = 0; r < houses.get(h).getRooms().size(); r++){
+				if(houses.get(h).getRooms().get(r).getTilePoint().equals(p)){
+					if(houses.get(h).getRoom() == r){
+						//action
+						handler.getGame().getGameState().getHouseManager().getHouses().get(h).openHouse();
+						handler.getGame().getGameState().getTurnPlayer().decreaseActionPoints();
+						handler.getGame().getGameState().setShowOpenDoors(false);
+						return;
+					}
 				}
 			}
 		}

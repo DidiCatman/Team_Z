@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.Point;
+
 import main.Handler;
 
 public class Room {
@@ -42,5 +44,9 @@ public class Room {
 
 	public int getId() {
 		return id;
+	}
+	
+	public Point getTilePoint(){
+		return new Point(tilex, tiley);
 	}
 }

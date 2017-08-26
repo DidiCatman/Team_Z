@@ -12,9 +12,9 @@ public class House implements Settings{
 
 	private Handler handler;
 	private ArrayList<Room> rooms;
-	int door; // to store the door direction in the room (east west south north)
-	int room;
-	boolean open;
+	private int door; // to store the door direction in the room (east west south north)
+	private int room; // to store the room with the door
+	private boolean open;
 	
 	public House(Handler handler, ArrayList<Room> rooms){
 		this.handler = handler;
@@ -57,6 +57,13 @@ public class House implements Settings{
 		
 		g.drawImage(img, x, y, null);
 	}
+	
+	public void openHouse(){
+		open = true;
+		for(Room r: rooms){
+			handler.getWorld().getTile(r.getTilex(), r.getTiley()).openRoom();
+		}
+	}
 
 	//GETTERS & SETTERS
 	public ArrayList<Room> getRooms() {
@@ -81,6 +88,14 @@ public class House implements Settings{
 
 	public void setRoom(int room) {
 		this.room = room;
+	}
+
+	public boolean isOpen() {
+		return open;
+	}
+
+	public void setOpen(boolean open) {
+		this.open = open;
 	}
 	
 }

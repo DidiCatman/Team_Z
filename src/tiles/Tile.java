@@ -49,7 +49,7 @@ public class Tile implements Settings{
 		return id;
 	}
 	
-	public void openTile(){
+	public void openRoom(){
 		this.locked = false;
 	}
 }

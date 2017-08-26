@@ -4,9 +4,10 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import main.Handler;
+import main.Settings;
 import worlds.World;
 
-public class HouseManager {
+public class HouseManager implements Settings{
 	
 	private Handler handler;
 	private ArrayList<House> houses;
@@ -38,31 +39,24 @@ public class HouseManager {
 				int ty = houses.get(i).getRooms().get(r).getTiley();
 				
 				//detect east tile
-				if(tx + 1 < w.getWidth() && w.getTile(tx + 1, ty).getId() == 8){
+				if(tx + 1 < w.getWidth() && w.getTile(tx + 1, ty).getId() == TILE_ROAD){
 					houses.get(i).setRoom(r);
 					houses.get(i).setDoor(1);
 				//detect east tile	
-				}else if(tx - 1 >= 0 && w.getTile(tx - 1, ty).getId() == 8){
+				}else if(tx - 1 >= 0 && w.getTile(tx - 1, ty).getId() == TILE_ROAD){
 					houses.get(i).setRoom(r);
 					houses.get(i).setDoor(2);
 				//detect north tile
-				}else if(ty + 1 < w.getHeight() && w.getTile(tx, ty + 1).getId() == 8){
+				}else if(ty + 1 < w.getHeight() && w.getTile(tx, ty + 1).getId() == TILE_ROAD){
 					houses.get(i).setRoom(r);
 					houses.get(i).setDoor(3);
 				}
 				//detect south tile
-				else if(ty - 1 >= 0 && w.getTile(tx, ty - 1).getId() == 8){
+				else if(ty - 1 >= 0 && w.getTile(tx, ty - 1).getId() == TILE_ROAD){
 					houses.get(i).setRoom(r);
 					houses.get(i).setDoor(4);
 				}
 			}
-		}
-		
-		//print rooms with doors once
-		int count = 1;
-		for(House h: houses){
-			System.out.println("House " + count + " with Room " + h.getRoom() + " has a door");
-			count++;
 		}
 	}
 	
