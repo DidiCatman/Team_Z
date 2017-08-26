@@ -1,7 +1,17 @@
 next steps
-	- implement click effect for every menu button
-	- resize start and quit button
-	- render entites on same tile at different points
+	- houses with searchable treasures
+		-> init open door function
+			-> dialoge to choose from 2 doors
+		-> init items and treasures
+	- finish player ui
+		-> item list
+		-> player tooltip informations
+		-> setting game menu 
+	- implement Items and ItemManager
+	- PlayerActions need functions
+	- fog of war für häuser und ecken bei wegen
+	- anzahl der gegner für spielfeld darstellen
+	
 	
 questziele:
 1. finde ein bestimmtes token (2 auf der map und unter einem 

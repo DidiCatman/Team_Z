@@ -2,7 +2,7 @@ package main;
 
 public interface Translations {
 	
-	public final static String[] HERONAMES = {"Hiro", "JohnBoy", "Django", "Shanti"};
+	public final static String[] HERONAMES = {"Hiro", "JohnBoy", "Django", "Shanti", "Batman", "Rocky"};
 
 	public final static String[][] WORDS = {
 			// Englisch		

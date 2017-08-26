@@ -5,11 +5,11 @@ import java.awt.Graphics;
 import gfx.Assets;
 import main.Handler;
 import main.Settings;
-import ui.MyUIImageButton;
+import ui.UIImageButton;
 
 public class MenuState extends State implements Settings{
 	
-	private MyUIImageButton start_btn, quit_btn;
+	private UIImageButton start_btn, quit_btn;
 
 	public MenuState(Handler handler){
 		super(handler);
@@ -17,14 +17,14 @@ public class MenuState extends State implements Settings{
 	}
 	
 	private void initButtons() {
-		start_btn = new MyUIImageButton(handler, 50, 300, Assets.start_btn){
+		start_btn = new UIImageButton(handler, 300, 480, Assets.start_btn){
 			@Override
 			public void initAction(){
 				State.setState(handler.getGame().gameOptionsState);
 			}
 		};
 		
-		quit_btn = new MyUIImageButton(handler, 50, 400, Assets.quit_btn){
+		quit_btn = new UIImageButton(handler, 75, 480, Assets.quit_btn){
 			@Override
 			public void initAction(){
 				System.exit(0);

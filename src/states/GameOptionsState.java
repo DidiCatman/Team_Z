@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import gfx.Assets;
 import main.Handler;
 import main.Settings;
-import ui.MyUIImageButton;
+import ui.UIImageButton;
 import ui.choosePlayerMenu.HeroChooser;
 import ui.choosePlayerMenu.PlayerCount;
 
@@ -14,14 +14,14 @@ public class GameOptionsState extends State implements Settings{
 	
 	private PlayerCount playerCount;
 	private HeroChooser heroChooser;
-	private MyUIImageButton countries;
+	private UIImageButton countries;
 
 	public GameOptionsState(Handler handler) {
 		super(handler);
 		playerCount = new PlayerCount(handler);
 		heroChooser = new HeroChooser(handler);
 		
-		countries = new MyUIImageButton(handler, WIDTH - 50, 20, Assets.en){
+		countries = new UIImageButton(handler, WIDTH - 50, 20, Assets.en){
 			@Override
 			public void initAction(){
 				if(handler.getGame().getLanguage() == 0){

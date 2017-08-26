@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import main.Handler;
 
 public class IngameUI {
-	
+
 	@SuppressWarnings("unused")
 	private Handler handler;
 	private Inventory inventory;
@@ -22,6 +22,11 @@ public class IngameUI {
 	public void render(Graphics g){
 		//draw inventory
 		inventory.render(g);
+	}
+	
+	//GETTERS & SETTERS
+	public Inventory getInventory() {
+		return inventory;
 	}
 	
 }

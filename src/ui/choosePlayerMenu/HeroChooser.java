@@ -8,13 +8,13 @@ import gfx.Text;
 import main.Handler;
 import main.Settings;
 import main.Translations;
-import ui.MyUIImageButton;
+import ui.UIImageButton;
 
 public class HeroChooser implements Settings, Translations{
 	
 	private Handler handler;
 	private int hero_num;
-	private MyUIImageButton[] forward, backward;
+	private UIImageButton[] forward, backward;
 	private int[] selectedHeroIndex;
 	
 	public HeroChooser(Handler handler){
@@ -23,13 +23,13 @@ public class HeroChooser implements Settings, Translations{
 	}
 	
 	private void initButtons() {
-		forward = new MyUIImageButton[4];
-		backward = new MyUIImageButton[4];
-		selectedHeroIndex = new int[4];
+		forward = new UIImageButton[MAXPLAYERNUMBER];
+		backward = new UIImageButton[MAXPLAYERNUMBER];
+		selectedHeroIndex = new int[MAXPLAYERNUMBER];
 		
 		for(int i = 0; i < MAXPLAYERNUMBER; i++){
 			int x = i;
-			forward[i] = new MyUIImageButton(handler, 630, 100 + i * 40, Assets.forward_btn){
+			forward[i] = new UIImageButton(handler, 630, 100 + i * 40, Assets.forward_btn){
 				@Override
 				public void initAction(){
 					if(selectedHeroIndex[x] >= HERONAMES.length - 1){
@@ -43,7 +43,7 @@ public class HeroChooser implements Settings, Translations{
 		
 		for(int i = 0; i < MAXPLAYERNUMBER; i++){
 			int x = i;
-			backward[i] = new MyUIImageButton(handler, 435, 100 + i * 40, Assets.backward_btn){
+			backward[i] = new UIImageButton(handler, 435, 100 + i * 40, Assets.backward_btn){
 				@Override
 				public void initAction(){
 					if(selectedHeroIndex[x] <= 0){

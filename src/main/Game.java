@@ -42,7 +42,7 @@ public class Game implements Runnable, Settings{
 	private int language = EN;
 
 	public Game(){
-		title = "TTZombies";
+		title = "Team Z";
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
 	}
