@@ -25,34 +25,34 @@ public class House implements Settings{
 	public void render(Graphics g){
 		BufferedImage img = null;
 		int x = 0, y = 0;
-		if(door == 1){
+		if(door == DOOR_EAST){
 			if(open)
 				img = Assets.doors_hor_open;
 			else
 				img = Assets.doors_hor;
 			x = rooms.get(room).getTilex() * TILESIZE + TILESIZE + handler.getWorld().getMap_x_offset() - img.getWidth()/2; 
 			y = rooms.get(room).getTiley() * TILESIZE + TILESIZE/2 - img.getHeight()/2 + handler.getWorld().getMap_y_offset();
-		}else if(door == 2){
+		}else if(door == DOOR_WEST){
 			if(open)
 				img = Assets.doors_hor_open;
 			else
 				img = Assets.doors_hor;
 			x = rooms.get(room).getTilex() * TILESIZE + handler.getWorld().getMap_x_offset() - img.getWidth()/2;
 			y = rooms.get(room).getTiley() * TILESIZE + TILESIZE/2 - img.getHeight()/2 + handler.getWorld().getMap_y_offset();
-		}else if(door == 3){
+		}else if(door == DOOR_SOUTH){
 			if(open)
 				img = Assets.doors_ver_open;
 			else
 				img = Assets.doors_ver;
 			x = rooms.get(room).getTilex() * TILESIZE + TILESIZE/2 - img.getWidth()/2 + handler.getWorld().getMap_x_offset(); 
 			y = rooms.get(room).getTiley() * TILESIZE + TILESIZE - img.getHeight()/2 + handler.getWorld().getMap_y_offset();
-		}else if(door == 4){
+		}else if(door == DOOR_NORTH){
 			if(open)
 				img = Assets.doors_ver_open;
 			else
 				img = Assets.doors_ver;
 			x = rooms.get(room).getTilex() * TILESIZE + TILESIZE/2 - img.getWidth()/2 + handler.getWorld().getMap_x_offset();
-			y = rooms.get(room).getTiley() * TILESIZE  - img.getHeight() + handler.getWorld().getMap_y_offset();
+			y = rooms.get(room).getTiley() * TILESIZE  - img.getHeight()/2 + handler.getWorld().getMap_y_offset();
 		}
 		
 		g.drawImage(img, x, y, null);

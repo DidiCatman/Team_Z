@@ -23,7 +23,7 @@ public class Player extends Entity implements Translations{
 		this.id = id;
 		actions = new PlayerActions(handler);
 		actionCounter = DEFAULT_ACTIONS;
-		xoffset = id * 16;
+		xoffset = id * 12;
 	}
 
 	@Override

@@ -28,8 +28,8 @@ public class Spawn implements Settings {
 		int x = 0, y = 0;
 		if(active){
 			img = Assets.zombi_spawn_active;
-			x = tilex * TILESIZE + TILESIZE/2 - img.getWidth()/2;
-			y = tiley * TILESIZE  + TILESIZE - img.getHeight();
+			x = tilex * TILESIZE + TILESIZE/2 - img.getWidth()/2 + handler.getWorld().getMap_x_offset();
+			y = tiley * TILESIZE  + TILESIZE - img.getHeight() + handler.getWorld().getMap_y_offset();
 		}
 		
 		g.drawImage(img, x, y, null);
