@@ -1,5 +1,7 @@
 package entities.items;
 
+import java.util.Random;
+
 import main.Handler;
 
 public class ItemManager {
@@ -17,5 +19,11 @@ public class ItemManager {
 	
 	public void render(){
 		
+	}
+	
+	public Item randomItem(){
+		Random rand = new Random();
+		int r = rand.nextInt(Item.getItems().length);
+		return Item.getItems()[r];
 	}
 }

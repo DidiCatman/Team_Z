@@ -2,6 +2,7 @@ package entities.player.actions;
 
 import java.awt.Graphics;
 
+import entities.items.Item;
 import main.Handler;
 import main.Settings;
 
@@ -27,7 +28,15 @@ public class PlayerActions implements Settings{
 		}
 		
 		if(handler.getGame().getGameState().isShowSearchables()){
-			System.out.println("show items");
+			if(!handler.getGame().getGameState().hasSearched()){
+				Item item = handler.getGame().getGameState().getItemManager().randomItem();
+				handler.getGame().getGameState().setHasSearched(true);
+				handler.getGame().getGameState().getTurnPlayer().decreaseActionPoints();
+				System.out.println("random item: " + item.getName() + " | id: " + item.getId());
+			}else{
+				System.out.println("item was searched before");
+			}
+			handler.getGame().getGameState().setShowItems(false);
 		}
 		
 		if(handler.getGame().getGameState().isShowOpenDoors()){

@@ -30,6 +30,7 @@ public class GameState extends State implements Settings, Translations{
 	
 	private int turns;
 	private boolean[] turnEnded;
+	private boolean hasSearched;
 	private boolean showMoves, showAttacks, showSearchables, showOpenDoors;
 	
 	public GameState(Handler handler){
@@ -47,6 +48,7 @@ public class GameState extends State implements Settings, Translations{
 		
 		turns = 0;
 		turnEnded = new boolean[entityManager.getPlayers().size()];
+		hasSearched = false;
 		showMoves = false;
 		showAttacks = false;
 		showSearchables = false;
@@ -96,7 +98,8 @@ public class GameState extends State implements Settings, Translations{
 		for(int i = 0; i < turnEnded.length; i++){
 			if(turnEnded[i] == false){
 				turnEnded[i] = true;
-				
+
+				hasSearched = false;
 				showMoves = false;
 				showAttacks = false;
 				showSearchables = false;
@@ -114,6 +117,7 @@ public class GameState extends State implements Settings, Translations{
 		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getSearch().setActive(false);
 		showSearchables = false;
 		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getOpenDoors().setActive(false);
+		hasSearched = false;
 	}
 
 	private void calculateEnemySteps(){
@@ -136,6 +140,7 @@ public class GameState extends State implements Settings, Translations{
 	
 	private void initNextRound(){
 		calculateEnemySteps();
+		hasSearched = false;
 		spawnManager.tick();
 		
 		Arrays.fill(turnEnded, Boolean.FALSE);
@@ -181,6 +186,14 @@ public class GameState extends State implements Settings, Translations{
 		this.showOpenDoors = var;
 	}
 
+	public boolean hasSearched() {
+		return hasSearched;
+	}
+
+	public void setHasSearched(boolean hasSearched) {
+		this.hasSearched = hasSearched;
+	}
+
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
@@ -191,6 +204,10 @@ public class GameState extends State implements Settings, Translations{
 	
 	public IngameUI getIngameUI() {
 		return ingameUI;
+	}
+
+	public ItemManager getItemManager() {
+		return itemManager;
 	}
 
 }

@@ -176,6 +176,7 @@ public class MovePlayer implements Settings{
 						handler.getGame().getGameState().getTurnPlayer().setTilex(temp.x);
 						handler.getGame().getGameState().getTurnPlayer().setTiley(temp.y);
 						handler.getGame().getGameState().getTurnPlayer().decreaseActionPoints();
+						handler.getGame().getGameState().setShowMoves(false);
 						return;
 					}
 				}
