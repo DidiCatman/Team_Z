@@ -72,7 +72,7 @@ public class GameState extends State implements Settings, Translations{
 		Arrays.fill(turnEnded, Boolean.FALSE);
 		handler.getGame().getGameState().getIngameUI().getInventory().getPlayerMenu().start();
 		world.loadHouses();
-		addSpawn(8,6);
+		addSpawn(8,6,"south");
 	}
 	
 	//add player from the choosePlayerMenu
@@ -82,8 +82,9 @@ public class GameState extends State implements Settings, Translations{
 		entityManager.addPlayer(p);
 	}
 	
-	public void addSpawn(int x, int y){
-		Spawn s = new Spawn(handler, 7, 5);
+	//add zombie-spawn to tile xy
+	public void addSpawn(int x, int y, String pos){
+		Spawn s = new Spawn(handler, x, y, pos);
 		spawnManager.addSpawn(s);
 	}
 	
