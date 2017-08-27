@@ -1,4 +1,4 @@
-package entities;
+package entities.buildings;
 
 import java.awt.Point;
 

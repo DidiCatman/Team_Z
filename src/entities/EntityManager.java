@@ -66,4 +66,8 @@ public class EntityManager {
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
+
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
+	}
 }

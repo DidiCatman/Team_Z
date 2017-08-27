@@ -3,8 +3,8 @@ package worlds;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import entities.House;
-import entities.Room;
+import entities.buildings.House;
+import entities.buildings.Room;
 import main.Handler;
 import main.Settings;
 import tiles.Tile;

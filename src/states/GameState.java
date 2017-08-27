@@ -4,9 +4,10 @@ import java.awt.Graphics;
 import java.util.Arrays;
 
 import entities.EntityManager;
-import entities.HouseManager;
 import entities.Spawn;
 import entities.SpawnManager;
+import entities.buildings.HouseManager;
+import entities.items.ItemManager;
 import entities.player.Player;
 import gfx.Assets;
 import main.Handler;
@@ -24,6 +25,7 @@ public class GameState extends State implements Settings, Translations{
 	private EntityManager entityManager;
 	private HouseManager houseManager;
 	private SpawnManager spawnManager;
+	private ItemManager itemManager;
 	private IngameUI ingameUI;
 	
 	private int turns;
@@ -36,11 +38,12 @@ public class GameState extends State implements Settings, Translations{
 		entityManager = new EntityManager(handler);
 		ingameUI = new IngameUI(handler);
 		world = new World(this.handler, "res/worlds/world1.txt", counter);
-		handler.setWorld(world);
+		this.handler.setWorld(world);
 		start_tilex = handler.getWorld().getSpawn_x();
 		start_tiley = handler.getWorld().getSpawn_y();
 		houseManager = new HouseManager(handler);
 		spawnManager = new SpawnManager(handler);
+		itemManager = new ItemManager(handler);
 		
 		turns = 0;
 		turnEnded = new boolean[entityManager.getPlayers().size()];
@@ -126,14 +129,19 @@ public class GameState extends State implements Settings, Translations{
 		}
 		
 		//end of round
+		initNextRound();
+		turns++;
+		return (Player) entityManager.getPlayers().get(0);
+	}
+	
+	private void initNextRound(){
 		calculateEnemySteps();
 		spawnManager.tick();
+		
 		Arrays.fill(turnEnded, Boolean.FALSE);
 		for(Player p: entityManager.getPlayers()){
 			p.setActionCounter(DEFAULT_ACTIONS);
 		}
-		turns++;
-		return (Player) entityManager.getPlayers().get(0);
 	}
 	
 	//GETTERS & SETTERS

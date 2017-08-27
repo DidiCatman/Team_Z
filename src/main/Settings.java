@@ -11,7 +11,6 @@ public interface Settings {
 	public final static int MAPTILESIZE = 243;
 	public final static int TILESIZE = 81;
 	public final static int ENTITYSIZE = 16;
-	public final static int MINIMAPTILES = 3;
 
 	public final static int DEFAULT_ATTACK = 1;
 	public final static int DEFAULT_ACTIONS = 3;
@@ -29,7 +28,6 @@ public interface Settings {
 	public final static int TILE_DOUBLE_VER = 7;
 	public final static int TILE_ROAD = 8;
 	
-
 	public final static int DOOR_EAST = 1;
 	public final static int DOOR_WEST = 2;
 	public final static int DOOR_SOUTH = 3;

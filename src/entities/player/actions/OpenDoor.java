@@ -5,8 +5,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import entities.House;
-import entities.Room;
+import entities.buildings.House;
+import entities.buildings.Room;
 import gfx.Assets;
 import main.Handler;
 import main.Settings;

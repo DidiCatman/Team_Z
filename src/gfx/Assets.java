@@ -25,6 +25,8 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage intro_logo;
 	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background, tooltip_background;
 	
+	public static BufferedImage sword, bow, axe, magic_scroll;
+	
 
 	public static void init(){
 		font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
@@ -38,6 +40,7 @@ public class Assets implements Settings, Translations{
 		SpriteSheet buttons_hover_sheet = new SpriteSheet(ImageLoader.loadImage("/menues/buttons_hover.png"));
 		SpriteSheet buttons_active_sheet = new SpriteSheet(ImageLoader.loadImage("/menues/buttons_active.png"));
 		SpriteSheet countries_sheet = new SpriteSheet(ImageLoader.loadImage("/logo/countries.png"));
+		SpriteSheet item_sheet = new SpriteSheet(ImageLoader.loadImage("/items/items.png"));
 
 		SpriteSheet backgrounds = new SpriteSheet(ImageLoader.loadImage("/backgrounds/backgrounds.png"));
 		SpriteSheet intro = new SpriteSheet(ImageLoader.loadImage("/logo/logo.jpg"));
@@ -144,5 +147,11 @@ public class Assets implements Settings, Translations{
 		heroes[3] = ImageLoader.loadImage("/creatures/heroes/hero4.png");
 		heroes[4] = ImageLoader.loadImage("/creatures/heroes/hero5.png");
 		heroes[5] = ImageLoader.loadImage("/creatures/heroes/hero6.png");
+		
+		//init items
+		sword = item_sheet.crop(0, 0, TILESIZE, TILESIZE);
+		bow = item_sheet.crop(TILESIZE, 0, TILESIZE, TILESIZE);
+		axe = item_sheet.crop(TILESIZE * 2, 0, TILESIZE, TILESIZE);
+		magic_scroll = item_sheet.crop(TILESIZE * 3, 0, TILESIZE, TILESIZE);
 	}
 }
