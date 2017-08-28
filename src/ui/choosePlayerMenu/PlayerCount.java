@@ -50,7 +50,7 @@ public class PlayerCount implements Settings, Translations{
 		
 		start_btn = new UIImageButton(handler, 50, 500, Assets.start_btn){
 			@Override
-			public void initAction(){
+			public void initAction(){				
 				for(int i = 0; i < playerCount; i++){
 					handler.getGame().getGameState().addPlayer(handler.getGame().getGameOptionsState().getHeroChooser().getSelectedHeroIndex()[i]);
 				}

@@ -4,13 +4,16 @@ import java.awt.Graphics;
 import java.util.Arrays;
 
 import entities.EntityManager;
+import entities.Spawn;
+import entities.SpawnManager;
+import entities.buildings.HouseManager;
+import entities.items.ItemManager;
 import entities.player.Player;
 import gfx.Assets;
 import main.Handler;
 import main.Settings;
 import main.Translations;
 import ui.ingame.IngameUI;
-import ui.ingame.TaskMenu;
 import worlds.World;
 
 public class GameState extends State implements Settings, Translations{
@@ -20,29 +23,36 @@ public class GameState extends State implements Settings, Translations{
 	private int start_tilex, start_tiley;
 	
 	private EntityManager entityManager;
+	private HouseManager houseManager;
+	private SpawnManager spawnManager;
+	private ItemManager itemManager;
 	private IngameUI ingameUI;
-	private TaskMenu taskMenu;
 	
 	private int turns;
 	private boolean[] turnEnded;
-	private boolean showMoves, showAttacks, showItems;
+	private boolean hasSearched;
+	private boolean showMoves, showAttacks, showSearchables, showOpenDoors;
 	
 	public GameState(Handler handler){
 		super(handler);
 		counter = 0;
-		world = new World(handler, "res/worlds/world0.txt", counter);
-		handler.setWorld(world);
-		start_tilex = handler.getWorld().getSpawn_x();
-		start_tiley = handler.getWorld().getSpawn_y();
 		entityManager = new EntityManager(handler);
 		ingameUI = new IngameUI(handler);
-		taskMenu = new TaskMenu(handler);
+		world = new World(this.handler, "res/worlds/world1.txt", counter);
+		this.handler.setWorld(world);
+		start_tilex = handler.getWorld().getSpawn_x();
+		start_tiley = handler.getWorld().getSpawn_y();
+		houseManager = new HouseManager(handler);
+		spawnManager = new SpawnManager(handler);
+		itemManager = new ItemManager(handler);
 		
 		turns = 0;
 		turnEnded = new boolean[entityManager.getPlayers().size()];
+		hasSearched = false;
 		showMoves = false;
 		showAttacks = false;
-		showItems = false;
+		showSearchables = false;
+		showOpenDoors = false;
 	}
 	
 	@Override
@@ -50,21 +60,25 @@ public class GameState extends State implements Settings, Translations{
 		world.tick();
 		entityManager.tick();
 		ingameUI.tick();
-		taskMenu.tick();
 	}
 
 	@Override
 	public void render(Graphics g) {
 		world.render(g);
+		//render doors
+		houseManager.render(g);
+		spawnManager.render(g);
 		entityManager.render(g);
 		ingameUI.render(g);
-		taskMenu.render(g);
 	}
 	
 	//set start values to the game
 	public void start(){
 		turnEnded = new boolean[entityManager.getPlayers().size()];
 		Arrays.fill(turnEnded, Boolean.FALSE);
+		handler.getGame().getGameState().getIngameUI().getInventory().getPlayerMenu().start();
+		world.loadHouses();
+		addSpawn(8,6);
 	}
 	
 	//add player from the choosePlayerMenu
@@ -74,16 +88,38 @@ public class GameState extends State implements Settings, Translations{
 		entityManager.addPlayer(p);
 	}
 	
+	public void addSpawn(int x, int y){
+		Spawn s = new Spawn(handler, 7, 5);
+		spawnManager.addSpawn(s);
+	}
+	
 	//set turn values ready for next turn
 	public void endTurn(){
 		for(int i = 0; i < turnEnded.length; i++){
 			if(turnEnded[i] == false){
 				turnEnded[i] = true;
+
+				hasSearched = false;
+				showMoves = false;
+				showAttacks = false;
+				showSearchables = false;
+				showOpenDoors = false;
+				
 				return;
 			}
 		}
+
+		showMoves = false;
+		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getMove().setActive(false);
+		showAttacks = false;
+		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getAttack().setActive(false);
+		showSearchables = false;
+		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getSearch().setActive(false);
+		showSearchables = false;
+		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getOpenDoors().setActive(false);
+		hasSearched = false;
 	}
-	
+
 	private void calculateEnemySteps(){
 		System.out.println("NIY - Calculate enemy steps");
 	}
@@ -97,10 +133,20 @@ public class GameState extends State implements Settings, Translations{
 		}
 		
 		//end of round
-		calculateEnemySteps();
-		Arrays.fill(turnEnded, Boolean.FALSE);
+		initNextRound();
 		turns++;
 		return (Player) entityManager.getPlayers().get(0);
+	}
+	
+	private void initNextRound(){
+		calculateEnemySteps();
+		hasSearched = false;
+		spawnManager.tick();
+		
+		Arrays.fill(turnEnded, Boolean.FALSE);
+		for(Player p: entityManager.getPlayers()){
+			p.setActionCounter(DEFAULT_ACTIONS);
+		}
 	}
 	
 	//GETTERS & SETTERS
@@ -112,24 +158,56 @@ public class GameState extends State implements Settings, Translations{
 		return showMoves;
 	}
 
-	public void setShowMoves(boolean showMoves) {
-		this.showMoves = showMoves;
+	public void setShowMoves(boolean var) {
+		this.showMoves = var;
 	}
 
 	public boolean isShowAttacks() {
 		return showAttacks;
 	}
 
-	public void setShowAttacks(boolean showAttacks) {
-		this.showAttacks = showAttacks;
+	public void setShowAttacks(boolean var) {
+		this.showAttacks = var;
 	}
 
-	public boolean isShowItems() {
-		return showItems;
+	public boolean isShowSearchables() {
+		return showSearchables;
 	}
 
-	public void setShowItems(boolean showItems) {
-		this.showItems = showItems;
+	public void setShowItems(boolean var) {
+		this.showSearchables = var;
+	}
+
+	public boolean isShowOpenDoors() {
+		return showOpenDoors;
+	}
+
+	public void setShowOpenDoors(boolean var) {
+		this.showOpenDoors = var;
+	}
+
+	public boolean hasSearched() {
+		return hasSearched;
+	}
+
+	public void setHasSearched(boolean hasSearched) {
+		this.hasSearched = hasSearched;
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+	
+	public HouseManager getHouseManager(){
+		return houseManager;
+	}
+	
+	public IngameUI getIngameUI() {
+		return ingameUI;
+	}
+
+	public ItemManager getItemManager() {
+		return itemManager;
 	}
 
 }
