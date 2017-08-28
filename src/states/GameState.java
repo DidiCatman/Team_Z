@@ -99,7 +99,7 @@ public class GameState extends State implements Settings, Translations{
 	
 	//add zombie to spawnpoint
 	public void addZombies(int tilex, int tiley, int id){
-		Zombies z = new Zombies(handler, tilex, tiley, DEFAULT_ZOMBIES_HEALTH, id, Assets.zombies[0]);
+		Zombies z = new Zombies(handler, tilex, tiley, DEFAULT_ZOMBIES_HEALTH, id, Assets.zombies[id]);
 		entityManager.addZombies(z);
 	}
 	
