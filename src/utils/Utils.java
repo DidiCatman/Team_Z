@@ -13,8 +13,10 @@ public class Utils {
 			BufferedReader br = new BufferedReader(new FileReader(path));
 			String line;
 			while((line = br.readLine()) != null)
+				if(line.trim().isEmpty() || line.trim().startsWith("//"))
+					/* ignore line */;
+				else
 				builder.append(line + "\n");
-			
 			br.close();
 		}catch(IOException e){
 			e.printStackTrace();

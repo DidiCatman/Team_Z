@@ -23,6 +23,7 @@ public class Spawn implements Settings {
 	
 	public void tick(){
 		System.out.println("NIY - Spawn enemy zombies");
+		handler.getGame().getGameState().addZombies(tilex, tiley, 1);
 	}
 	
 	public void render(Graphics g){

@@ -18,6 +18,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] start_btn, quit_btn, minus_btn, plus_btn, dropdown_btn;
 	public static BufferedImage[] back_btn, back_written_btn, forward_btn, backward_btn;
 	public static BufferedImage[] heroes;
+	public static BufferedImage[] zombies;
 	public static BufferedImage[] settings, move, attack, search, end_turn;
 	public static BufferedImage[] en, de;
 	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
@@ -53,6 +54,7 @@ public class Assets implements Settings, Translations{
 		forward_btn = new BufferedImage[2];
 		backward_btn = new BufferedImage[2];
 		heroes = new BufferedImage[HERONAMES.length];
+		zombies = new BufferedImage[3];
 		settings = new BufferedImage[3];
 		move = new BufferedImage[3];
 		attack = new BufferedImage[3];
@@ -144,5 +146,10 @@ public class Assets implements Settings, Translations{
 		heroes[3] = ImageLoader.loadImage("/creatures/heroes/hero4.png");
 		heroes[4] = ImageLoader.loadImage("/creatures/heroes/hero5.png");
 		heroes[5] = ImageLoader.loadImage("/creatures/heroes/hero6.png");
+		
+		//init zombies images
+		zombies[0] = ImageLoader.loadImage("/creatures/enemies/zombie.png");
+		zombies[1] = ImageLoader.loadImage("/creatures/enemies/tankZombie.png");
+		zombies[2] = ImageLoader.loadImage("/creatures/enemies/fastZombie.png");
 	}
 }

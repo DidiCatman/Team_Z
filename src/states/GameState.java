@@ -7,6 +7,7 @@ import entities.EntityManager;
 import entities.HouseManager;
 import entities.Spawn;
 import entities.SpawnManager;
+import entities.Zombies;
 import entities.player.Player;
 import gfx.Assets;
 import main.Handler;
@@ -83,6 +84,12 @@ public class GameState extends State implements Settings, Translations{
 		}
 	}
 	
+	//add zombie-spawn to tile xy
+	public void addSpawn(int x, int y, int pos){
+		Spawn s = new Spawn(handler, x, y, pos);
+		spawnManager.addSpawn(s);
+	}
+	
 	//add player from the choosePlayerMenu
 	public void addPlayer(int hero){
 		int id = entityManager.getPlayers().size();
@@ -90,10 +97,10 @@ public class GameState extends State implements Settings, Translations{
 		entityManager.addPlayer(p);
 	}
 	
-	//add zombie-spawn to tile xy
-	public void addSpawn(int x, int y, int pos){
-		Spawn s = new Spawn(handler, x, y, pos);
-		spawnManager.addSpawn(s);
+	//add zombie to spawnpoint
+	public void addZombies(int tilex, int tiley, int id){
+		Zombies z = new Zombies(handler, tilex, tiley, DEFAULT_ZOMBIES_HEALTH, id, Assets.zombies[0]);
+		entityManager.addZombies(z);
 	}
 	
 	//set turn values ready for next turn
