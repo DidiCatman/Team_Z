@@ -3,8 +3,8 @@ package worlds;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import entities.House;
-import entities.Room;
+import entities.buildings.House;
+import entities.buildings.Room;
 import main.Handler;
 import main.Settings;
 import tiles.Tile;
@@ -89,37 +89,39 @@ public class World implements Settings{
 	public void loadHouses(){
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
-				ArrayList<Room> rooms = new ArrayList<Room>();
-				//detect single house
-				if(tiles[x][y] == 1){
-					rooms.add(new Room(handler, x, y, 1));
-				}
-				
-				
-				if(tiles[x][y] == 4){		//detect south room
-					rooms.add(new Room(handler, x, y, 4));
-					if((y+1) < height){
-						if(tiles[x][y+1] == 7){		//detect middle room
-							rooms.add(new Room(handler, x, y+1, 7));
-							rooms.add(new Room(handler, x, y+2, 2));
-						}else if(tiles[x][y+1] == 2){		//detect north room
-							rooms.add(new Room(handler, x, y+1, 2));
+				if(tiles[x][y] == 1 || tiles[x][y] == 3 || tiles[x][y] == 4){
+					ArrayList<Room> rooms = new ArrayList<Room>();
+					//detect single house
+					if(tiles[x][y] == 1){
+						rooms.add(new Room(handler, x, y, 1));
+					}
+					
+					
+					if(tiles[x][y] == 4){		//detect south room
+						rooms.add(new Room(handler, x, y, 4));
+						if((y+1) < height){
+							if(tiles[x][y+1] == 7){		//detect middle room
+								rooms.add(new Room(handler, x, y+1, 7));
+								rooms.add(new Room(handler, x, y+2, 2));
+							}else if(tiles[x][y+1] == 2){		//detect north room
+								rooms.add(new Room(handler, x, y+1, 2));
+							}
 						}
 					}
-				}
-				
-				if(tiles[x][y] == 3){		//detect west room
-					rooms.add(new Room(handler, x, y, 3));
-					if((x+1) < width){
-						if(tiles[x+1][y] == 6){		//detect middle room
-							rooms.add(new Room(handler, x+1, y, 6));
-							rooms.add(new Room(handler, x+2, y, 5));
-						}else if(tiles[x+1][y] == 5){		//detect east room
-							rooms.add(new Room(handler, x+1, y, 5));
+					
+					if(tiles[x][y] == 3){		//detect west room
+						rooms.add(new Room(handler, x, y, 3));
+						if((x+1) < width){
+							if(tiles[x+1][y] == 6){		//detect middle room
+								rooms.add(new Room(handler, x+1, y, 6));
+								rooms.add(new Room(handler, x+2, y, 5));
+							}else if(tiles[x+1][y] == 5){		//detect east room
+								rooms.add(new Room(handler, x+1, y, 5));
+							}
 						}
 					}
+					handler.getGame().getGameState().getHouseManager().addHouse(new House(handler, rooms));
 				}
-				handler.getGame().getGameState().getHouseManager().addHouse(new House(handler, rooms));
 			}
 		}
 		

@@ -94,5 +94,9 @@ public class EntityManager implements Settings {
 
 	public ArrayList<Zombies> getZombies() {
 		return zombies;
+  }
+  
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
 	}
 }

@@ -1,9 +1,12 @@
-package entities;
+package entities.buildings;
+
+import java.awt.Point;
 
 import main.Handler;
 
 public class Room {
 	
+	@SuppressWarnings("unused")
 	private Handler handler;
 	private int tilex, tiley;
 	private int id;
@@ -41,5 +44,9 @@ public class Room {
 
 	public int getId() {
 		return id;
+	}
+	
+	public Point getTilePoint(){
+		return new Point(tilex, tiley);
 	}
 }

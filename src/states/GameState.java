@@ -4,10 +4,11 @@ import java.awt.Graphics;
 import java.util.Arrays;
 
 import entities.EntityManager;
-import entities.HouseManager;
 import entities.Spawn;
 import entities.SpawnManager;
 import entities.Zombies;
+import entities.buildings.HouseManager;
+import entities.items.ItemManager;
 import entities.player.Player;
 import gfx.Assets;
 import main.Handler;
@@ -26,11 +27,13 @@ public class GameState extends State implements Settings, Translations{
 	private EntityManager entityManager;
 	private HouseManager houseManager;
 	private SpawnManager spawnManager;
+	private ItemManager itemManager;
 	private IngameUI ingameUI;
 	
 	private int turns;
 	private boolean[] turnEnded;
-	private boolean showMoves, showAttacks, showSearchables;
+	private boolean hasSearched;
+	private boolean showMoves, showAttacks, showSearchables, showOpenDoors;
 	
 	public GameState(Handler handler){
 		super(handler);
@@ -38,18 +41,21 @@ public class GameState extends State implements Settings, Translations{
 		entityManager = new EntityManager(handler);
 		ingameUI = new IngameUI(handler);
 		world = new World(this.handler, "res/worlds/world1.txt", counter);
-		handler.setWorld(world);
+		this.handler.setWorld(world);
 		start_tilex = handler.getWorld().getSpawn_x();
 		start_tiley = handler.getWorld().getSpawn_y();
 		
 		houseManager = new HouseManager(handler);
 		spawnManager = new SpawnManager(handler);
+		itemManager = new ItemManager(handler);
 		
 		turns = 0;
 		turnEnded = new boolean[entityManager.getPlayers().size()];
+		hasSearched = false;
 		showMoves = false;
 		showAttacks = false;
 		showSearchables = false;
+		showOpenDoors = false;
 	}
 	
 	@Override
@@ -108,10 +114,12 @@ public class GameState extends State implements Settings, Translations{
 		for(int i = 0; i < turnEnded.length; i++){
 			if(turnEnded[i] == false){
 				turnEnded[i] = true;
-				
+
+				hasSearched = false;
 				showMoves = false;
 				showAttacks = false;
 				showSearchables = false;
+				showOpenDoors = false;
 				
 				return;
 			}
@@ -123,6 +131,9 @@ public class GameState extends State implements Settings, Translations{
 		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getAttack().setActive(false);
 		showSearchables = false;
 		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getSearch().setActive(false);
+		showSearchables = false;
+		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getOpenDoors().setActive(false);
+		hasSearched = false;
 	}
 
 	private void calculateEnemySteps(){
@@ -138,14 +149,20 @@ public class GameState extends State implements Settings, Translations{
 		}
 		
 		//end of round
+		initNextRound();
+		turns++;
+		return (Player) entityManager.getPlayers().get(0);
+	}
+	
+	private void initNextRound(){
 		calculateEnemySteps();
+		hasSearched = false;
 		spawnManager.tick();
+		
 		Arrays.fill(turnEnded, Boolean.FALSE);
 		for(Player p: entityManager.getPlayers()){
 			p.setActionCounter(DEFAULT_ACTIONS);
 		}
-		turns++;
-		return (Player) entityManager.getPlayers().get(0);
 	}
 	
 	//GETTERS & SETTERS
@@ -157,24 +174,40 @@ public class GameState extends State implements Settings, Translations{
 		return showMoves;
 	}
 
-	public void setShowMoves(boolean showMoves) {
-		this.showMoves = showMoves;
+	public void setShowMoves(boolean var) {
+		this.showMoves = var;
 	}
 
 	public boolean isShowAttacks() {
 		return showAttacks;
 	}
 
-	public void setShowAttacks(boolean showAttacks) {
-		this.showAttacks = showAttacks;
+	public void setShowAttacks(boolean var) {
+		this.showAttacks = var;
 	}
 
 	public boolean isShowSearchables() {
 		return showSearchables;
 	}
 
-	public void setShowItems(boolean showItems) {
-		this.showSearchables = showItems;
+	public void setShowItems(boolean var) {
+		this.showSearchables = var;
+	}
+
+	public boolean isShowOpenDoors() {
+		return showOpenDoors;
+	}
+
+	public void setShowOpenDoors(boolean var) {
+		this.showOpenDoors = var;
+	}
+
+	public boolean hasSearched() {
+		return hasSearched;
+	}
+
+	public void setHasSearched(boolean hasSearched) {
+		this.hasSearched = hasSearched;
 	}
 
 	public EntityManager getEntityManager() {
@@ -187,6 +220,10 @@ public class GameState extends State implements Settings, Translations{
 	
 	public IngameUI getIngameUI() {
 		return ingameUI;
+	}
+
+	public ItemManager getItemManager() {
+		return itemManager;
 	}
 
 }

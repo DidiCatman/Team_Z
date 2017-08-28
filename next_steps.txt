@@ -1,8 +1,8 @@
 next steps
-	- houses with searchable treasures
-		-> init open door function
-			-> dialoge to choose from 2 doors
-		-> init items and treasures
+	- houses with searchable items
+		-> init search for items per turn
+			-> function getRandomItem in ItemManager
+			-> Player with inventory
 	- finish player ui
 		-> item list
 		-> player tooltip informations
@@ -10,7 +10,7 @@ next steps
 	- implement Items and ItemManager
 	- PlayerActions need functions
 	- fog of war für häuser und ecken bei wegen
-	- anzahl der gegner für spielfeld darstellen
+	- gesamtanzahl der gegner für spielfeld darstellen
 	
 	
 questziele:
@@ -19,3 +19,9 @@ questziele:
 2. erreiche ein bestimmtes level 
 3. finde einen bestimmten gegenstand durch raum durchsuchen
 4. töte einen bestimmten boss
+
+
+sword (range 0, treffer 1, erfolg 4+, dmg 1)
+bow (range 0-1, treffer 1, erfolg 3+, dmg 1)
+axe (range 0-1, treffer 1, erfolg 4+, dmg 1)
+magic_Scroll(range 0, treffer 1, erfolg 4+, dmg 2)

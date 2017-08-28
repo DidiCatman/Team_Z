@@ -11,24 +11,29 @@ public class Assets implements Settings, Translations{
 	private static final int width = 32, height = 32;
 	
 	//fonts
-	public static Font font28, font18;
+	public static Font font28, font23, font18;
 	
 	//images
 	public static BufferedImage grass, wall;
 	public static BufferedImage[] start_btn, quit_btn, minus_btn, plus_btn, dropdown_btn;
 	public static BufferedImage[] back_btn, back_written_btn, forward_btn, backward_btn;
 	public static BufferedImage[] heroes;
+
 	public static BufferedImage[] zombies;
-	public static BufferedImage[] settings, move, attack, search, end_turn;
+	public static BufferedImage[] settings, move, attack, search, open_doors;
+
 	public static BufferedImage[] en, de;
 	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
 	public static BufferedImage selector, movable_tile, heart, heart_empty, doors_hor, doors_hor_open, doors_ver, doors_ver_open, zombi_spawn_active_hor, zombi_spawn_active_ver;
 	public static BufferedImage intro_logo;
 	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background, tooltip_background;
 	
+	public static BufferedImage sword, bow, axe, magic_scroll;
+	
 
 	public static void init(){
 		font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
+		font23 = FontLoader.loadFont("res/fonts/slkscr.ttf", 23);
 		font18 = FontLoader.loadFont("res/fonts/slkscr.ttf", 18);
 		
 		//init sheets
@@ -39,6 +44,7 @@ public class Assets implements Settings, Translations{
 		SpriteSheet buttons_hover_sheet = new SpriteSheet(ImageLoader.loadImage("/menues/buttons_hover.png"));
 		SpriteSheet buttons_active_sheet = new SpriteSheet(ImageLoader.loadImage("/menues/buttons_active.png"));
 		SpriteSheet countries_sheet = new SpriteSheet(ImageLoader.loadImage("/logo/countries.png"));
+		SpriteSheet item_sheet = new SpriteSheet(ImageLoader.loadImage("/items/items.png"));
 
 		SpriteSheet backgrounds = new SpriteSheet(ImageLoader.loadImage("/backgrounds/backgrounds.png"));
 		SpriteSheet intro = new SpriteSheet(ImageLoader.loadImage("/logo/logo.jpg"));
@@ -59,7 +65,7 @@ public class Assets implements Settings, Translations{
 		move = new BufferedImage[3];
 		attack = new BufferedImage[3];
 		search = new BufferedImage[3];
-		end_turn = new BufferedImage[2];
+		open_doors = new BufferedImage[3];
 		en = new BufferedImage[2];
 		de = new BufferedImage[2];
 
@@ -85,8 +91,9 @@ public class Assets implements Settings, Translations{
 		backward_btn[1] = buttons_hover_sheet.crop(0, 128, width, height);
 		
 		//init ingame images
-		end_turn[0] = buttons_sheet.crop(0, 256, width * 2, height);
-		end_turn[1] = buttons_hover_sheet.crop(0, 256, width * 2, height);
+		open_doors[0] = buttons_sheet.crop(0, 256, width * 2, height);
+		open_doors[1] = buttons_hover_sheet.crop(0, 256, width * 2, height);
+		open_doors[2] = buttons_active_sheet.crop(0, 256, width * 2, height);
 		
 		settings[0] = buttons_sheet.crop(96, 96, width, height);
 		settings[1] = buttons_hover_sheet.crop(96, 96, width, height);
@@ -151,5 +158,11 @@ public class Assets implements Settings, Translations{
 		zombies[0] = ImageLoader.loadImage("/creatures/enemies/zombie.png");
 		zombies[1] = ImageLoader.loadImage("/creatures/enemies/tankZombie.png");
 		zombies[2] = ImageLoader.loadImage("/creatures/enemies/fastZombie.png");
+
+		//init items
+		sword = item_sheet.crop(0, 0, TILESIZE, TILESIZE);
+		bow = item_sheet.crop(TILESIZE, 0, TILESIZE, TILESIZE);
+		axe = item_sheet.crop(TILESIZE * 2, 0, TILESIZE, TILESIZE);
+		magic_scroll = item_sheet.crop(TILESIZE * 3, 0, TILESIZE, TILESIZE);
 	}
 }

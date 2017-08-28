@@ -40,7 +40,7 @@ public class Tile implements Settings{
 		g.drawImage(texture, x, y, TILESIZE, TILESIZE, null);
 	}
 	
-	public boolean isClosed(){
+	public boolean isLocked(){
 		return this.locked;
 	}
 	
@@ -49,7 +49,7 @@ public class Tile implements Settings{
 		return id;
 	}
 	
-	public void openTile(){
+	public void openRoom(){
 		this.locked = false;
 	}
 }
