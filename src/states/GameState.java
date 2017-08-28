@@ -20,6 +20,7 @@ public class GameState extends State implements Settings, Translations{
 	private World world;
 	private int counter;
 	private int start_tilex, start_tiley;
+	private int[] spawnzone_x, spawnzone_y, spawnposition;
 	
 	private EntityManager entityManager;
 	private HouseManager houseManager;
@@ -39,6 +40,7 @@ public class GameState extends State implements Settings, Translations{
 		handler.setWorld(world);
 		start_tilex = handler.getWorld().getSpawn_x();
 		start_tiley = handler.getWorld().getSpawn_y();
+		
 		houseManager = new HouseManager(handler);
 		spawnManager = new SpawnManager(handler);
 		
@@ -72,7 +74,13 @@ public class GameState extends State implements Settings, Translations{
 		Arrays.fill(turnEnded, Boolean.FALSE);
 		handler.getGame().getGameState().getIngameUI().getInventory().getPlayerMenu().start();
 		world.loadHouses();
-		addSpawn(8,6,"south");
+		
+		spawnzone_x = handler.getWorld().getSpawnzone_x();
+		spawnzone_y = handler.getWorld().getSpawnzone_y();
+		spawnposition = handler.getWorld().getSpawnposition();		
+		for(int i = 0; i < handler.getWorld().getSpawnnumber(); i++){
+			addSpawn(spawnzone_x[i],spawnzone_y[i],spawnposition[i]);
+		}
 	}
 	
 	//add player from the choosePlayerMenu
@@ -83,7 +91,7 @@ public class GameState extends State implements Settings, Translations{
 	}
 	
 	//add zombie-spawn to tile xy
-	public void addSpawn(int x, int y, String pos){
+	public void addSpawn(int x, int y, int pos){
 		Spawn s = new Spawn(handler, x, y, pos);
 		spawnManager.addSpawn(s);
 	}
