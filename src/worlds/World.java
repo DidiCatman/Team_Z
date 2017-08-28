@@ -16,6 +16,8 @@ public class World implements Settings{
 	private int width, height;
 	private int spawn_x, spawn_y;
 	private int[][] tiles;
+	private int spawnnumber;
+	private int[] spawnzone_x, spawnzone_y, spawnposition;
 	private int map_x_offset, map_y_offset;
 	
 	public World(Handler handler, String path, int lvl){
@@ -67,6 +69,21 @@ public class World implements Settings{
 				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
 			}
 		}
+		
+		spawnnumber = (tokens.length - (height * width + 4)) / 3;
+		spawnzone_x = new int[spawnnumber];
+		spawnzone_y = new int[spawnnumber];
+		spawnposition = new int[spawnnumber];
+		
+		for(int i = 0; i < spawnnumber; i++){
+			spawnzone_x[i] = Utils.parseInt(tokens[height * width + 4 + 3 * i]);
+			spawnzone_y[i] = Utils.parseInt(tokens[height * width + 5 + 3 * i]);
+			spawnposition[i] = Utils.parseInt(tokens[height * width + 6 + 3 * i]);
+		}
+		
+//		for(int i = 0; i < spawnnumber; i++){
+//		System.out.println("Spawn #" + (i + 1) + " @ x=" + spawnzone_x[i] + " and y=" + spawnzone_y[i] + " (pos:" + spawnposition[i] + ")");
+//		}
 	}
 	
 	public void loadHouses(){
@@ -154,4 +171,19 @@ public class World implements Settings{
 		this.spawn_y = spawn_y;
 	}
 	
+	public int getSpawnnumber(){
+		return spawnnumber;
+	}
+	
+	public int[] getSpawnzone_x(){
+		return spawnzone_x;
+	}
+	
+	public int[] getSpawnzone_y(){
+		return spawnzone_y;
+	}
+	
+	public int[] getSpawnposition(){
+		return spawnposition;
+	}
 }

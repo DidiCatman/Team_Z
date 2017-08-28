@@ -30,6 +30,10 @@ public class SpawnManager {
 	public void addSpawn(Spawn h){
 		spawn.add(h);
 	}
+	
+	public ArrayList<Spawn> getSpawn(){
+		return spawn;
+	}
 
 	public Handler getHandler() {
 		return handler;

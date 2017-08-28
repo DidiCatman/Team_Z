@@ -14,7 +14,9 @@ public interface Settings {
 
 	public final static int DEFAULT_ATTACK = 1;
 	public final static int DEFAULT_ACTIONS = 3;
+	public final static int DEFAULT_ZOMBIES_ACTIONS = 1;
 	public final static int DEFAULT_PLAYER_HEALTH = 3;
+	public final static int DEFAULT_ZOMBIES_HEALTH = 1;
 		
 	public final static int MAXPLAYERNUMBER = 6;
 	public final static int MAXITEMS = 5;

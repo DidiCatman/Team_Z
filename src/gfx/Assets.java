@@ -18,10 +18,13 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] start_btn, quit_btn, minus_btn, plus_btn, dropdown_btn;
 	public static BufferedImage[] back_btn, back_written_btn, forward_btn, backward_btn;
 	public static BufferedImage[] heroes;
+
+	public static BufferedImage[] zombies;
 	public static BufferedImage[] settings, move, attack, search, open_doors;
+
 	public static BufferedImage[] en, de;
 	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
-	public static BufferedImage selector, movable_tile, heart, heart_empty, doors_hor, doors_hor_open, doors_ver, doors_ver_open, zombi_spawn_active;
+	public static BufferedImage selector, movable_tile, heart, heart_empty, doors_hor, doors_hor_open, doors_ver, doors_ver_open, zombi_spawn_active_hor, zombi_spawn_active_ver;
 	public static BufferedImage intro_logo;
 	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background, tooltip_background;
 	
@@ -57,6 +60,7 @@ public class Assets implements Settings, Translations{
 		forward_btn = new BufferedImage[2];
 		backward_btn = new BufferedImage[2];
 		heroes = new BufferedImage[HERONAMES.length];
+		zombies = new BufferedImage[3];
 		settings = new BufferedImage[3];
 		move = new BufferedImage[3];
 		attack = new BufferedImage[3];
@@ -131,7 +135,8 @@ public class Assets implements Settings, Translations{
 		doors_hor_open = tiles_spritesheet.crop(TILESIZE * 2 + 6, TILESIZE * 2, 6, 21);
 		doors_ver = tiles_spritesheet.crop(TILESIZE * 2 + 12, TILESIZE * 2, 21, 6);
 		doors_ver_open = tiles_spritesheet.crop(TILESIZE * 2 + 12, TILESIZE * 2 + 6, 21, 6);
-		zombi_spawn_active = tiles_spritesheet.crop(TILESIZE * 2 + 33, TILESIZE *2, 48, 21);
+		zombi_spawn_active_hor = tiles_spritesheet.crop(TILESIZE * 2 + 33, TILESIZE * 2, 48, 21);
+		zombi_spawn_active_ver = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE * 2 + 21, 21, 48);
 		
 		//init Backgrounds
 		main_background = backgrounds.crop(0, 0, WIDTH, HEIGHT);
@@ -149,6 +154,11 @@ public class Assets implements Settings, Translations{
 		heroes[4] = ImageLoader.loadImage("/creatures/heroes/hero5.png");
 		heroes[5] = ImageLoader.loadImage("/creatures/heroes/hero6.png");
 		
+		//init zombies images
+		zombies[0] = ImageLoader.loadImage("/creatures/enemies/zombie.png");
+		zombies[1] = ImageLoader.loadImage("/creatures/enemies/tankZombie.png");
+		zombies[2] = ImageLoader.loadImage("/creatures/enemies/fastZombie.png");
+
 		//init items
 		sword = item_sheet.crop(0, 0, TILESIZE, TILESIZE);
 		bow = item_sheet.crop(TILESIZE, 0, TILESIZE, TILESIZE);
