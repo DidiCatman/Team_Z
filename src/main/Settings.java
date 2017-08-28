@@ -17,6 +17,7 @@ public interface Settings {
 	public final static int DEFAULT_PLAYER_HEALTH = 3;
 		
 	public final static int MAXPLAYERNUMBER = 6;
+	public final static int MAXITEMS = 5;
 
 	public final static int TILE_VOID = 0;
 	public final static int TILE_SINGLE = 1;

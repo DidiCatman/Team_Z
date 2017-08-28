@@ -3,8 +3,10 @@ package entities.player;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import entities.Entity;
+import entities.items.Item;
 import entities.player.actions.PlayerActions;
 import main.Handler;
 import main.Translations;
@@ -16,6 +18,7 @@ public class Player extends Entity implements Translations{
 	private int xoffset;
 	private int actionCounter;
 	private PlayerActions actions;
+	private ArrayList<Item> items;
 
 	public Player(Handler handler, int tilex, int tiley, int maxHealth, int hero, String name, int id, BufferedImage image) {
 		super(handler, tilex, tiley, maxHealth, image);
@@ -24,6 +27,7 @@ public class Player extends Entity implements Translations{
 		actions = new PlayerActions(handler);
 		actionCounter = DEFAULT_ACTIONS;
 		xoffset = id * 12;
+		items = new ArrayList<Item>();
 	}
 
 	@Override
@@ -58,6 +62,12 @@ public class Player extends Entity implements Translations{
 			handler.getGame().getGameState().endTurn();
 		}
 	}
+	
+	public void addItemToInventory(Item i){
+		if(items.size() < MAXITEMS){
+			items.add(i);
+		}
+	}
 
 	//GETTERS & SETTERS
 	public String getHeroName() {
@@ -86,6 +96,10 @@ public class Player extends Entity implements Translations{
 
 	public void setXoffset(int xoffset) {
 		this.xoffset = xoffset;
+	}
+
+	public ArrayList<Item> getItems() {
+		return items;
 	}
 
 }

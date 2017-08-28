@@ -1,8 +1,12 @@
 package entities.player.actions;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
+import entities.buildings.House;
+import entities.buildings.Room;
 import entities.items.Item;
+import entities.player.Player;
 import main.Handler;
 import main.Settings;
 
@@ -28,11 +32,20 @@ public class PlayerActions implements Settings{
 		}
 		
 		if(handler.getGame().getGameState().isShowSearchables()){
-			if(!handler.getGame().getGameState().hasSearched()){
-				Item item = handler.getGame().getGameState().getItemManager().randomItem();
-				handler.getGame().getGameState().setHasSearched(true);
-				handler.getGame().getGameState().getTurnPlayer().decreaseActionPoints();
-				System.out.println("random item: " + item.getName() + " | id: " + item.getId());
+			if(!handler.getGame().getGameState().hasSearched()){//check if player is in house
+				Player player = handler.getGame().getGameState().getTurnPlayer();
+				ArrayList<House> houses = handler.getGame().getGameState().getHouseManager().getHouses();
+				for(House h: houses){
+					for(Room r: h.getRooms()){
+						if(player.getTilex() == r.getTilex() && player.getTiley() == r.getTiley()){
+							Item item = handler.getGame().getGameState().getItemManager().randomItem();
+							handler.getGame().getGameState().getTurnPlayer().addItemToInventory(item);
+							handler.getGame().getGameState().setHasSearched(true);
+							handler.getGame().getGameState().getTurnPlayer().decreaseActionPoints();
+							System.out.println("random item: " + item.getName() + " | id: " + item.getId());
+						}
+					}
+				}
 			}else{
 				System.out.println("item was searched before");
 			}

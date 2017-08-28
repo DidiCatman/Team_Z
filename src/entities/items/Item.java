@@ -12,7 +12,7 @@ public class Item {
 	public static Item sword = new Item(0, Assets.sword, "Sword", 0, 1, 70, 1);
 	public static Item bow = new Item(1, Assets.bow, "Bow", 1, 1, 50, 1);
 	public static Item axe = new Item(2, Assets.axe, "Axe", 1, 1, 70, 1);
-	public static Item magic_scroll = new Item(3, Assets.magic_scroll, "Magic Scroll", 0, 1, 70, 2);
+	public static Item magic_scroll = new Item(3, Assets.magic_scroll, "Scroll", 0, 1, 70, 2);
 	
 	//CLASS VARIABLES
 	protected final int id;
@@ -36,8 +36,8 @@ public class Item {
 		
 	}
 	
-	public void renderTexture(Graphics g, int x, int y){
-		g.drawImage(texture, x, y, null);
+	public void renderTexture(Graphics g, int x, int y, int width, int height){
+		g.drawImage(texture, x, y, width, height, null);
 	}
 
 	//GETTERS && SETTERS
@@ -51,6 +51,22 @@ public class Item {
 
 	public static Item[] getItems() {
 		return items;
+	}
+
+	public int getRange() {
+		return range;
+	}
+
+	public int getHitEnemiesCount() {
+		return hitEnemiesCount;
+	}
+
+	public int getPercentToHit() {
+		return percentToHit;
+	}
+
+	public int getDamage() {
+		return damage;
 	}
 
 }
