@@ -2,7 +2,11 @@ bugs:
 -> Inventory Bug: tradeplayer button changes a lot on click
 
 next steps
-	- Open Doors with random probability of zombies
+	- houses with searchable items
+		-> init search for items per turn
+			-> change item when item was found and player has 5 items in inventory
+			-> equip items for left hand, right hand
+				-> check if item isn't equiped in hand class
 	- finish player ui
 		-> player tooltip informations
 		-> setting game menu
@@ -47,3 +51,9 @@ sword (range 0, treffer 1, erfolg 4+, dmg 1)
 bow (range 0-1, treffer 1, erfolg 3+, dmg 1)
 axe (range 0-1, treffer 1, erfolg 4+, dmg 1)
 magic_Scroll(range 0, treffer 1, erfolg 4+, dmg 2)
+
+redesign
+
+taskmenu:
+	- als ringmenü um den helden herum (mittig extra angezeigt / halbtransparent)
+	- unterauswahl mit back button, etc.

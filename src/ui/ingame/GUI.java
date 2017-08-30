@@ -19,6 +19,7 @@ public class GUI implements Settings, Translations{
 	private TaskMenu taskMenu;
 	private PlayerMenu playerMenu;
 	private Inventory inventory;
+	private Hand leftHand, rightHand, body;
 
 	public GUI(Handler handler){
 		this.handler = handler;
@@ -36,6 +37,10 @@ public class GUI implements Settings, Translations{
 				System.out.println(WORDS[handler.getGame().getLanguage()][2]);
 			}
 		};
+		
+		leftHand = new Hand(handler, 4, 505);
+		rightHand = new Hand(handler, 400, 505);
+		body = new Hand(handler, WIDTH - Assets.hands_inventar_background.getWidth() - 4, 505);
 	}
 
 	public void tick(){
@@ -43,6 +48,9 @@ public class GUI implements Settings, Translations{
 		taskMenu.tick();
 		playerMenu.tick();
 		inventory.tick();
+		leftHand.tick();
+		body.tick();
+		rightHand.tick();
 	}
 	
 	public void start(){
