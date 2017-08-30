@@ -109,6 +109,36 @@ public class GameState extends State implements Settings, Translations{
 		entityManager.addZombies(z);
 	}
 	
+	//calculate zombie movement
+	private void calculateEnemySteps(){
+		System.out.println("NIY - Calculate enemy steps");
+	}
+	
+	//get current player
+	public Player getTurnPlayer(){
+		for(int i = 0; i < turnEnded.length; i++){
+			if(turnEnded[i] == false){
+				return entityManager.getPlayers().get(i);
+			}
+		}
+		
+		//end of round
+		initNextRound();
+		turns++;
+		return (Player) entityManager.getPlayers().get(0);
+	}
+	
+	private void initNextRound(){
+		calculateEnemySteps();
+		hasSearched = false;
+		spawnManager.spawn();
+		
+		Arrays.fill(turnEnded, Boolean.FALSE);
+		for(Player p: entityManager.getPlayers()){
+			p.setActionCounter(DEFAULT_ACTIONS);
+		}
+	}
+	
 	//set turn values ready for next turn
 	public void endTurn(){
 		for(int i = 0; i < turnEnded.length; i++){
@@ -136,35 +166,6 @@ public class GameState extends State implements Settings, Translations{
 		hasSearched = false;
 	}
 
-	private void calculateEnemySteps(){
-		System.out.println("NIY - Calculate enemy steps");
-	}
-	
-	//get current player
-	public Player getTurnPlayer(){
-		for(int i = 0; i < turnEnded.length; i++){
-			if(turnEnded[i] == false){
-				return entityManager.getPlayers().get(i);
-			}
-		}
-		
-		//end of round
-		initNextRound();
-		turns++;
-		return (Player) entityManager.getPlayers().get(0);
-	}
-	
-	private void initNextRound(){
-		calculateEnemySteps();
-		hasSearched = false;
-		spawnManager.tick();
-		
-		Arrays.fill(turnEnded, Boolean.FALSE);
-		for(Player p: entityManager.getPlayers()){
-			p.setActionCounter(DEFAULT_ACTIONS);
-		}
-	}
-	
 	//GETTERS & SETTERS
 	public int getTurns(){
 		return this.turns;

@@ -9,12 +9,13 @@ import main.Handler;
 
 public class Zombies extends Entity {
 	
-	private int id, xoffset;
+	private int id, xoffset, yoffset;
 	
 	public Zombies(Handler handler, int tilex, int tiley, int maxHealth, int id, BufferedImage image) {
 		super(handler, tilex, tiley, maxHealth, image);
 		this.id = id;
-		xoffset = id * 16;
+		xoffset = 0;
+		yoffset = 16+ id * 16;
 	}
 
 	public void tick() {		
@@ -22,7 +23,8 @@ public class Zombies extends Entity {
 
 	public void render(Graphics g) {	
 		int xoff = handler.getWorld().getMap_x_offset();
-		g.drawImage(image, tilex * TILESIZE + xoff + xoffset, tiley * TILESIZE, null);
+		int yoff = handler.getWorld().getMap_y_offset();
+		g.drawImage(image, tilex * TILESIZE + xoff + xoffset, tiley * TILESIZE + yoff + yoffset, null);
 	}
 	
 	public int getID() {

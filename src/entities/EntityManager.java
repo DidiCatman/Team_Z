@@ -1,9 +1,12 @@
 package entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
 import entities.player.Player;
+import gfx.Assets;
+import gfx.Text;
 import entities.Zombies;
 import main.Handler;
 import main.Settings;
@@ -12,12 +15,13 @@ public class EntityManager implements Settings {
 	
 	private Handler handler;
 	private ArrayList<Player> players;
-	private ArrayList<Zombies> zombies;
+	private ArrayList<Zombies> zombies, temparray;
 
 	public EntityManager(Handler handler){
 		this.handler = handler;
 		players = new ArrayList<Player>();
 		zombies = new ArrayList<Zombies>();
+		temparray = new ArrayList<Zombies>();
 	}
 	
 	public void tick(){
@@ -61,20 +65,39 @@ public class EntityManager implements Settings {
 		}
 	}
 	
-	private void renderZombies(Graphics g) {
-		for(int i = 0; i < zombies.size(); i++){
+	private void renderZombies(Graphics g){
+		int xoff = handler.getWorld().getMap_x_offset(), yoff = handler.getWorld().getMap_y_offset();
+		temparray.clear();
+		for(Zombies z: zombies){
 			int count = 0;
-			for(int x = 0; x < i; x++){
-				if(zombies.get(x).getTile().equals(zombies.get(i).getTile())){
-					count++;
+			int id = z.getID();
+			int number[] = countZombies(z.getTilex(),z.getTiley());		
+			temparray.add(z);
+			if(number[id] <= 5){
+				for(Zombies t: temparray){
+					z.setXoffset(count * 16);
+					if(t.getTile().equals(z.getTile()) && t.getID() == id){
+						count++;
+					}
 				}
+			}else{
+				Text.drawString(g, String.valueOf(number[id]), z.getTilex() * TILESIZE + xoff + 16, z.getTiley() * TILESIZE + yoff + 30 + id * 16, false, Color.BLACK, Assets.font18);
+				z.setXoffset(0);
 			}
-				zombies.get(i).setXoffset(count * 16);
 		}
-		
 		for(Zombies z: zombies){
 			z.render(g);
 		}
+	}
+	
+	public int[] countZombies(int tilex, int tiley){
+		int[] number = new int[3];
+		for(Zombies z: zombies){
+			if (z.getTilex() == tilex && z.getTiley() == tiley){
+				number[z.getID()]++;
+			}
+		}
+		return number;
 	}
 
 	public void addPlayer(Player player){

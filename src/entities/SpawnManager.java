@@ -16,8 +16,11 @@ public class SpawnManager {
 	}
 	
 	public void tick(){
+	}
+	
+	public void spawn(){
 		for(Spawn s: spawn){
-			s.tick();
+			s.spawn();
 		}
 	}
 	
