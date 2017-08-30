@@ -24,10 +24,10 @@ public class Player extends Entity implements Translations{
 		super(handler, tilex, tiley, maxHealth, image);
 		this.heroname = name;
 		this.id = id;
-		actions = new PlayerActions(handler);
-		actionCounter = DEFAULT_ACTIONS;
-		xoffset = id * 12;
-		items = new ArrayList<Item>();
+		this.actions = new PlayerActions(handler);
+		this.actionCounter = DEFAULT_ACTIONS;
+		this.xoffset = id * 12;
+		this.items = new ArrayList<Item>();
 	}
 
 	@Override

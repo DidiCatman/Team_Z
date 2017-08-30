@@ -19,6 +19,7 @@ public class Item {
 	protected BufferedImage texture;
 	protected String name;
 	protected int range, hitEnemiesCount, percentToHit, damage;
+	protected int inv_place; // 0 = unset, 1 = leftHand, 2 = body, 3 = rightHand
 	
 	public Item(int id, BufferedImage img, String name, int range, int hitEnemiesCount, int percentToHit, int damage){
 		this.id = id;
@@ -28,6 +29,7 @@ public class Item {
 		this.hitEnemiesCount = hitEnemiesCount;
 		this.percentToHit = percentToHit;
 		this.damage = damage;
+		this.inv_place = 0;
 		
 		items[id] = this;
 	}
@@ -69,4 +71,11 @@ public class Item {
 		return damage;
 	}
 
+	public int getInv_place() {
+		return inv_place;
+	}
+
+	public void setInv_place(int inv_place) {
+		this.inv_place = inv_place;
+	}
 }

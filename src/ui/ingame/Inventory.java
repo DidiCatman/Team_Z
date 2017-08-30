@@ -17,6 +17,7 @@ public class Inventory implements Settings, Translations{
 	private UIImageButton settings;
 	private TaskMenu taskMenu;
 	private PlayerMenu playerMenu;
+	private Hand leftHand, rightHand, body;
 
 	public Inventory(Handler handler){
 		this.handler = handler;
@@ -33,20 +34,33 @@ public class Inventory implements Settings, Translations{
 				System.out.println(WORDS[handler.getGame().getLanguage()][2]);
 			}
 		};
+		
+		leftHand = new Hand(handler, 4, 505);
+		rightHand = new Hand(handler, 400, 505);
+		body = new Hand(handler, WIDTH - Assets.hands_inventar_background.getWidth() - 4, 505);
 	}
 
 	public void tick(){
 		settings.tick();
 		taskMenu.tick();
 		playerMenu.tick();
+		leftHand.tick();
+		body.tick();
+		rightHand.tick();
+	}
+	
+	public void start(){
+		playerMenu.start();
 	}
 	
 	public void render(Graphics g){
-		//draw inventory backgrounds
+		//draw inventory background
 		g.drawImage(Assets.ingame_inventar_background, 0, 0, null);
-		g.drawImage(Assets.hands_inventar_background, 4, 505, Assets.hands_inventar_background.getWidth(), Assets.hands_inventar_background.getHeight(), null);
-		g.drawImage(Assets.hands_inventar_background, 400, 505, Assets.hands_inventar_background.getWidth(), Assets.hands_inventar_background.getHeight(), null);
-		g.drawImage(Assets.hands_inventar_background, WIDTH - Assets.hands_inventar_background.getWidth() - 4, 505, Assets.hands_inventar_background.getWidth(), Assets.hands_inventar_background.getHeight(), null);
+		
+		//draw active inventory places
+		leftHand.render(g);
+		body.render(g);
+		rightHand.render(g);
 		
 		//draw buttons
 		settings.render(g);

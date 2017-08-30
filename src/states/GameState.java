@@ -84,7 +84,6 @@ public class GameState extends State implements Settings, Translations{
 	public void start(){
 		turnEnded = new boolean[entityManager.getPlayers().size()];
 		Arrays.fill(turnEnded, Boolean.FALSE);
-		handler.getGame().getGameState().getIngameUI().getInventory().getPlayerMenu().start();
 		world.loadHouses();
 		
 		spawnzone_x = handler.getWorld().getSpawnzone_x();
@@ -93,6 +92,7 @@ public class GameState extends State implements Settings, Translations{
 		for(int i = 0; i < handler.getWorld().getSpawnnumber(); i++){
 			addSpawn(spawnzone_x[i],spawnzone_y[i],spawnposition[i]);
 		}
+		handler.getGame().getGameState().getIngameUI().getInventory().start();
 	}
 	
 	//add zombie-spawn to tile xy

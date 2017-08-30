@@ -73,7 +73,6 @@ public class TaskMenu {
 				move.setActive(false);
 				attack.setActive(false);
 				open.setActive(false);
-				System.out.println("NIY - item");
 			}
 		};
 		open = new UIImageButton(handler, 675, 555, Assets.open_doors){
@@ -93,7 +92,6 @@ public class TaskMenu {
 				move.setActive(false);
 				attack.setActive(false);
 				search.setActive(false);
-				System.out.println("NIY - open");
 			}
 		};
 	}
