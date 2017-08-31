@@ -4,9 +4,10 @@ import java.awt.Graphics;
 import java.util.Arrays;
 
 import entities.EntityManager;
-import entities.Spawn;
-import entities.SpawnManager;
-import entities.Zombies;
+import entities.spawn.Spawn;
+import entities.spawn.SpawnManager;
+import entities.zombies.Zombies;
+import entities.zombies.MoveZombies;
 import entities.buildings.HouseManager;
 import entities.items.ItemManager;
 import entities.player.Player;
@@ -29,6 +30,7 @@ public class GameState extends State implements Settings, Translations{
 	private SpawnManager spawnManager;
 	private ItemManager itemManager;
 	private IngameUI ingameUI;
+	private MoveZombies moveZombies;
 	
 	private int turns;
 	private boolean[] turnEnded;
@@ -48,6 +50,8 @@ public class GameState extends State implements Settings, Translations{
 		houseManager = new HouseManager(handler);
 		spawnManager = new SpawnManager(handler);
 		itemManager = new ItemManager(handler);
+		
+		moveZombies = new MoveZombies();
 		
 		turns = 0;
 		turnEnded = new boolean[entityManager.getPlayers().size()];
@@ -105,13 +109,9 @@ public class GameState extends State implements Settings, Translations{
 	
 	//add zombie to spawnpoint
 	public void addZombies(int tilex, int tiley, int id){
-		Zombies z = new Zombies(handler, tilex, tiley, DEFAULT_ZOMBIES_HEALTH, id, Assets.zombies[id]);
+		int idx = entityManager.getZombies().size();
+		Zombies z = new Zombies(handler, tilex, tiley, DEFAULT_ZOMBIES_HEALTH, id, idx, Assets.zombies[id]);
 		entityManager.addZombies(z);
-	}
-	
-	//calculate zombie movement
-	private void calculateEnemySteps(){
-		System.out.println("NIY - Calculate enemy steps");
 	}
 	
 	//get current player
@@ -129,7 +129,10 @@ public class GameState extends State implements Settings, Translations{
 	}
 	
 	private void initNextRound(){
-		calculateEnemySteps();
+		moveZombies.calculateEnemySteps();
+		for(Zombies z: entityManager.getZombies()){
+			z.move();
+		}
 		hasSearched = false;
 		spawnManager.spawn();
 		

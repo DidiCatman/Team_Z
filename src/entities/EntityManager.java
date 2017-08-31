@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import entities.player.Player;
 import gfx.Assets;
 import gfx.Text;
-import entities.Zombies;
+import entities.zombies.Zombies;
 import main.Handler;
 import main.Settings;
 

@@ -1,4 +1,4 @@
-package entities;
+package entities.spawn;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
