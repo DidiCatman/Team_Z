@@ -20,7 +20,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] heroes;
 
 	public static BufferedImage[] zombies;
-	public static BufferedImage[] settings, move, attack, search, open_doors;
+	public static BufferedImage[] settings, move, attack, search, open_doors, endTurn, trade;
 
 	public static BufferedImage[] en, de;
 	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
@@ -66,6 +66,8 @@ public class Assets implements Settings, Translations{
 		attack = new BufferedImage[3];
 		search = new BufferedImage[3];
 		open_doors = new BufferedImage[3];
+		endTurn = new BufferedImage[3];
+		trade = new BufferedImage[3];
 		en = new BufferedImage[2];
 		de = new BufferedImage[2];
 
@@ -94,6 +96,12 @@ public class Assets implements Settings, Translations{
 		open_doors[0] = buttons_sheet.crop(0, 256, width * 2, height);
 		open_doors[1] = buttons_hover_sheet.crop(0, 256, width * 2, height);
 		open_doors[2] = buttons_active_sheet.crop(0, 256, width * 2, height);
+		endTurn[0] = buttons_sheet.crop(width * 2, 160, width * 2, height);
+		endTurn[1] = buttons_hover_sheet.crop(width * 2, 160, width * 2, height);
+		endTurn[2] = buttons_active_sheet.crop(width * 2, 160, width * 2, height);
+		trade[0] = buttons_sheet.crop(width * 2, 192, width * 2, height);
+		trade[1] = buttons_hover_sheet.crop(width * 2, 192, width * 2, height);
+		trade[2] = buttons_active_sheet.crop(width * 2, 192, width * 2, height);
 		
 		settings[0] = buttons_sheet.crop(96, 96, width, height);
 		settings[1] = buttons_hover_sheet.crop(96, 96, width, height);

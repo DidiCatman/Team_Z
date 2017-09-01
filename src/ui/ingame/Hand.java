@@ -19,10 +19,11 @@ public class Hand implements Settings{
 	private Rectangle bounds;
 	private Item[] item;
 	private int itemCounter;
-	private long lastActionTimer, actionCooldown = 100, actionTimer = actionCooldown;
+	private long lastActionTimer, actionCooldown = 200, actionTimer = actionCooldown;
 	private boolean set;
+	private int place;
 	
-	public Hand(Handler handler, int x, int y){
+	public Hand(Handler handler, int x, int y, int inv_place){
 		this.handler = handler;
 		this.background_img = Assets.hands_inventar_background;
 		this.x = x; 
@@ -33,6 +34,7 @@ public class Hand implements Settings{
 		this.set = false;
 		this.itemCounter = 0;
 		this.item = new Item[MAXPLAYERNUMBER];
+		this.place = inv_place;
 	}
 	
 	public void tick(){
@@ -66,23 +68,28 @@ public class Hand implements Settings{
 		
 		//if inventory is not empty
 		if(!p.getItems().isEmpty()){
-			/*
-			 * mit ner for loop gegenchecken...
-			 */
-			//check if counter + 1 is greater or equal than items.size
-			if(itemCounter + 1 >= p.getItems().size()){
-				if((itemCounter + 1) == p.getItems().size()){
-					//set item to null
-					itemCounter = p.getItems().size();
-					item[p.getId()] = null;
+			for(int i = itemCounter; i < p.getItems().size(); ){
+				System.out.println("i: " + i + " | itemCounter: " + itemCounter);				
+				
+				//if item is not in use
+				if(p.getItems().get(i).getInv_place() == 0){
+					if(item[p.getId()] != null)
+						item[p.getId()].setInv_place(0);
+					item[p.getId()] = p.getItems().get(i);
+					item[p.getId()].setInv_place(place);
+					itemCounter = i;
+					System.out.println("item " + p.getItems().get(i).getName() + " was set for hand");
+					return;
+				//if item is in use
 				}else{
-					itemCounter = 0;
-					item[p.getId()] = p.getItems().get(0);
+					i++;
 				}
-			}else{
-				itemCounter++;
-				item[p.getId()] = p.getItems().get(itemCounter);
 			}
+			
+			//if item cant be selected (iterated through list without result)
+			p.getItems().get(itemCounter).setInv_place(0);
+			itemCounter = 0;
+			item[p.getId()] = null;
 		}
 	}
 	

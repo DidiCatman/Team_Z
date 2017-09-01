@@ -5,10 +5,9 @@ next steps
 			-> equip items for left hand, right hand
 				-> check if item isn't equiped in hand class
 	- finish player ui
-		-> item list
 		-> player tooltip informations
 		-> setting game menu 
-	- implement Items and ItemManager
+		-> Buttons 'end turn' and 'trade'
 	- PlayerActions need functions
 	- fog of war für häuser und ecken bei wegen
 	- gesamtanzahl der gegner für spielfeld darstellen

@@ -35,9 +35,9 @@ public class Inventory implements Settings, Translations{
 			}
 		};
 		
-		leftHand = new Hand(handler, 4, 505);
-		rightHand = new Hand(handler, 400, 505);
-		body = new Hand(handler, WIDTH - Assets.hands_inventar_background.getWidth() - 4, 505);
+		leftHand = new Hand(handler, 4, 505, 1);
+		body = new Hand(handler, 370, 505, 2);
+		rightHand = new Hand(handler, WIDTH - Assets.hands_inventar_background.getWidth() - 4, 505, 3);
 	}
 
 	public void tick(){
