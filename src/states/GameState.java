@@ -8,6 +8,7 @@ import entities.spawn.Spawn;
 import entities.spawn.SpawnManager;
 import entities.zombies.Zombies;
 import entities.zombies.MoveZombies;
+import entities.zombies.Type;
 import entities.buildings.HouseManager;
 import entities.items.ItemManager;
 import entities.player.Player;
@@ -108,9 +109,9 @@ public class GameState extends State implements Settings, Translations{
 	}
 	
 	//add zombie to spawnpoint
-	public void addZombies(int tilex, int tiley, int id){
-		int idx = entityManager.getZombies().size();
-		Zombies z = new Zombies(handler, tilex, tiley, DEFAULT_ZOMBIES_HEALTH, id, idx, Assets.zombies[id]);
+	public void addZombies(int tilex, int tiley, Type type){
+		int id = entityManager.getZombies().size();
+		Zombies z = new Zombies(handler, tilex, tiley, id, type);
 		entityManager.addZombies(z);
 	}
 	

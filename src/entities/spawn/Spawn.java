@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import entities.zombies.Type;
 import gfx.Assets;
 import main.Handler;
 import main.Settings;
@@ -27,11 +28,11 @@ public class Spawn implements Settings {
 	}
 	
 	public void spawn(){
-		int id = rnd.nextInt(3); // rnd selection of zombie id
+		int r = rnd.nextInt(Type.getType().length); // rnd selection of zombie id
 		int number = rnd.nextInt(3); //rnd selection of number of zombies
-		System.out.println("NIY - Spawn " + number + " zombies with id:" + id + " @ x:" + tilex + " y:" + tiley);
+		System.out.println("Spawn " + number + " " + Type.getType()[r].getName() + " zombies @ x:" + tilex + " y:" + tiley);
 		for(int i = 0; i < number; i++){
-		handler.getGame().getGameState().addZombies(tilex, tiley, id);
+		handler.getGame().getGameState().addZombies(tilex, tiley, Type.getType()[r]);
 		}
 	}
 	

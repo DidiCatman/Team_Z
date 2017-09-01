@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import entities.player.Player;
 import gfx.Assets;
 import gfx.Text;
+import entities.zombies.Type;
 import entities.zombies.Zombies;
 import main.Handler;
 import main.Settings;
@@ -70,31 +71,35 @@ public class EntityManager implements Settings {
 		temparray.clear();
 		for(Zombies z: zombies){
 			int count = 0;
-			int id = z.getID();
+			int type_id = z.getType().getId();
 			int number[] = countZombies(z.getTilex(),z.getTiley());		
 			temparray.add(z);
-			if(number[id] <= 5){
+			//set xoffset to all zombies on same tile if less than 6 zombies
+			if(number[type_id] <= 5){
 				for(Zombies t: temparray){
 					z.setXoffset(count * 16);
-					if(t.getTile().equals(z.getTile()) && t.getID() == id){
+					if(t.getTile().equals(z.getTile()) && t.getType().getId() == type_id){
 						count++;
 					}
 				}
+			//otherwise set xoffset to 0 and render number of zombies next to zombie
 			}else{
-				Text.drawString(g, String.valueOf(number[id]), z.getTilex() * TILESIZE + xoff + 16, z.getTiley() * TILESIZE + yoff + 30 + id * 16, false, Color.BLACK, Assets.font18);
+				Text.drawString(g, String.valueOf(number[type_id]), z.getTilex() * TILESIZE + xoff + 16, z.getTiley() * TILESIZE + yoff + 30 + type_id * 16, false, Color.BLACK, Assets.font18);
 				z.setXoffset(0);
 			}
 		}
+		//render zombies
 		for(Zombies z: zombies){
 			z.render(g);
 		}
 	}
 	
+	//count the number of zombies on tile (return number for different types as integer array)
 	public int[] countZombies(int tilex, int tiley){
-		int[] number = new int[3];
+		int[] number = new int[Type.getType().length];
 		for(Zombies z: zombies){
 			if (z.getTilex() == tilex && z.getTiley() == tiley){
-				number[z.getID()]++;
+				number[z.getType().getId()]++;
 			}
 		}
 		return number;
