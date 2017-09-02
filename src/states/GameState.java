@@ -2,12 +2,13 @@ package states;
 
 import java.awt.Graphics;
 import java.util.Arrays;
+import java.util.Random;
 
 import entities.EntityManager;
 import entities.spawn.Spawn;
 import entities.spawn.SpawnManager;
 import entities.zombies.Zombies;
-import entities.zombies.MoveZombies;
+import entities.zombies.PathFinder;
 import entities.zombies.Type;
 import entities.buildings.HouseManager;
 import entities.items.ItemManager;
@@ -25,13 +26,14 @@ public class GameState extends State implements Settings, Translations{
 	private int counter;
 	private int start_tilex, start_tiley;
 	private int[] spawnzone_x, spawnzone_y, spawnposition;
+	private Random rnd = new Random();
 	
 	private EntityManager entityManager;
 	private HouseManager houseManager;
 	private SpawnManager spawnManager;
 	private ItemManager itemManager;
 	private IngameUI ingameUI;
-	private MoveZombies moveZombies;
+	private PathFinder pathFinder;
 	
 	private int turns;
 	private boolean[] turnEnded;
@@ -52,7 +54,7 @@ public class GameState extends State implements Settings, Translations{
 		spawnManager = new SpawnManager(handler);
 		itemManager = new ItemManager(handler);
 		
-		moveZombies = new MoveZombies();
+		pathFinder = new PathFinder(handler);
 		
 		turns = 0;
 		turnEnded = new boolean[entityManager.getPlayers().size()];
@@ -101,6 +103,16 @@ public class GameState extends State implements Settings, Translations{
 		spawnManager.addSpawn(s);
 	}
 	
+	//spawn zombie at tile xy	
+	public void spawn(int tilex, int tiley){
+		int r = rnd.nextInt(Type.getType().length); // rnd selection of zombie id
+		int number = rnd.nextInt(3); //rnd selection of number of zombies
+		System.out.println("spawn " + number + " " + Type.getType()[r].getName() + " zombies @ x:" + tilex + " y:" + tiley);
+		for(int i = 0; i < number; i++){
+		addZombies(tilex, tiley, Type.getType()[r]);
+		}
+	}
+	
 	//add player from the choosePlayerMenu
 	public void addPlayer(int hero){
 		int id = entityManager.getPlayers().size();
@@ -130,7 +142,7 @@ public class GameState extends State implements Settings, Translations{
 	}
 	
 	private void initNextRound(){
-		moveZombies.calculateEnemySteps();
+		pathFinder.findPath(spawnzone_x[0], spawnzone_y[0]); //find path: spawnzone[0] -> player (for testing)
 		for(Zombies z: entityManager.getZombies()){
 			z.move();
 		}

@@ -42,7 +42,7 @@ public class HouseManager implements Settings{
 				if(tx + 1 < w.getWidth() && w.getTile(tx + 1, ty).getId() == TILE_ROAD){
 					houses.get(i).setRoom(r);
 					houses.get(i).setDoor(1);
-				//detect east tile	
+				//detect west tile	
 				}else if(tx - 1 >= 0 && w.getTile(tx - 1, ty).getId() == TILE_ROAD){
 					houses.get(i).setRoom(r);
 					houses.get(i).setDoor(2);

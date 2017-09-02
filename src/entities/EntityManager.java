@@ -104,7 +104,7 @@ public class EntityManager implements Settings {
 		}
 		return number;
 	}
-
+	
 	public void addPlayer(Player player){
 		players.add(player);
 	}

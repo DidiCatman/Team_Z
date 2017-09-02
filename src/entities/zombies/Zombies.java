@@ -23,7 +23,7 @@ public class Zombies extends Entity {
 	}
 	
 	public void move(){
-		System.out.println("move zombie #" + (id + 1));
+		System.out.println("NIY - move zombie #" + (id + 1));
 	}
 
 	public void render(Graphics g){	
