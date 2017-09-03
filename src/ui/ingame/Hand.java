@@ -18,7 +18,7 @@ public class Hand implements Settings{
 	private int x, y, width, height;
 	private Rectangle bounds;
 	private Item[] item;
-	private int itemCounter;
+	private int itemCounter[];
 	private long lastActionTimer, actionCooldown = 200, actionTimer = actionCooldown;
 	private boolean set;
 	private int place;
@@ -32,7 +32,7 @@ public class Hand implements Settings{
 		this.height = Assets.hands_inventar_background.getHeight();
 		this.bounds = new Rectangle(x, y, width, height);
 		this.set = false;
-		this.itemCounter = 0;
+		this.itemCounter = new int[MAXPLAYERNUMBER];
 		this.item = new Item[MAXPLAYERNUMBER];
 		this.place = inv_place;
 	}
@@ -41,8 +41,10 @@ public class Hand implements Settings{
 		if(!set){
 			int size = handler.getGame().getGameState().getEntityManager().getPlayers().size();
 			item = new Item[size];
+			itemCounter = new int[size];
 			for(int i = 0; i < size; i++){
 				item[i] = null;
+				itemCounter[i] = 0;
 			}
 			set = true;
 		}
@@ -68,7 +70,7 @@ public class Hand implements Settings{
 		
 		//if inventory is not empty
 		if(!p.getItems().isEmpty()){
-			for(int i = itemCounter; i < p.getItems().size(); ){
+			for(int i = itemCounter[p.getId()]; i < p.getItems().size(); ){
 				System.out.println("i: " + i + " | itemCounter: " + itemCounter);				
 				
 				//if item is not in use
@@ -77,7 +79,7 @@ public class Hand implements Settings{
 						item[p.getId()].setInv_place(0);
 					item[p.getId()] = p.getItems().get(i);
 					item[p.getId()].setInv_place(place);
-					itemCounter = i;
+					itemCounter[p.getId()] = i;
 					System.out.println("item " + p.getItems().get(i).getName() + " was set for hand");
 					return;
 				//if item is in use
@@ -87,8 +89,8 @@ public class Hand implements Settings{
 			}
 			
 			//if item cant be selected (iterated through list without result)
-			p.getItems().get(itemCounter).setInv_place(0);
-			itemCounter = 0;
+			p.getItems().get(itemCounter[p.getId()]).setInv_place(0);
+			itemCounter[p.getId()] = 0;
 			item[p.getId()] = null;
 		}
 	}

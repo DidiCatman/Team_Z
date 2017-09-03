@@ -139,12 +139,12 @@ public class Assets implements Settings, Translations{
 		//init special tiles
 		selector = specialTiles_sheet.crop(0, 0, TILESIZE/3, TILESIZE/3);
 		movable_tile = specialTiles_sheet.crop(0, TILESIZE/3, TILESIZE/3, TILESIZE/3);
-		doors_hor = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE * 2, 6, 21);
-		doors_hor_open = tiles_spritesheet.crop(TILESIZE * 2 + 6, TILESIZE * 2, 6, 21);
-		doors_ver = tiles_spritesheet.crop(TILESIZE * 2 + 12, TILESIZE * 2, 21, 6);
-		doors_ver_open = tiles_spritesheet.crop(TILESIZE * 2 + 12, TILESIZE * 2 + 6, 21, 6);
-		zombi_spawn_active_hor = tiles_spritesheet.crop(TILESIZE * 2 + 33, TILESIZE * 2, 48, 21);
-		zombi_spawn_active_ver = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE * 2 + 21, 21, 48);
+		doors_hor = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE * 2, 12, 21);
+		doors_hor_open = tiles_spritesheet.crop(TILESIZE * 2 + 12, TILESIZE * 2, 12, 21);
+		doors_ver = tiles_spritesheet.crop(TILESIZE * 2 + 24, TILESIZE * 2, 21, 12);
+		doors_ver_open = tiles_spritesheet.crop(TILESIZE * 2 + 24, TILESIZE * 2 + 12, 21, 12);
+		zombi_spawn_active_hor = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE * 2 + 24, 48, 21);
+		zombi_spawn_active_ver = tiles_spritesheet.crop(TILESIZE * 2 + 48, TILESIZE * 2, 21, 48);
 		
 		//init Backgrounds
 		main_background = backgrounds.crop(0, 0, WIDTH, HEIGHT);

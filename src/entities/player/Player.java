@@ -28,6 +28,10 @@ public class Player extends Entity implements Translations{
 		this.actionCounter = DEFAULT_ACTIONS;
 		this.xoffset = id * 12;
 		this.items = new ArrayList<Item>();
+		items.add(Item.sword);
+		items.add(Item.axe);
+		items.add(Item.bow);
+		items.add(Item.magic_scroll);
 	}
 
 	@Override
