@@ -9,7 +9,8 @@ import ui.UIImageButton;
 public class TaskMenu {
 	
 	private Handler handler;
-	private UIImageButton move, attack, search, open;
+	private UIImageButton move, attack, search, open, 
+	endTurn, trade;
 
 	public TaskMenu(Handler handler){
 		this.handler = handler;
@@ -17,7 +18,7 @@ public class TaskMenu {
 	}
 	
 	private void initButtons() {
-		move = new UIImageButton(handler, 600, 515, Assets.move){
+		move = new UIImageButton(handler, 525, 515, Assets.move){
 			@Override
 			public void initAction(){
 				if(!handler.getGame().getGameState().isShowMoves()){
@@ -36,7 +37,7 @@ public class TaskMenu {
 				open.setActive(false);
 			}
 		};
-		attack = new UIImageButton(handler, 675, 515, Assets.attack){
+		attack = new UIImageButton(handler, 600, 515, Assets.attack){
 			@Override
 			public void initAction(){
 				if(!handler.getGame().getGameState().isShowAttacks()){
@@ -56,7 +57,21 @@ public class TaskMenu {
 				System.out.println("NIY - attack");
 			}
 		};
-		search = new UIImageButton(handler, 600, 555, Assets.search){
+		trade = new UIImageButton(handler, 675, 515, Assets.trade){
+			@Override
+			public void initAction(){				
+				handler.getGame().getGameState().setShowMoves(false);
+				handler.getGame().getGameState().setShowAttacks(false);
+				handler.getGame().getGameState().setShowItems(false);
+				move.setActive(false);
+				attack.setActive(false);
+				search.setActive(false);
+				
+				System.out.println("NIY - trade ");
+			}
+		};
+		
+		search = new UIImageButton(handler, 525, 555, Assets.search){
 			@Override
 			public void initAction(){
 				if(!handler.getGame().getGameState().isShowSearchables()){
@@ -75,7 +90,7 @@ public class TaskMenu {
 				open.setActive(false);
 			}
 		};
-		open = new UIImageButton(handler, 675, 555, Assets.open_doors){
+		open = new UIImageButton(handler, 600, 555, Assets.open_doors){
 			@Override
 			public void initAction(){
 				if(!handler.getGame().getGameState().isShowOpenDoors()){
@@ -94,6 +109,18 @@ public class TaskMenu {
 				search.setActive(false);
 			}
 		};
+		endTurn = new UIImageButton(handler, 675, 555, Assets.endTurn){
+			@Override
+			public void initAction(){				
+				handler.getGame().getGameState().setShowMoves(false);
+				handler.getGame().getGameState().setShowAttacks(false);
+				handler.getGame().getGameState().setShowItems(false);
+				move.setActive(false);
+				attack.setActive(false);
+				search.setActive(false);
+				handler.getGame().getGameState().endTurn();
+			}
+		};
 	}
 
 	public void tick(){
@@ -101,6 +128,8 @@ public class TaskMenu {
 		attack.tick();
 		search.tick();
 		open.tick();
+		trade.tick();
+		endTurn.tick();
 	}
 	
 	public void render(Graphics g){
@@ -108,6 +137,8 @@ public class TaskMenu {
 		attack.render(g);
 		search.render(g);
 		open.render(g);
+		trade.render(g);
+		endTurn.render(g);
 	}
 
 	//GETTERS & SETTERS

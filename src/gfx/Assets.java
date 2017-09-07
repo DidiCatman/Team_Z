@@ -23,6 +23,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] settings, move, attack, search, open_doors, endTurn, trade;
 
 	public static BufferedImage[] en, de;
+	public static BufferedImage[] spawner_hor, spawner_ver;
 	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
 	public static BufferedImage selector, movable_tile, heart, heart_empty, doors_hor, doors_hor_open, doors_ver, doors_ver_open, zombi_spawn_active_hor, zombi_spawn_active_ver;
 	public static BufferedImage intro_logo;
@@ -70,6 +71,8 @@ public class Assets implements Settings, Translations{
 		trade = new BufferedImage[3];
 		en = new BufferedImage[2];
 		de = new BufferedImage[2];
+		spawner_hor = new BufferedImage[3];
+		spawner_ver = new BufferedImage[3];
 
 		//init menu images
 		start_btn[0] = buttons_sheet.crop(128, 0, 128, 64);
@@ -139,12 +142,20 @@ public class Assets implements Settings, Translations{
 		//init special tiles
 		selector = specialTiles_sheet.crop(0, 0, TILESIZE/3, TILESIZE/3);
 		movable_tile = specialTiles_sheet.crop(0, TILESIZE/3, TILESIZE/3, TILESIZE/3);
-		doors_hor = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE * 2, 12, 21);
-		doors_hor_open = tiles_spritesheet.crop(TILESIZE * 2 + 12, TILESIZE * 2, 12, 21);
-		doors_ver = tiles_spritesheet.crop(TILESIZE * 2 + 24, TILESIZE * 2, 21, 12);
-		doors_ver_open = tiles_spritesheet.crop(TILESIZE * 2 + 24, TILESIZE * 2 + 12, 21, 12);
+		doors_hor = specialTiles_sheet.crop(0, 54, 12, 21);
+		doors_hor_open = specialTiles_sheet.crop(12, 54, 12, 21);
+		doors_ver = specialTiles_sheet.crop(24, 54, 21, 12);
+		doors_ver_open = specialTiles_sheet.crop(24, 54 + 12, 21, 12);
 		zombi_spawn_active_hor = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE * 2 + 24, 48, 21);
 		zombi_spawn_active_ver = tiles_spritesheet.crop(TILESIZE * 2 + 48, TILESIZE * 2, 21, 48);
+		
+		spawner_hor[0] = specialTiles_sheet.crop(0, 78, 48, 21);
+		spawner_hor[1] = specialTiles_sheet.crop(0, 99, 48, 21);
+		spawner_hor[2] = specialTiles_sheet.crop(0, 120, 48, 21);
+
+		spawner_ver[0] = specialTiles_sheet.crop(0, 141, 21, 48);
+		spawner_ver[1] = specialTiles_sheet.crop(21, 141, 21, 48);
+		spawner_ver[2] = specialTiles_sheet.crop(0, 189, 21, 48);
 		
 		//init Backgrounds
 		main_background = backgrounds.crop(0, 0, WIDTH, HEIGHT);

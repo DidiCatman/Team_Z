@@ -67,6 +67,7 @@ public class GameState extends State implements Settings, Translations{
 	public void tick() {
 		world.tick();
 		entityManager.tick();
+		spawnManager.tick();
 		ingameUI.tick();
 	}
 
