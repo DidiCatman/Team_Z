@@ -1,6 +1,5 @@
 package states;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Arrays;
@@ -16,7 +15,6 @@ import entities.buildings.HouseManager;
 import entities.items.ItemManager;
 import entities.player.Player;
 import gfx.Assets;
-import gfx.Text;
 import main.Handler;
 import main.Settings;
 import main.Translations;

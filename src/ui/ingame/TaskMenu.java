@@ -12,7 +12,12 @@ import ui.UIImageButton;
 public class TaskMenu implements Settings {
 	
 	private Handler handler;
+<<<<<<< HEAD
 	private UIImageButton move, attack, search, open, endTurn, inventory;
+=======
+	private UIImageButton move, attack, search, open, 
+	endTurn, trade;
+>>>>>>> small redesign with endTurn and trade button
 
 	public TaskMenu(Handler handler){
 		this.handler = handler;
@@ -69,6 +74,22 @@ public class TaskMenu implements Settings {
 				System.out.println("NIY - attack");
 			}
 		};
+<<<<<<< HEAD
+=======
+		trade = new UIImageButton(handler, 675, 515, Assets.trade){
+			@Override
+			public void initAction(){				
+				handler.getGame().getGameState().setShowMoves(false);
+				handler.getGame().getGameState().setShowAttacks(false);
+				handler.getGame().getGameState().setShowItems(false);
+				move.setActive(false);
+				attack.setActive(false);
+				search.setActive(false);
+				
+				System.out.println("NIY - trade ");
+			}
+		};
+>>>>>>> small redesign with endTurn and trade button
 		
 		search = new UIImageButton(handler, 525, 555, Assets.search){
 			@Override
@@ -159,6 +180,18 @@ public class TaskMenu implements Settings {
 				search.setActive(false);
 			}
 		};
+		endTurn = new UIImageButton(handler, 675, 555, Assets.endTurn){
+			@Override
+			public void initAction(){				
+				handler.getGame().getGameState().setShowMoves(false);
+				handler.getGame().getGameState().setShowAttacks(false);
+				handler.getGame().getGameState().setShowItems(false);
+				move.setActive(false);
+				attack.setActive(false);
+				search.setActive(false);
+				handler.getGame().getGameState().endTurn();
+			}
+		};
 	}
 	
 	private void leftInventoryWarning(){
@@ -179,8 +212,13 @@ public class TaskMenu implements Settings {
 		attack.tick();
 		search.tick();
 		open.tick();
+<<<<<<< HEAD
 		endTurn.tick();
 		inventory.tick();
+=======
+		trade.tick();
+		endTurn.tick();
+>>>>>>> small redesign with endTurn and trade button
 	}
 	
 	public void render(Graphics g){
@@ -188,8 +226,13 @@ public class TaskMenu implements Settings {
 		attack.render(g);
 		search.render(g);
 		open.render(g);
+<<<<<<< HEAD
 		endTurn.render(g);
 		inventory.render(g);
+=======
+		trade.render(g);
+		endTurn.render(g);
+>>>>>>> small redesign with endTurn and trade button
 	}
 
 	//GETTERS & SETTERS

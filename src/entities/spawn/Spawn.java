@@ -2,6 +2,7 @@ package entities.spawn;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import entities.zombies.Type;
 import gfx.Animation;
@@ -15,9 +16,9 @@ public class Spawn implements Settings {
 	private int tilex, tiley;
 	private int x, y;
 	private int pos;
-
 	private BufferedImage img[];
 	private Animation animation;
+	private Random rnd = new Random();
 	
 	public Spawn(Handler handler, int tilex, int tiley, int pos){
 		this.setHandler(handler);
@@ -86,6 +87,12 @@ public class Spawn implements Settings {
 	
 	public void spawn(){
 		handler.getGame().getGameState().spawn(tilex, tiley);
+		int r = rnd.nextInt(Type.getType().length); // rnd selection of zombie id
+		int number = rnd.nextInt(3); //rnd selection of number of zombies
+		System.out.println("Spawn " + number + " " + Type.getType()[r].getName() + " zombies @ x:" + tilex + " y:" + tiley);
+		for(int i = 0; i < number; i++){
+			handler.getGame().getGameState().addZombies(tilex, tiley, Type.getType()[r]);
+		}
 	}
 	
 	public void render(Graphics g){
