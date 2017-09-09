@@ -53,11 +53,6 @@ public class PlayerMenu {
 			//render text
 			Text.drawString(g, String.valueOf("#" + (p.getId()+1) + " " + p.getHeroName()), player_rec[i].x + 10, player_rec[i].y + 20, false, Color.BLACK, Assets.font18);
 			Text.drawString(g, String.valueOf("Health: " + p.getHealth()), player_rec[i].x + 10, player_rec[i].y + 40, false, Color.BLACK, Assets.font18);
-			
-			//render rectangle for mouse bound collision (not needed)
-			Rectangle r = player_rec[i];
-			g.setColor(Color.black);
-			g.drawRect(r.x, r.y, r.width, r.height);
 		}
 		
 		if(activeTip){
