@@ -2,6 +2,10 @@ bugs:
 -> Inventory Bug: tradeplayer button changes a lot on click
 
 next steps
+	- init new road tiles and adjustment in tile/movable class
+	- Open Doors with random probability
+	- change items as one action (how to handle?)
+	- trade items
 	- finish player ui
 		-> player tooltip informations
 		-> setting game menu
@@ -9,16 +13,11 @@ next steps
 			-> sound settings
 			-> quit to main menu
 			-> quit game
-<<<<<<< HEAD
-=======
-		-> Buttons 'end turn' and 'trade'
->>>>>>> small redesign with endTurn and trade button
 	- PlayerActions need functions
 		-> Attack
 	- fog of war für häuser und ecken bei wegen
 	- gesamtanzahl der gegner für spielfeld darstellen
 	- questziele implementieren (game end)
-<<<<<<< HEAD
 	- select start weapons to players
 	- init doors with txt file or randon generator
 	
@@ -26,9 +25,7 @@ next steps
 refactoring
 -> houses/rooms und tiles auflösung
 -> player movement klasse
-=======
-	
->>>>>>> small redesign with endTurn and trade button
+	- init doors with txt file or randon generator
 
 redesign
 -> new spawner gfx
