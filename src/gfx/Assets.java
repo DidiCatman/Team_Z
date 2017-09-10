@@ -25,6 +25,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] en, de;
 	public static BufferedImage[] spawner_hor, spawner_ver;
 	public static BufferedImage tile_road, tile_single, tile_north, tile_east, tile_south, tile_west, tile_double_hor, tile_double_ver;
+	public static BufferedImage tile_road_vertical, tile_road_horizontal, tile_road_left_bottom, tile_road_left_top, tile_road_top_right, tile_road_bottom_right, tile_road_cross_left, tile_road_cross_right, tile_road_cross_all; 
 	public static BufferedImage selector, movable_tile, heart, heart_empty, doors_hor, doors_hor_open, doors_ver, doors_ver_open, zombi_spawn_active_hor, zombi_spawn_active_ver;
 	public static BufferedImage intro_logo;
 	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background, tooltip_background;
@@ -137,7 +138,17 @@ public class Assets implements Settings, Translations{
 		tile_east = tiles_spritesheet.crop(TILESIZE, TILESIZE, TILESIZE, TILESIZE);
 		tile_double_hor = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE, TILESIZE, TILESIZE);
 		tile_double_ver = tiles_spritesheet.crop(0, TILESIZE * 2, TILESIZE, TILESIZE);
+		
 		tile_road = tiles_spritesheet.crop(TILESIZE, TILESIZE * 2, TILESIZE, TILESIZE);
+		tile_road_vertical = tiles_spritesheet.crop(0, TILESIZE * 3, TILESIZE, TILESIZE); 
+		tile_road_horizontal = tiles_spritesheet.crop(TILESIZE, TILESIZE * 3, TILESIZE, TILESIZE); 
+		tile_road_left_bottom = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE * 3, TILESIZE, TILESIZE);
+		tile_road_left_top = tiles_spritesheet.crop(0, TILESIZE * 4, TILESIZE, TILESIZE);
+		tile_road_top_right = tiles_spritesheet.crop(TILESIZE, TILESIZE * 4, TILESIZE, TILESIZE); 
+		tile_road_bottom_right = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE * 4, TILESIZE, TILESIZE); 
+		tile_road_cross_left = tiles_spritesheet.crop(0, TILESIZE * 5, TILESIZE, TILESIZE); 
+		tile_road_cross_right = tiles_spritesheet.crop(TILESIZE, TILESIZE * 5, TILESIZE, TILESIZE); 
+		tile_road_cross_all = tiles_spritesheet.crop(TILESIZE * 2, TILESIZE * 5, TILESIZE, TILESIZE);
 		
 		//init special tiles
 		selector = specialTiles_sheet.crop(0, 0, TILESIZE/3, TILESIZE/3);

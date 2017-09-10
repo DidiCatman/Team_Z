@@ -19,6 +19,16 @@ public class Tile implements Settings{
 	public static Tile tile_double_ver = new Tile7(7);
 	public static Tile tile_road = new Tile8(8);
 	
+	public static Tile tile_road_vertical = new Tile9(9);
+	public static Tile tile_road_horizontal = new Tile10(10);
+	public static Tile tile_road_left_bottom = new Tile11(11);
+	public static Tile tile_road_left_top = new Tile12(12);
+	public static Tile tile_road_top_right = new Tile13(13);
+	public static Tile tile_road_top_bottom = new Tile14(14);
+	public static Tile tile_road_cross_left = new Tile15(15);
+	public static Tile tile_road_cross_right = new Tile16(16);
+	public static Tile tile_road_cross_all = new Tile17(17);
+	
 	//CLASS
 	protected BufferedImage texture;
 	protected final int id;
