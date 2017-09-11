@@ -93,6 +93,7 @@ public class GameState extends State implements Settings, Translations{
 //				number++;
 //			}
 //		}
+		gui.render(g);
 	}
 	
 	//set start values to the game
@@ -225,6 +226,8 @@ public class GameState extends State implements Settings, Translations{
 		showOpenDoors = false;
 		gui.getTaskMenu().getOpenDoors().setActive(false);
 		hasSearched = false;
+		
+		showInventory = false;
 	}
 
 	//GETTERS & SETTERS

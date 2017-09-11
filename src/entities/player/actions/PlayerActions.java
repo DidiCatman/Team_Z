@@ -36,6 +36,7 @@ public class PlayerActions implements Settings{
 		}
 		
 		if(handler.getGame().getGameState().isShowSearchables()){
+			//tick method for searching new item or error message when searched before in turn
 			searchItems.tick(); 
 		}
 		

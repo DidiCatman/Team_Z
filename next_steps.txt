@@ -2,10 +2,9 @@ bugs:
 -> Inventory Bug: tradeplayer button changes a lot on click
 
 next steps
-	- init new road tiles and adjustment in tile/movable class
-	- Open Doors with random probability
-	- change items as one action (how to handle?)
-	- trade items
+	- Open Doors with random probability of zombies
+	- inventory menu with dropdown items and trade menu with player on same tile 
+		for one action point
 	- finish player ui
 		-> player tooltip informations
 		-> setting game menu
