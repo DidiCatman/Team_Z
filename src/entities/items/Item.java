@@ -78,4 +78,8 @@ public class Item {
 	public void setInv_place(int inv_place) {
 		this.inv_place = inv_place;
 	}
+
+	public BufferedImage getTexture() {
+		return texture;
+	}
 }

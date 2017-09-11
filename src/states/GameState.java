@@ -16,7 +16,7 @@ import gfx.Assets;
 import main.Handler;
 import main.Settings;
 import main.Translations;
-import ui.ingame.IngameUI;
+import ui.ingame.GUI;
 import worlds.World;
 
 public class GameState extends State implements Settings, Translations{
@@ -30,19 +30,19 @@ public class GameState extends State implements Settings, Translations{
 	private HouseManager houseManager;
 	private SpawnManager spawnManager;
 	private ItemManager itemManager;
-	private IngameUI ingameUI;
+	private GUI gui;
 	private MoveZombies moveZombies;
 	
 	private int turns;
 	private boolean[] turnEnded;
 	private boolean hasSearched;
-	private boolean showMoves, showAttacks, showSearchables, showOpenDoors;
+	private boolean showMoves, showAttacks, showSearchables, showOpenDoors, showInventory;
 	
 	public GameState(Handler handler){
 		super(handler);
 		counter = 0;
 		entityManager = new EntityManager(handler);
-		ingameUI = new IngameUI(handler);
+		gui = new GUI(handler);
 		world = new World(this.handler, "res/worlds/world1.txt", counter);
 		this.handler.setWorld(world);
 		start_tilex = handler.getWorld().getSpawn_x();
@@ -61,6 +61,7 @@ public class GameState extends State implements Settings, Translations{
 		showAttacks = false;
 		showSearchables = false;
 		showOpenDoors = false;
+		showInventory = false;
 	}
 	
 	@Override
@@ -68,7 +69,7 @@ public class GameState extends State implements Settings, Translations{
 		world.tick();
 		entityManager.tick();
 		spawnManager.tick();
-		ingameUI.tick();
+		gui.tick();
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class GameState extends State implements Settings, Translations{
 		houseManager.render(g);
 		spawnManager.render(g);
 		entityManager.render(g);
-		ingameUI.render(g);
+		gui.render(g);
 	}
 	
 	//set start values to the game
@@ -93,7 +94,7 @@ public class GameState extends State implements Settings, Translations{
 		for(int i = 0; i < handler.getWorld().getSpawnnumber(); i++){
 			addSpawn(spawnzone_x[i],spawnzone_y[i],spawnposition[i]);
 		}
-		handler.getGame().getGameState().getIngameUI().getInventory().start();
+		handler.getGame().getGameState().getGUI().start();
 	}
 	
 	//add zombie-spawn to tile xy
@@ -155,20 +156,23 @@ public class GameState extends State implements Settings, Translations{
 				showAttacks = false;
 				showSearchables = false;
 				showOpenDoors = false;
+				showInventory = false;
 				
 				return;
 			}
 		}
 
 		showMoves = false;
-		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getMove().setActive(false);
+		gui.getTaskMenu().getMove().setActive(false);
 		showAttacks = false;
-		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getAttack().setActive(false);
+		gui.getTaskMenu().getAttack().setActive(false);
 		showSearchables = false;
-		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getSearch().setActive(false);
+		gui.getTaskMenu().getSearch().setActive(false);
 		showSearchables = false;
-		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getOpenDoors().setActive(false);
+		gui.getTaskMenu().getOpenDoors().setActive(false);
 		hasSearched = false;
+		
+		showInventory = false;
 	}
 
 	//GETTERS & SETTERS
@@ -194,6 +198,14 @@ public class GameState extends State implements Settings, Translations{
 
 	public boolean isShowSearchables() {
 		return showSearchables;
+	}
+
+	public boolean isShowInventory() {
+		return showInventory;
+	}
+
+	public void setShowInventory(boolean showInventory) {
+		this.showInventory = showInventory;
 	}
 
 	public void setShowItems(boolean var) {
@@ -224,8 +236,8 @@ public class GameState extends State implements Settings, Translations{
 		return houseManager;
 	}
 	
-	public IngameUI getIngameUI() {
-		return ingameUI;
+	public GUI getGUI() {
+		return gui;
 	}
 
 	public ItemManager getItemManager() {

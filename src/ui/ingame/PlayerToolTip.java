@@ -23,7 +23,7 @@ public class PlayerToolTip {
 	
 	public void render(Graphics g){
 		//draw background
-		g.drawImage(Assets.tooltip_background, 50, 50, null);
+		g.drawImage(Assets.tooltip_background, 60, 60, null);
 		
 		//draw text
 		Text.drawString(g, player.getHeroName(), 70, 90, false, Color.BLACK, Assets.font28);

@@ -20,7 +20,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] heroes;
 
 	public static BufferedImage[] zombies;
-	public static BufferedImage[] settings, move, attack, search, open_doors, endTurn, trade;
+	public static BufferedImage[] settings, move, attack, search, open_doors, endTurn, trade, inventory;
 
 	public static BufferedImage[] en, de;
 	public static BufferedImage[] spawner_hor, spawner_ver;
@@ -28,7 +28,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage tile_road_vertical, tile_road_horizontal, tile_road_left_bottom, tile_road_left_top, tile_road_top_right, tile_road_bottom_right, tile_road_cross_left, tile_road_cross_right, tile_road_cross_all; 
 	public static BufferedImage selector, movable_tile, heart, heart_empty, doors_hor, doors_hor_open, doors_ver, doors_ver_open, zombi_spawn_active_hor, zombi_spawn_active_ver;
 	public static BufferedImage intro_logo;
-	public static BufferedImage main_background, ingame_inventar_background, hands_inventar_background, tooltip_background;
+	public static BufferedImage main_background, ingame_gui_background, hands_inventar_background, tooltip_background, inventar_background;
 	
 	public static BufferedImage sword, bow, axe, magic_scroll;
 	
@@ -70,6 +70,7 @@ public class Assets implements Settings, Translations{
 		open_doors = new BufferedImage[3];
 		endTurn = new BufferedImage[3];
 		trade = new BufferedImage[3];
+		inventory = new BufferedImage[3];
 		en = new BufferedImage[2];
 		de = new BufferedImage[2];
 		spawner_hor = new BufferedImage[3];
@@ -110,6 +111,9 @@ public class Assets implements Settings, Translations{
 		settings[0] = buttons_sheet.crop(96, 96, width, height);
 		settings[1] = buttons_hover_sheet.crop(96, 96, width, height);
 		settings[2] = buttons_active_sheet.crop(96, 96, width, height);
+		inventory[0] = buttons_sheet.crop(0, 288, 144, height);
+		inventory[1] = buttons_hover_sheet.crop(0, 288, 144, height);
+		inventory[2] = buttons_active_sheet.crop(0, 288, 144, height);
 		move[0] = buttons_sheet.crop(0, 160, width * 2, height);
 		move[1] = buttons_hover_sheet.crop(0, 160, width * 2, height);
 		move[2] = buttons_active_sheet.crop(0, 160, width * 2, height);
@@ -170,9 +174,10 @@ public class Assets implements Settings, Translations{
 		
 		//init Backgrounds
 		main_background = backgrounds.crop(0, 0, WIDTH, HEIGHT);
-		ingame_inventar_background = backgrounds.crop(0, HEIGHT, WIDTH, HEIGHT);
+		ingame_gui_background = backgrounds.crop(0, HEIGHT, WIDTH, HEIGHT);
 		hands_inventar_background = backgrounds.crop(0, HEIGHT * 2, 145, 90);
 		tooltip_background = backgrounds.crop(0, 1290, 650, 400);
+		inventar_background = backgrounds.crop(0, 1690, 650, 400);
 		
 		intro_logo = intro.crop(0, 0, WIDTH, HEIGHT);
 		

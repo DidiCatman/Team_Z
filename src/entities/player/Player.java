@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import entities.Entity;
 import entities.items.Item;
 import entities.player.actions.PlayerActions;
+import gfx.Assets;
 import main.Handler;
 import main.Translations;
 
@@ -28,10 +29,10 @@ public class Player extends Entity implements Translations{
 		this.actionCounter = DEFAULT_ACTIONS;
 		this.xoffset = id * 12;
 		this.items = new ArrayList<Item>();
-		items.add(Item.sword);
-		items.add(Item.axe);
-		items.add(Item.bow);
-		items.add(Item.magic_scroll);
+		items.add(new Item(0, Assets.sword, "Sword", 0, 1, 70, 1));
+		items.add(new Item(1, Assets.bow, "Bow", 1, 1, 75, 1));
+		items.add(new Item(2, Assets.axe, "Axe", 0, 1, 70, 2));
+		items.add(new Item(3, Assets.magic_scroll, "Scroll", 1, 1, 70, 1));
 	}
 
 	@Override

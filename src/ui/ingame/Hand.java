@@ -104,4 +104,9 @@ public class Hand implements Settings{
 		}
 	}
 
+	//GETTERS & SETTERS
+	public Item[] getItem() {
+		return item;
+	}
+
 }
