@@ -46,6 +46,7 @@ public class GUI implements Settings, Translations{
 	
 	public void start(){
 		playerMenu.start();
+		inventory.start();
 	}
 	
 	public void render(Graphics g){

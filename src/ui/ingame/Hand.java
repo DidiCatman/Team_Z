@@ -103,10 +103,19 @@ public class Hand implements Settings{
 			item[id].renderTexture(g, x + 15, y + 15, 64, 64);
 		}
 	}
+	
+	public void setItemToZero(int playerID){
+		itemCounter[playerID] = handler.getGame().getGameState().getTurnPlayer().getItems().size();
+		item[playerID] = null;
+	}
 
 	//GETTERS & SETTERS
 	public Item[] getItem() {
 		return item;
+	}
+
+	public int[] getItemCounter() {
+		return itemCounter;
 	}
 
 }

@@ -171,8 +171,6 @@ public class GameState extends State implements Settings, Translations{
 		showSearchables = false;
 		gui.getTaskMenu().getOpenDoors().setActive(false);
 		hasSearched = false;
-		
-		showInventory = false;
 	}
 
 	//GETTERS & SETTERS

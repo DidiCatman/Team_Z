@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import entities.Entity;
 import entities.items.Item;
 import entities.player.actions.PlayerActions;
+import gfx.Animation;
 import gfx.Assets;
 import main.Handler;
 import main.Translations;
@@ -20,6 +21,7 @@ public class Player extends Entity implements Translations{
 	private int actionCounter;
 	private PlayerActions actions;
 	private ArrayList<Item> items;
+	private Animation activeHeroAnimation;
 
 	public Player(Handler handler, int tilex, int tiley, int maxHealth, int hero, String name, int id, BufferedImage image) {
 		super(handler, tilex, tiley, maxHealth, image);
@@ -33,11 +35,13 @@ public class Player extends Entity implements Translations{
 		items.add(new Item(1, Assets.bow, "Bow", 1, 1, 75, 1));
 		items.add(new Item(2, Assets.axe, "Axe", 0, 1, 70, 2));
 		items.add(new Item(3, Assets.magic_scroll, "Scroll", 1, 1, 70, 1));
+		activeHeroAnimation = new Animation(300, Assets.activeHeroAnims[id]);
 	}
 
 	@Override
 	public void tick() {
 		actions.tick();
+		activeHeroAnimation.tick();
 	}
 	
 	@Override
@@ -56,7 +60,7 @@ public class Player extends Entity implements Translations{
 	public void renderActive(Graphics g) {
 		int xoff = handler.getWorld().getMap_x_offset();
 		int yoff = handler.getWorld().getMap_y_offset();
-		g.drawImage(image, tilex * TILESIZE + xoff + TILESIZE/2 - image.getWidth(), tiley * TILESIZE + yoff + TILESIZE/2 - image.getHeight(), image.getWidth() * 2, image.getHeight() * 2, null);
+		g.drawImage(activeHeroAnimation.getCurrentFrame(), tilex * TILESIZE + xoff + TILESIZE/2 - activeHeroAnimation.getCurrentFrame().getWidth()/2, tiley * TILESIZE + yoff + TILESIZE/2 - activeHeroAnimation.getCurrentFrame().getHeight()/2, activeHeroAnimation.getCurrentFrame().getWidth(), activeHeroAnimation.getCurrentFrame().getHeight(), null);
 		
 		actions.render(g);
 	}
@@ -105,6 +109,10 @@ public class Player extends Entity implements Translations{
 
 	public ArrayList<Item> getItems() {
 		return items;
+	}
+
+	public void setItems(ArrayList<Item> items) {
+		this.items = items;
 	}
 
 }

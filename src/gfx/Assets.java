@@ -18,9 +18,10 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[] start_btn, quit_btn, minus_btn, plus_btn, dropdown_btn;
 	public static BufferedImage[] back_btn, back_written_btn, forward_btn, backward_btn;
 	public static BufferedImage[] heroes;
+	public static BufferedImage[][] activeHeroAnims;
 
 	public static BufferedImage[] zombies;
-	public static BufferedImage[] settings, move, attack, search, open_doors, endTurn, trade, inventory;
+	public static BufferedImage[] settings, move, attack, search, open_doors, endTurn, trade, inventory, trash_can, trade_hero;
 
 	public static BufferedImage[] en, de;
 	public static BufferedImage[] spawner_hor, spawner_ver;
@@ -47,6 +48,7 @@ public class Assets implements Settings, Translations{
 		SpriteSheet buttons_active_sheet = new SpriteSheet(ImageLoader.loadImage("/menues/buttons_active.png"));
 		SpriteSheet countries_sheet = new SpriteSheet(ImageLoader.loadImage("/logo/countries.png"));
 		SpriteSheet item_sheet = new SpriteSheet(ImageLoader.loadImage("/items/items.png"));
+		SpriteSheet heroes_sheet = new SpriteSheet(ImageLoader.loadImage("/creatures/heroes/heroes_sprites.png"));
 
 		SpriteSheet backgrounds = new SpriteSheet(ImageLoader.loadImage("/backgrounds/backgrounds.png"));
 		SpriteSheet intro = new SpriteSheet(ImageLoader.loadImage("/logo/logo.jpg"));
@@ -71,6 +73,8 @@ public class Assets implements Settings, Translations{
 		endTurn = new BufferedImage[3];
 		trade = new BufferedImage[3];
 		inventory = new BufferedImage[3];
+		trash_can = new BufferedImage[3];
+		trade_hero = new BufferedImage[3];
 		en = new BufferedImage[2];
 		de = new BufferedImage[2];
 		spawner_hor = new BufferedImage[3];
@@ -123,6 +127,12 @@ public class Assets implements Settings, Translations{
 		search[0] = buttons_sheet.crop(0, 224, width * 2, height);
 		search[1] = buttons_hover_sheet.crop(0, 224, width * 2, height);
 		search[2] = buttons_active_sheet.crop(0, 224, width * 2, height);
+		trash_can[0] = buttons_sheet.crop(64, 224, width, height);
+		trash_can[1] = buttons_hover_sheet.crop(64, 224, width, height);
+		trash_can[2] = buttons_active_sheet.crop(64, 224, width, height);
+		trade_hero[0] = buttons_sheet.crop(128, 128, 100, 50);
+		trade_hero[1] = buttons_hover_sheet.crop(128, 128, 100, 50);
+		trade_hero[2] = buttons_active_sheet.crop(128, 128, 100, 50);
 		heart = buttons_sheet.crop(64, 128, width, height);
 		heart_empty = buttons_sheet.crop(96, 128, width, height);
 		
@@ -182,12 +192,24 @@ public class Assets implements Settings, Translations{
 		intro_logo = intro.crop(0, 0, WIDTH, HEIGHT);
 		
 		//init heroes images
-		heroes[0] = ImageLoader.loadImage("/creatures/heroes/hero1.png");
-		heroes[1] = ImageLoader.loadImage("/creatures/heroes/hero2.png");
-		heroes[2] = ImageLoader.loadImage("/creatures/heroes/hero3.png");
-		heroes[3] = ImageLoader.loadImage("/creatures/heroes/hero4.png");
-		heroes[4] = ImageLoader.loadImage("/creatures/heroes/hero5.png");
-		heroes[5] = ImageLoader.loadImage("/creatures/heroes/hero6.png");
+		for(int i = 0; i < HERONAMES.length; i++){
+			String path = "/creatures/heroes/hero" + (i+1) + ".png";
+			heroes[i] = ImageLoader.loadImage(path);
+		}
+		
+		activeHeroAnims = new BufferedImage[HERONAMES.length][2];
+		activeHeroAnims[0][0] = heroes_sheet.crop(0, 0, 28, 28);
+		activeHeroAnims[0][1] = heroes_sheet.crop(28, 0, 28, 28);
+		activeHeroAnims[1][0] = heroes_sheet.crop(0, 28, 28, 28);
+		activeHeroAnims[1][1] = heroes_sheet.crop(28, 28, 28, 28);
+		activeHeroAnims[2][0] = heroes_sheet.crop(0, 56, 28, 28);
+		activeHeroAnims[2][1] = heroes_sheet.crop(28, 56, 28, 28);
+		activeHeroAnims[3][0] = heroes_sheet.crop(0, 84, 28, 28);
+		activeHeroAnims[3][1] = heroes_sheet.crop(28, 84, 28, 28);
+		activeHeroAnims[4][0] = heroes_sheet.crop(0, 112, 28, 28);
+		activeHeroAnims[4][1] = heroes_sheet.crop(28, 112, 28, 28);
+		activeHeroAnims[5][0] = heroes_sheet.crop(0, 140, 28, 28);
+		activeHeroAnims[5][1] = heroes_sheet.crop(28, 140, 28, 28);
 		
 		//init zombies images
 		zombies[0] = ImageLoader.loadImage("/creatures/enemies/zombie.png");

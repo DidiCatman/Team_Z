@@ -15,6 +15,7 @@ next steps
 	- fog of war für häuser und ecken bei wegen
 	- gesamtanzahl der gegner für spielfeld darstellen
 	- questziele implementieren (game end)
+	- select start weapons to players
 	- init doors with txt file or randon generator
 	
 

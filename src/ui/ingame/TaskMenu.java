@@ -2,6 +2,8 @@ package ui.ingame;
 
 import java.awt.Graphics;
 
+import javax.swing.JOptionPane;
+
 import gfx.Assets;
 import main.Handler;
 import main.Settings;
@@ -139,6 +141,7 @@ public class TaskMenu implements Settings {
 			public void initAction(){
 				if(handler.getGame().getGameState().isShowInventory() == false){
 					handler.getGame().getGameState().setShowInventory(true);
+					handler.getGame().getGameState().getGUI().getInventory().makeBackup();
 				}else{
 					leftInventoryWarning();
 				}
@@ -156,9 +159,15 @@ public class TaskMenu implements Settings {
 	}
 	
 	private void leftInventoryWarning(){
-		System.out.println("NIY - warning message when leaving inventory to spend one action point");
-		handler.getGame().getGameState().setShowInventory(false);
-		handler.getGame().getGameState().getTurnPlayer().decreaseActionPoints();
+		int result = JOptionPane.showConfirmDialog(null, 
+				   "Are you happy with your settings?", null, JOptionPane.YES_NO_OPTION);
+		if(result == JOptionPane.YES_OPTION) {
+			handler.getGame().getGameState().setShowInventory(false);
+			handler.getGame().getGameState().getTurnPlayer().decreaseActionPoints();
+		}else{
+			handler.getGame().getGameState().getGUI().getInventory().restoreBackup();
+			handler.getGame().getGameState().setShowInventory(false);
+		}
 	}
 
 	public void tick(){
