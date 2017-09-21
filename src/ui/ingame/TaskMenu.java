@@ -79,9 +79,11 @@ public class TaskMenu implements Settings {
 				if(!handler.getGame().getGameState().isShowSearchables()){
 					handler.getGame().getGameState().setShowItems(true);
 					search.setActive(true);
+					inventory.setActive(true);
 				}else{
 					handler.getGame().getGameState().setShowItems(false);
 					search.setActive(false);
+					inventory.setActive(false);
 				}
 				
 				handler.getGame().getGameState().setShowMoves(false);
@@ -91,7 +93,6 @@ public class TaskMenu implements Settings {
 				move.setActive(false);
 				attack.setActive(false);
 				open.setActive(false);
-				inventory.setActive(false);
 			}
 		};
 		open = new UIImageButton(handler, 600, 555, Assets.open_doors){
@@ -142,6 +143,7 @@ public class TaskMenu implements Settings {
 				if(handler.getGame().getGameState().isShowInventory() == false){
 					handler.getGame().getGameState().setShowInventory(true);
 					handler.getGame().getGameState().getGUI().getInventory().makeBackup();
+					inventory.setActive(true);
 				}else{
 					leftInventoryWarning();
 				}
@@ -149,25 +151,29 @@ public class TaskMenu implements Settings {
 				handler.getGame().getGameState().setShowMoves(false);
 				handler.getGame().getGameState().setShowAttacks(false);
 				handler.getGame().getGameState().setShowItems(false);
+				handler.getGame().getGameState().getGUI().getInventory().setChangedItems(false);
 				move.setActive(false);
 				attack.setActive(false);
 				search.setActive(false);
-				
-				System.out.println("NIY - inventory");
 			}
 		};
 	}
 	
 	private void leftInventoryWarning(){
-		int result = JOptionPane.showConfirmDialog(null, 
-				   "Are you happy with your settings?", null, JOptionPane.YES_NO_OPTION);
-		if(result == JOptionPane.YES_OPTION) {
-			handler.getGame().getGameState().setShowInventory(false);
-			handler.getGame().getGameState().getTurnPlayer().decreaseActionPoints();
-		}else{
-			handler.getGame().getGameState().getGUI().getInventory().restoreBackup();
-			handler.getGame().getGameState().setShowInventory(false);
+		if(handler.getGame().getGameState().getGUI().getInventory().isChangedItems()){
+			int result = JOptionPane.showConfirmDialog(null, 
+					   "Are you happy with your settings?", null, JOptionPane.YES_NO_OPTION);
+			if(result == JOptionPane.YES_OPTION) {
+				handler.getGame().getGameState().getTurnPlayer().decreaseActionPoints();
+			}else{
+				handler.getGame().getGameState().getGUI().getInventory().restoreBackup();
+			}
+			handler.getGame().getGameState().getGUI().getInventory().setChangedItems(false);
 		}
+
+		inventory.setActive(false);
+		handler.getGame().getGameState().setShowInventory(false);
+		handler.getGame().getGameState().getGUI().getInventory().getPlayerInventory().setActive(false);
 	}
 
 	public void tick(){

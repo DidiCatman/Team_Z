@@ -1,4 +1,4 @@
-package ui.ingame;
+package ui.ingame.inventory;
 
 import java.awt.Graphics;
 import java.awt.Point;
@@ -81,6 +81,7 @@ public class Hand implements Settings{
 					item[p.getId()].setInv_place(place);
 					itemCounter[p.getId()] = i;
 					System.out.println("item " + p.getItems().get(i).getName() + " was set for hand");
+					handler.getGame().getGameState().getGUI().getInventory().setChangedItems(true);
 					return;
 				//if item is in use
 				}else{
@@ -92,6 +93,7 @@ public class Hand implements Settings{
 			p.getItems().get(itemCounter[p.getId()]).setInv_place(0);
 			itemCounter[p.getId()] = 0;
 			item[p.getId()] = null;
+			handler.getGame().getGameState().getGUI().getInventory().setChangedItems(true);
 		}
 	}
 	

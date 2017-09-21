@@ -21,7 +21,7 @@ public class Assets implements Settings, Translations{
 	public static BufferedImage[][] activeHeroAnims;
 
 	public static BufferedImage[] zombies;
-	public static BufferedImage[] settings, move, attack, search, open_doors, endTurn, trade, inventory, trash_can, trade_hero;
+	public static BufferedImage[] settings, move, attack, search, open_doors, endTurn, trade, inventory, trash_can, trade_icon, trade_hero;
 
 	public static BufferedImage[] en, de;
 	public static BufferedImage[] spawner_hor, spawner_ver;
@@ -74,6 +74,7 @@ public class Assets implements Settings, Translations{
 		trade = new BufferedImage[3];
 		inventory = new BufferedImage[3];
 		trash_can = new BufferedImage[3];
+		trade_icon = new BufferedImage[3];
 		trade_hero = new BufferedImage[3];
 		en = new BufferedImage[2];
 		de = new BufferedImage[2];
@@ -130,6 +131,9 @@ public class Assets implements Settings, Translations{
 		trash_can[0] = buttons_sheet.crop(64, 224, width, height);
 		trash_can[1] = buttons_hover_sheet.crop(64, 224, width, height);
 		trash_can[2] = buttons_active_sheet.crop(64, 224, width, height);
+		trade_icon[0] = buttons_sheet.crop(96, 224, width, height);
+		trade_icon[1] = buttons_hover_sheet.crop(96, 224, width, height);
+		trade_icon[2] = buttons_active_sheet.crop(96, 224, width, height);
 		trade_hero[0] = buttons_sheet.crop(128, 128, 100, 50);
 		trade_hero[1] = buttons_hover_sheet.crop(128, 128, 100, 50);
 		trade_hero[2] = buttons_active_sheet.crop(128, 128, 100, 50);

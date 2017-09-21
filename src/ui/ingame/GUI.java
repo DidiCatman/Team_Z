@@ -10,6 +10,7 @@ import main.Handler;
 import main.Settings;
 import main.Translations;
 import ui.UIImageButton;
+import ui.ingame.inventory.Inventory;
 
 public class GUI implements Settings, Translations{
 	
@@ -57,16 +58,16 @@ public class GUI implements Settings, Translations{
 		
 		//draw active inventory places
 		Text.drawString(g, "Left Hand", 14, 525, false, Color.black, Assets.font18);
-		if(inventory.getLeftHand().getItem()[player.getId()] != null){
-			inventory.getLeftHand().getItem()[player.getId()].renderTexture(g, 4, 530, 64, 64);
+		if(inventory.getPlayerInventory().getLeftHand().getItem()[player.getId()] != null){
+			inventory.getPlayerInventory().getLeftHand().getItem()[player.getId()].renderTexture(g, 4, 530, 64, 64);
 		}
 		Text.drawString(g, "Body", 380, 525, false, Color.black, Assets.font18);
-		if(inventory.getBody().getItem()[player.getId()] != null){
-			inventory.getBody().getItem()[player.getId()].renderTexture(g, 370, 530, 64, 64);
+		if(inventory.getPlayerInventory().getBody().getItem()[player.getId()] != null){
+			inventory.getPlayerInventory().getBody().getItem()[player.getId()].renderTexture(g, 370, 530, 64, 64);
 		}
 		Text.drawString(g, "Right Hand", WIDTH - Assets.hands_inventar_background.getWidth() +6, 525, false, Color.black, Assets.font18);
-		if(inventory.getRightHand().getItem()[player.getId()] != null){
-			inventory.getRightHand().getItem()[player.getId()].renderTexture(g, WIDTH - Assets.hands_inventar_background.getWidth() - 4, 530, 64, 64);
+		if(inventory.getPlayerInventory().getRightHand().getItem()[player.getId()] != null){
+			inventory.getPlayerInventory().getRightHand().getItem()[player.getId()].renderTexture(g, WIDTH - Assets.hands_inventar_background.getWidth() - 4, 530, 64, 64);
 		}
 		
 		//draw buttons

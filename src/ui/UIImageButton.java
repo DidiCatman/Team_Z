@@ -14,7 +14,7 @@ public class UIImageButton extends UIObject{
 	private BufferedImage current_image;
 	private int x, y, width, height;
 	private Rectangle rec;
-	private boolean active;
+	protected boolean active;
 	private long lastClickTimer, clickCoolDown = 250, clickTimer = clickCoolDown;
 
 

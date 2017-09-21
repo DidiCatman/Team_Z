@@ -1,7 +1,6 @@
 next steps
+	-> Inventory Bug: tradeplayer button changes a lot on click
 	- Open Doors with random probability of zombies
-	- inventory menu with dropdown items and trade menu with player on same tile 
-		for one action point
 	- finish player ui
 		-> player tooltip informations
 		-> setting game menu
@@ -9,15 +8,18 @@ next steps
 			-> sound settings
 			-> quit to main menu
 			-> quit game
-		-> Buttons 'end turn' and 'trade'
 	- PlayerActions need functions
-		-> Attack, Trade?
+		-> Attack
 	- fog of war für häuser und ecken bei wegen
 	- gesamtanzahl der gegner für spielfeld darstellen
 	- questziele implementieren (game end)
 	- select start weapons to players
 	- init doors with txt file or randon generator
 	
+	
+refactoring
+-> houses/rooms und tiles auflösung
+-> player movement klasse
 
 redesign
 -> new spawner gfx
