@@ -22,8 +22,10 @@ public class Zombies extends Entity {
 	public void tick(){		
 	}
 	
-	public void move(){
-		System.out.println("NIY - move zombie #" + (id + 1));
+	public void move(int x, int y){
+		System.out.println("move zombie #" + (id + 1) + " to Tile " + x + "," + y);
+		this.setTilex(x);
+		this.setTiley(y);
 	}
 
 	public void render(Graphics g){	

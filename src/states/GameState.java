@@ -1,6 +1,8 @@
 package states;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -14,6 +16,7 @@ import entities.buildings.HouseManager;
 import entities.items.ItemManager;
 import entities.player.Player;
 import gfx.Assets;
+import gfx.Text;
 import main.Handler;
 import main.Settings;
 import main.Translations;
@@ -27,6 +30,7 @@ public class GameState extends State implements Settings, Translations{
 	private int start_tilex, start_tiley;
 	private int[] spawnzone_x, spawnzone_y, spawnposition;
 	private Random rnd = new Random();
+	private Point nextStep;
 	
 	private EntityManager entityManager;
 	private HouseManager houseManager;
@@ -49,7 +53,7 @@ public class GameState extends State implements Settings, Translations{
 		this.handler.setWorld(world);
 		start_tilex = handler.getWorld().getSpawn_x();
 		start_tiley = handler.getWorld().getSpawn_y();
-		
+				
 		houseManager = new HouseManager(handler);
 		spawnManager = new SpawnManager(handler);
 		itemManager = new ItemManager(handler);
@@ -75,11 +79,19 @@ public class GameState extends State implements Settings, Translations{
 	@Override
 	public void render(Graphics g) {
 		world.render(g);
-		//render doors
 		houseManager.render(g);
 		spawnManager.render(g);
 		entityManager.render(g);
 		ingameUI.render(g);
+		
+		//draw numeric value for each tile (for debugging)
+		int number = 0;
+		for(int y = 0; y < handler.getWorld().getHeight(); y++){
+			for(int x = 0; x < handler.getWorld().getWidth(); x++){
+				Text.drawString(g, String.valueOf(number), x * TILESIZE + handler.getWorld().getMap_x_offset() + TILESIZE/2, y * TILESIZE + handler.getWorld().getMap_y_offset() + TILESIZE/2, true, Color.BLACK, Assets.font18);
+				number++;
+			}
+		}
 	}
 	
 	//set start values to the game
@@ -88,6 +100,8 @@ public class GameState extends State implements Settings, Translations{
 		Arrays.fill(turnEnded, Boolean.FALSE);
 		handler.getGame().getGameState().getIngameUI().getInventory().getPlayerMenu().start();
 		world.loadHouses();
+		pathFinder.makeGraph();
+		pathFinder.makeConnections();
 		
 		spawnzone_x = handler.getWorld().getSpawnzone_x();
 		spawnzone_y = handler.getWorld().getSpawnzone_y();
@@ -141,11 +155,33 @@ public class GameState extends State implements Settings, Translations{
 		return (Player) entityManager.getPlayers().get(0);
 	}
 	
+	// return tile with most noise
+	public Point getNoisyTile(){
+		Point noisyTile = new Point(start_tilex, start_tiley); // NIY - just returns player spawnpoint
+		return noisyTile;
+	}
+	
 	private void initNextRound(){
-		pathFinder.findPath(spawnzone_x[0], spawnzone_y[0]); //find path: spawnzone[0] -> player (for testing)
+		/* calculate next step for all zombies to noisy tile
+		 * NIY - go to player on sight
+		 * NIY - behavior when there are two path of equal length 
+		 */
 		for(Zombies z: entityManager.getZombies()){
-			z.move();
+			if(!z.getTile().equals(getNoisyTile())){
+			nextStep = pathFinder.findPath(z.getTile(), getNoisyTile());
+			z.move(nextStep.x, nextStep.y);
+			}else{
+				System.out.println("NIY - zombie #" + (z.getID() + 1) + " attacks");
+			}
 		}
+		
+		//only for debugging and pathFinding 4 all tiles
+//		for(int y = 0; y < handler.getWorld().getHeight(); y++){
+//			for(int x = 0; x < handler.getWorld().getWidth(); x++){
+//				pathFinder.findPath(new Point(x,y), getNoisyTile());
+//			}
+//		}
+		
 		hasSearched = false;
 		spawnManager.spawn();
 		
