@@ -68,9 +68,7 @@ public class UIImageButton extends UIObject{
 	}
 
 	@Override
-	public void initAction() {
-		
-	}
+	public void initAction() {}
 	
 	//GETTERS & SETTERS
 	public void setImages(BufferedImage[] img){

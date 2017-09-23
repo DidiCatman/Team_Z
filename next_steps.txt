@@ -1,5 +1,7 @@
+bugs:
+-> Inventory Bug: tradeplayer button changes a lot on click
+
 next steps
-	-> Inventory Bug: tradeplayer button changes a lot on click
 	- Open Doors with random probability of zombies
 	- finish player ui
 		-> player tooltip informations

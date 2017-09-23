@@ -40,33 +40,7 @@ public class Inventory implements Settings{
 	public void tick(){
 		//tick trade menu
 		if(handler.getGame().getGameState().isShowInventory()){
-			Player p = handler.getGame().getGameState().getTurnPlayer();
-			trade_bounds = new ArrayList<UIImageButton>();
-			trade_players = new ArrayList<Player>();
-			for(int i = 0, x = 0; i < handler.getGame().getGameState().getEntityManager().getPlayers().size(); i++){
-				if(handler.getGame().getGameState().getEntityManager().getPlayers().get(i) != p){
-					Player p_temp = handler.getGame().getGameState().getEntityManager().getPlayers().get(i);
-					if(p.getTile().equals(p_temp.getTile())){
-						int id = i;
-						int xx = x;
-						trade_bounds.add(new UIImageButton(handler, 65 + x * 120, 380, Assets.trade_hero){
-							@Override
-							public void initAction(){
-								if(trade){
-									trade = false;
-									trade_bounds.get(xx).setActive(false);
-								}else{
-									trade = true;
-									trade_bounds.get(xx).setActive(true);
-									trade_player_inv.setPlayer_id(id);
-								}
-							}
-						});
-						x++;
-						trade_players.add(p_temp);
-					}
-				}
-			}
+			getTradePlayers();
 			
 			for(UIImageButton btn: trade_bounds){
 				btn.tick();
@@ -76,6 +50,38 @@ public class Inventory implements Settings{
 				player_inv.tick();
 			}else{
 				trade_player_inv.tick();
+			}
+		}
+	}
+	
+	private void getTradePlayers(){
+		Player p = handler.getGame().getGameState().getTurnPlayer();
+		trade_bounds = new ArrayList<UIImageButton>();
+		trade_players = new ArrayList<Player>();
+		for(int i = 0, x = 0; i < handler.getGame().getGameState().getEntityManager().getPlayers().size(); i++){
+			if(handler.getGame().getGameState().getEntityManager().getPlayers().get(i) != p){
+				Player p_temp = handler.getGame().getGameState().getEntityManager().getPlayers().get(i);
+				if(p.getTile().equals(p_temp.getTile())){
+					int id = i;
+					int xx = x;
+					trade_bounds.add(new UIImageButton(handler, 65 + x * 120, 380, Assets.trade_hero){
+						@Override
+						public void initAction(){
+							if(trade){
+								trade = false;
+								trade_bounds.get(xx).setActive(false);
+								System.out.println("trade btn for player " + p_temp.getHeroName() + " is not active");
+							}else{
+								trade = true;
+								trade_bounds.get(xx).setActive(true);
+								trade_player_inv.setPlayer_id(id);
+								System.out.println("trade btn for player " + p_temp.getHeroName() + " is active");
+							}
+						}
+					});
+					x++;
+					trade_players.add(p_temp);
+				}
 			}
 		}
 	}
