@@ -85,13 +85,13 @@ public class GameState extends State implements Settings, Translations{
 		ingameUI.render(g);
 		
 		//draw numeric value for each tile (for debugging)
-		int number = 0;
-		for(int y = 0; y < handler.getWorld().getHeight(); y++){
-			for(int x = 0; x < handler.getWorld().getWidth(); x++){
-				Text.drawString(g, String.valueOf(number), x * TILESIZE + handler.getWorld().getMap_x_offset() + TILESIZE/2, y * TILESIZE + handler.getWorld().getMap_y_offset() + TILESIZE/2, true, Color.BLACK, Assets.font18);
-				number++;
-			}
-		}
+//		int number = 0;
+//		for(int y = 0; y < handler.getWorld().getHeight(); y++){
+//			for(int x = 0; x < handler.getWorld().getWidth(); x++){
+//				Text.drawString(g, String.valueOf(number), x * TILESIZE + handler.getWorld().getMap_x_offset() + TILESIZE/2, y * TILESIZE + handler.getWorld().getMap_y_offset() + TILESIZE/2, true, Color.BLACK, Assets.font18);
+//				number++;
+//			}
+//		}
 	}
 	
 	//set start values to the game
@@ -107,12 +107,12 @@ public class GameState extends State implements Settings, Translations{
 		spawnzone_y = handler.getWorld().getSpawnzone_y();
 		spawnposition = handler.getWorld().getSpawnposition();		
 		for(int i = 0; i < handler.getWorld().getSpawnnumber(); i++){
-			addSpawn(spawnzone_x[i],spawnzone_y[i],spawnposition[i]);
+			createSpawn(spawnzone_x[i],spawnzone_y[i],spawnposition[i]);
 		}
 	}
 	
 	//add zombie-spawn to tile xy
-	public void addSpawn(int x, int y, int pos){
+	public void createSpawn(int x, int y, int pos){
 		Spawn s = new Spawn(handler, x, y, pos);
 		spawnManager.addSpawn(s);
 	}
@@ -141,6 +141,30 @@ public class GameState extends State implements Settings, Translations{
 		entityManager.addZombies(z);
 	}
 	
+	public void moveZombies(){
+		/* calculate next step for all zombies to noisy tile
+		 * NIY - go to player on sight
+		 * NIY - behavior when there are two path of equal length 
+		 */
+		for(Zombies z: entityManager.getZombies()){
+			for(int i = 0; i < z.getType().getActions(); i++){
+				if(!z.getTile().equals(getNoisyTile())){
+				nextStep = pathFinder.findPath(z.getTile(), getNoisyTile());
+				z.move(nextStep.x, nextStep.y);
+				}else{
+					System.out.println("NIY - zombie #" + (z.getID() + 1) + " attacks");
+				}
+			}
+		}
+		
+		//only for debugging and pathFinding 4 all tiles
+//		for(int y = 0; y < handler.getWorld().getHeight(); y++){
+//			for(int x = 0; x < handler.getWorld().getWidth(); x++){
+//				pathFinder.findPath(new Point(x,y), getNoisyTile());
+//			}
+//		}
+	}
+	
 	//get current player
 	public Player getTurnPlayer(){
 		for(int i = 0; i < turnEnded.length; i++){
@@ -162,27 +186,9 @@ public class GameState extends State implements Settings, Translations{
 	}
 	
 	private void initNextRound(){
-		/* calculate next step for all zombies to noisy tile
-		 * NIY - go to player on sight
-		 * NIY - behavior when there are two path of equal length 
-		 */
-		for(Zombies z: entityManager.getZombies()){
-			if(!z.getTile().equals(getNoisyTile())){
-			nextStep = pathFinder.findPath(z.getTile(), getNoisyTile());
-			z.move(nextStep.x, nextStep.y);
-			}else{
-				System.out.println("NIY - zombie #" + (z.getID() + 1) + " attacks");
-			}
-		}
-		
-		//only for debugging and pathFinding 4 all tiles
-//		for(int y = 0; y < handler.getWorld().getHeight(); y++){
-//			for(int x = 0; x < handler.getWorld().getWidth(); x++){
-//				pathFinder.findPath(new Point(x,y), getNoisyTile());
-//			}
-//		}
-		
 		hasSearched = false;
+		
+		moveZombies();
 		spawnManager.spawn();
 		
 		Arrays.fill(turnEnded, Boolean.FALSE);
@@ -265,6 +271,10 @@ public class GameState extends State implements Settings, Translations{
 
 	public EntityManager getEntityManager() {
 		return entityManager;
+	}
+	
+	public PathFinder getPathFinder(){
+		return pathFinder;
 	}
 	
 	public HouseManager getHouseManager(){

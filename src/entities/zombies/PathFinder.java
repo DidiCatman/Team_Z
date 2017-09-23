@@ -167,6 +167,14 @@ public class PathFinder implements Settings{
 		BFtraversal(v, w, visited);
 	}
 	
+	public void connectTiles(Point tile1, Point tile2){
+		int v = tile1.x + tile1.y * width;
+		int w = tile2.x + tile2.y * width;
+		
+		addEdgeToGraph(v, w);
+		addEdgeToGraph(w, v);
+	}
+	
 	public Point findPath(Point start, Point end){
 		int v = start.x + start.y * width;
 		int w = end.x + end.y * width;
