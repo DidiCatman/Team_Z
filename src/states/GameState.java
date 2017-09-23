@@ -36,7 +36,7 @@ public class GameState extends State implements Settings, Translations{
 	private int turns;
 	private boolean[] turnEnded;
 	private boolean hasSearched;
-	private boolean showMoves, showAttacks, showSearchables, showOpenDoors, showInventory;
+	private boolean showMoves, showAttacks, showSearchables, showOpenDoors, showInventory, showTradeInventor;
 	
 	public GameState(Handler handler){
 		super(handler);
@@ -62,6 +62,7 @@ public class GameState extends State implements Settings, Translations{
 		showSearchables = false;
 		showOpenDoors = false;
 		showInventory = false;
+		showTradeInventor = false;
 	}
 	
 	@Override
@@ -157,6 +158,7 @@ public class GameState extends State implements Settings, Translations{
 				showSearchables = false;
 				showOpenDoors = false;
 				showInventory = false;
+				showTradeInventor = false;
 				
 				return;
 			}
@@ -168,7 +170,7 @@ public class GameState extends State implements Settings, Translations{
 		gui.getTaskMenu().getAttack().setActive(false);
 		showSearchables = false;
 		gui.getTaskMenu().getSearch().setActive(false);
-		showSearchables = false;
+		showOpenDoors = false;
 		gui.getTaskMenu().getOpenDoors().setActive(false);
 		hasSearched = false;
 	}
@@ -204,6 +206,17 @@ public class GameState extends State implements Settings, Translations{
 
 	public void setShowInventory(boolean showInventory) {
 		this.showInventory = showInventory;
+		if(showInventory){
+			gui.getInventory().setActive();
+		}
+	}
+
+	public boolean isShowTradeInventory() {
+		return showTradeInventor;
+	}
+
+	public void setShowTradeInventor(boolean showTradeInventor) {
+		this.showTradeInventor = showTradeInventor;
 	}
 
 	public void setShowItems(boolean var) {

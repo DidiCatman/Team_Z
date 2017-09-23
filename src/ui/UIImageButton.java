@@ -45,8 +45,9 @@ public class UIImageButton extends UIObject{
 			//handle click cooldown
 			clickTimer += System.currentTimeMillis() - lastClickTimer;
 			lastClickTimer = System.currentTimeMillis();
-			if(clickTimer < clickCoolDown)
+			if(clickTimer < clickCoolDown){
 				return;
+			}
 			
 			//handle action on start button
 			if(rec.contains(mouse)){

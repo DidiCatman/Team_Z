@@ -79,11 +79,9 @@ public class TaskMenu implements Settings {
 				if(!handler.getGame().getGameState().isShowSearchables()){
 					handler.getGame().getGameState().setShowItems(true);
 					search.setActive(true);
-					inventory.setActive(true);
 				}else{
 					handler.getGame().getGameState().setShowItems(false);
 					search.setActive(false);
-					inventory.setActive(false);
 				}
 				
 				handler.getGame().getGameState().setShowMoves(false);
@@ -93,6 +91,7 @@ public class TaskMenu implements Settings {
 				move.setActive(false);
 				attack.setActive(false);
 				open.setActive(false);
+				inventory.setActive(false);
 			}
 		};
 		open = new UIImageButton(handler, 600, 555, Assets.open_doors){
@@ -146,6 +145,9 @@ public class TaskMenu implements Settings {
 					inventory.setActive(true);
 				}else{
 					leftInventoryWarning();
+					inventory.setActive(false);
+					handler.getGame().getGameState().setShowInventory(false);
+					handler.getGame().getGameState().getGUI().getInventory().getPlayerInventory().setActive(false);
 				}
 				
 				handler.getGame().getGameState().setShowMoves(false);
@@ -170,10 +172,6 @@ public class TaskMenu implements Settings {
 			}
 			handler.getGame().getGameState().getGUI().getInventory().setChangedItems(false);
 		}
-
-		inventory.setActive(false);
-		handler.getGame().getGameState().setShowInventory(false);
-		handler.getGame().getGameState().getGUI().getInventory().getPlayerInventory().setActive(false);
 	}
 
 	public void tick(){

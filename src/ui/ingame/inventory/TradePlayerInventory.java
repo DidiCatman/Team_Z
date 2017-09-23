@@ -67,6 +67,8 @@ public class TradePlayerInventory implements Settings{
 			Text.drawString(g, String.valueOf("Dmg: " + item.getDamage()), 440, 120 + i * 32, false, Color.BLACK, Assets.font18);
 			trade_btn[i].render(g);
 		}
+
+		Text.drawString(g, p.getHeroName(), 360, 78, false, Color.BLACK, Assets.font28);
 	}
 
 	//GETTERS & SETTERS

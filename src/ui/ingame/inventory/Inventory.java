@@ -16,7 +16,6 @@ public class Inventory implements Settings{
 	private Handler handler;
 	private PlayerInventory player_inv;
 	private TradePlayerInventory trade_player_inv;
-	private boolean trade;
 	private boolean changedItems;
 	private ArrayList<UIImageButton> trade_bounds;
 	private ArrayList<Player> trade_players;
@@ -28,7 +27,6 @@ public class Inventory implements Settings{
 		this.handler = handler;
 		player_inv = new PlayerInventory(handler);
 		trade_player_inv = new TradePlayerInventory(handler);
-		trade = false;
 		changedItems = false;
 	}
 
@@ -39,17 +37,15 @@ public class Inventory implements Settings{
 
 	public void tick(){
 		//tick trade menu
-		if(handler.getGame().getGameState().isShowInventory()){
-			getTradePlayers();
-			
+		if(handler.getGame().getGameState().isShowInventory()){			
 			for(UIImageButton btn: trade_bounds){
 				btn.tick();
 			}
 			
-			if(!trade){
-				player_inv.tick();
-			}else{
+			if(handler.getGame().getGameState().isShowTradeInventory()){
 				trade_player_inv.tick();
+			}else{
+				player_inv.tick();
 			}
 		}
 	}
@@ -67,12 +63,22 @@ public class Inventory implements Settings{
 					trade_bounds.add(new UIImageButton(handler, 65 + x * 120, 380, Assets.trade_hero){
 						@Override
 						public void initAction(){
-							if(trade){
-								trade = false;
-								trade_bounds.get(xx).setActive(false);
-								System.out.println("trade btn for player " + p_temp.getHeroName() + " is not active");
+							if(handler.getGame().getGameState().isShowTradeInventory()){
+								//trade player button was active before
+								if(trade_player_inv.getPlayer_id() == id){
+									handler.getGame().getGameState().setShowTradeInventor(false);
+									trade_bounds.get(xx).setActive(false);
+									System.out.println("trade btn for player " + p_temp.getHeroName() + " is not active");
+								}else{
+									for(UIImageButton uib: trade_bounds){
+										uib.setActive(false);
+									}
+									trade_bounds.get(xx).setActive(true);
+									trade_player_inv.setPlayer_id(id);
+									System.out.println("trade btn for player " + p_temp.getHeroName() + " is active");
+								}
 							}else{
-								trade = true;
+								handler.getGame().getGameState().setShowTradeInventor(true);
 								trade_bounds.get(xx).setActive(true);
 								trade_player_inv.setPlayer_id(id);
 								System.out.println("trade btn for player " + p_temp.getHeroName() + " is active");
@@ -97,10 +103,10 @@ public class Inventory implements Settings{
 				Text.drawString(g, p.getHeroName(), 68 + i * 120, 380 + 18, false, Color.black, Assets.font18);
 			}
 
-			if(!trade){
-				player_inv.render(g);
-			}else{
+			if(handler.getGame().getGameState().isShowTradeInventory()){
 				trade_player_inv.render(g);
+			}else{
+				player_inv.render(g);
 			}
 		}
 	}
@@ -130,5 +136,9 @@ public class Inventory implements Settings{
 
 	public void setChangedItems(boolean changedItems) {
 		this.changedItems = changedItems;
+	}
+	
+	public void setActive(){
+		getTradePlayers();
 	}
 }
