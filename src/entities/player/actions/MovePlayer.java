@@ -47,9 +47,9 @@ public class MovePlayer implements Settings{
 		
 		for(Point pt: tiles){
 			//if player is on street (case 1 & 2)
-			if(handler.getWorld().getTile(p.getTilex(), p.getTiley()).getId() == TILE_ROAD){
+			if(handler.getWorld().getTile(p.getTilex(), p.getTiley()).getId() >= TILE_ROAD){
 				//if tile is street (case 1)
-				if(handler.getWorld().getTile(pt.x, pt.y).getId() == TILE_ROAD){
+				if(handler.getWorld().getTile(pt.x, pt.y).getId() >= TILE_ROAD){
 					movableTiles.add(pt);
 				//else if tile is house (case 2)
 				}else{
@@ -103,7 +103,7 @@ public class MovePlayer implements Settings{
 				}
 
 				//case 3:
-				if(handler.getWorld().getTile(pt.x, pt.y).getId() != TILE_ROAD){
+				if(handler.getWorld().getTile(pt.x, pt.y).getId() < TILE_ROAD){
 					//check if player and tile are in same house
 					if(h_p != null && h_t != null){
 						//check if tiles are in same house

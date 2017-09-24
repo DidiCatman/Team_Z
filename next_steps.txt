@@ -1,16 +1,38 @@
+bugs:
+-> Inventory Bug: tradeplayer button changes a lot on click
+
 next steps
-	- houses with searchable items
-		-> init search for items per turn
-			-> function getRandomItem in ItemManager
-			-> Player with inventory
+	- Open Doors with random probability of zombies
 	- finish player ui
-		-> item list
 		-> player tooltip informations
-		-> setting game menu 
-	- implement Items and ItemManager
+		-> setting game menu
+			-> game settings
+			-> sound settings
+			-> quit to main menu
+			-> quit game
 	- PlayerActions need functions
+		-> Attack
 	- fog of war für häuser und ecken bei wegen
 	- gesamtanzahl der gegner für spielfeld darstellen
+	- questziele implementieren (game end)
+	- select start weapons to players
+	- init doors with txt file or randon generator
+	
+	
+refactoring
+-> houses/rooms und tiles auflösung
+-> player movement klasse
+
+redesign
+-> new spawner gfx
+-> new task menu with end turn and trade button
+-> new ingame inventory background
+-> new main menu backgrounds
+
+
+taskmenu:
+	- als ringmenü um den helden herum (mittig extra angezeigt / halbtransparent)
+	- unterauswahl mit back button, etc.
 	
 	
 questziele:

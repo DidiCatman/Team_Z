@@ -20,7 +20,7 @@ import gfx.Text;
 import main.Handler;
 import main.Settings;
 import main.Translations;
-import ui.ingame.IngameUI;
+import ui.ingame.GUI;
 import worlds.World;
 
 public class GameState extends State implements Settings, Translations{
@@ -36,19 +36,19 @@ public class GameState extends State implements Settings, Translations{
 	private HouseManager houseManager;
 	private SpawnManager spawnManager;
 	private ItemManager itemManager;
-	private IngameUI ingameUI;
+	private GUI gui;
 	private PathFinder pathFinder;
 	
 	private int turns;
 	private boolean[] turnEnded;
 	private boolean hasSearched;
-	private boolean showMoves, showAttacks, showSearchables, showOpenDoors;
+	private boolean showMoves, showAttacks, showSearchables, showOpenDoors, showInventory, showTradeInventor;
 	
 	public GameState(Handler handler){
 		super(handler);
 		counter = 0;
 		entityManager = new EntityManager(handler);
-		ingameUI = new IngameUI(handler);
+		gui = new GUI(handler);
 		world = new World(this.handler, "res/worlds/world1.txt", counter);
 		this.handler.setWorld(world);
 		start_tilex = handler.getWorld().getSpawn_x();
@@ -67,13 +67,16 @@ public class GameState extends State implements Settings, Translations{
 		showAttacks = false;
 		showSearchables = false;
 		showOpenDoors = false;
+		showInventory = false;
+		showTradeInventor = false;
 	}
 	
 	@Override
 	public void tick() {
 		world.tick();
 		entityManager.tick();
-		ingameUI.tick();
+		spawnManager.tick();
+		gui.tick();
 	}
 
 	@Override
@@ -82,7 +85,7 @@ public class GameState extends State implements Settings, Translations{
 		houseManager.render(g);
 		spawnManager.render(g);
 		entityManager.render(g);
-		ingameUI.render(g);
+		gui.render(g);
 		
 		//draw numeric value for each tile (for debugging)
 //		int number = 0;
@@ -98,7 +101,6 @@ public class GameState extends State implements Settings, Translations{
 	public void start(){
 		turnEnded = new boolean[entityManager.getPlayers().size()];
 		Arrays.fill(turnEnded, Boolean.FALSE);
-		handler.getGame().getGameState().getIngameUI().getInventory().getPlayerMenu().start();
 		world.loadHouses();
 		pathFinder.makeGraph();
 		pathFinder.makeConnections();
@@ -109,6 +111,7 @@ public class GameState extends State implements Settings, Translations{
 		for(int i = 0; i < handler.getWorld().getSpawnnumber(); i++){
 			createSpawn(spawnzone_x[i],spawnzone_y[i],spawnposition[i]);
 		}
+		handler.getGame().getGameState().getGUI().start();
 	}
 	
 	//add zombie-spawn to tile xy
@@ -208,19 +211,21 @@ public class GameState extends State implements Settings, Translations{
 				showAttacks = false;
 				showSearchables = false;
 				showOpenDoors = false;
+				showInventory = false;
+				showTradeInventor = false;
 				
 				return;
 			}
 		}
 
 		showMoves = false;
-		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getMove().setActive(false);
+		gui.getTaskMenu().getMove().setActive(false);
 		showAttacks = false;
-		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getAttack().setActive(false);
+		gui.getTaskMenu().getAttack().setActive(false);
 		showSearchables = false;
-		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getSearch().setActive(false);
-		showSearchables = false;
-		handler.getGame().getGameState().getIngameUI().getInventory().getTaskMenu().getOpenDoors().setActive(false);
+		gui.getTaskMenu().getSearch().setActive(false);
+		showOpenDoors = false;
+		gui.getTaskMenu().getOpenDoors().setActive(false);
 		hasSearched = false;
 	}
 
@@ -247,6 +252,25 @@ public class GameState extends State implements Settings, Translations{
 
 	public boolean isShowSearchables() {
 		return showSearchables;
+	}
+
+	public boolean isShowInventory() {
+		return showInventory;
+	}
+
+	public void setShowInventory(boolean showInventory) {
+		this.showInventory = showInventory;
+		if(showInventory){
+			gui.getInventory().setActive();
+		}
+	}
+
+	public boolean isShowTradeInventory() {
+		return showTradeInventor;
+	}
+
+	public void setShowTradeInventor(boolean showTradeInventor) {
+		this.showTradeInventor = showTradeInventor;
 	}
 
 	public void setShowItems(boolean var) {
@@ -281,8 +305,8 @@ public class GameState extends State implements Settings, Translations{
 		return houseManager;
 	}
 	
-	public IngameUI getIngameUI() {
-		return ingameUI;
+	public GUI getGUI() {
+		return gui;
 	}
 
 	public ItemManager getItemManager() {

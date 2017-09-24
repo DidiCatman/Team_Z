@@ -14,7 +14,7 @@ public class UIImageButton extends UIObject{
 	private BufferedImage current_image;
 	private int x, y, width, height;
 	private Rectangle rec;
-	private boolean active;
+	protected boolean active;
 	private long lastClickTimer, clickCoolDown = 250, clickTimer = clickCoolDown;
 
 
@@ -45,8 +45,9 @@ public class UIImageButton extends UIObject{
 			//handle click cooldown
 			clickTimer += System.currentTimeMillis() - lastClickTimer;
 			lastClickTimer = System.currentTimeMillis();
-			if(clickTimer < clickCoolDown)
+			if(clickTimer < clickCoolDown){
 				return;
+			}
 			
 			//handle action on start button
 			if(rec.contains(mouse)){
@@ -68,9 +69,7 @@ public class UIImageButton extends UIObject{
 	}
 
 	@Override
-	public void initAction() {
-		
-	}
+	public void initAction() {}
 	
 	//GETTERS & SETTERS
 	public void setImages(BufferedImage[] img){
