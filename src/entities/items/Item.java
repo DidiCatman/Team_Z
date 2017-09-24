@@ -10,9 +10,9 @@ public class Item {
 	//STATIC STUFF
 	public static Item[] items = new Item[4];
 	public static Item sword = new Item(0, Assets.sword, "Sword", 0, 1, 70, 1);
-	public static Item bow = new Item(1, Assets.bow, "Bow", 1, 1, 50, 1);
-	public static Item axe = new Item(2, Assets.axe, "Axe", 1, 1, 70, 1);
-	public static Item magic_scroll = new Item(3, Assets.magic_scroll, "Scroll", 0, 1, 70, 2);
+	public static Item bow = new Item(1, Assets.bow, "Bow", 1, 1, 75, 1);
+	public static Item axe = new Item(2, Assets.axe, "Axe", 0, 1, 70, 2);
+	public static Item magic_scroll = new Item(3, Assets.magic_scroll, "Scroll", 1, 1, 70, 1);
 	
 	//CLASS VARIABLES
 	protected final int id;

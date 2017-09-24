@@ -1,4 +1,4 @@
-package entities;
+package entities.spawn;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -16,8 +16,11 @@ public class SpawnManager {
 	}
 	
 	public void tick(){
+	}
+	
+	public void spawn(){
 		for(Spawn s: spawn){
-			s.tick();
+			s.spawn();
 		}
 	}
 	

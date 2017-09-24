@@ -28,7 +28,8 @@ public class PlayerActions implements Settings{
 			movePlayer.tick();
 		}		
 		if(handler.getGame().getGameState().isShowAttacks()){
-			System.out.println("show attacks");
+//			System.out.println("show attacks");
+			handler.getGame().getGameState().getTurnPlayer().decreaseActionPoints();//temporarily used as end turn button
 		}
 		
 		if(handler.getGame().getGameState().isShowSearchables()){

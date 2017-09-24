@@ -62,6 +62,7 @@ public class House implements Settings{
 		open = true;
 		for(Room r: rooms){
 			handler.getWorld().getTile(r.getTilex(), r.getTiley()).openRoom();
+			handler.getGame().getGameState().spawn(r.getTilex(), r.getTiley());
 		}
 	}
 

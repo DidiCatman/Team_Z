@@ -1,10 +1,14 @@
 package entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
 import entities.player.Player;
-import entities.Zombies;
+import gfx.Assets;
+import gfx.Text;
+import entities.zombies.Type;
+import entities.zombies.Zombies;
 import main.Handler;
 import main.Settings;
 
@@ -12,12 +16,13 @@ public class EntityManager implements Settings {
 	
 	private Handler handler;
 	private ArrayList<Player> players;
-	private ArrayList<Zombies> zombies;
+	private ArrayList<Zombies> zombies, temparray;
 
 	public EntityManager(Handler handler){
 		this.handler = handler;
 		players = new ArrayList<Player>();
 		zombies = new ArrayList<Zombies>();
+		temparray = new ArrayList<Zombies>();
 	}
 	
 	public void tick(){
@@ -61,22 +66,45 @@ public class EntityManager implements Settings {
 		}
 	}
 	
-	private void renderZombies(Graphics g) {
-		for(int i = 0; i < zombies.size(); i++){
+	private void renderZombies(Graphics g){
+		int xoff = handler.getWorld().getMap_x_offset(), yoff = handler.getWorld().getMap_y_offset();
+		temparray.clear();
+		for(Zombies z: zombies){
 			int count = 0;
-			for(int x = 0; x < i; x++){
-				if(zombies.get(x).getTile().equals(zombies.get(i).getTile())){
-					count++;
+			int type_id = z.getType().getId();
+			int number[] = countZombies(z.getTilex(),z.getTiley());		
+			temparray.add(z);
+			//set xoffset to all zombies on same tile if less than 6 zombies
+			if(number[type_id] <= 5){
+				for(Zombies t: temparray){
+					z.setXoffset(count * 16);
+					if(t.getTile().equals(z.getTile()) && t.getType().getId() == type_id){
+						count++;
+					}
 				}
+			//otherwise set xoffset to 0 and render number of zombies next to zombie
+			}else{
+				Text.drawString(g, String.valueOf(number[type_id]), z.getTilex() * TILESIZE + xoff + 16, z.getTiley() * TILESIZE + yoff + 30 + type_id * 16, false, Color.BLACK, Assets.font18);
+				z.setXoffset(0);
 			}
-				zombies.get(i).setXoffset(count * 16);
 		}
-		
+		//render zombies
 		for(Zombies z: zombies){
 			z.render(g);
 		}
 	}
-
+	
+	//count the number of zombies on tile (return number for different types as integer array)
+	public int[] countZombies(int tilex, int tiley){
+		int[] number = new int[Type.getType().length];
+		for(Zombies z: zombies){
+			if (z.getTilex() == tilex && z.getTiley() == tiley){
+				number[z.getType().getId()]++;
+			}
+		}
+		return number;
+	}
+	
 	public void addPlayer(Player player){
 		players.add(player);
 	}

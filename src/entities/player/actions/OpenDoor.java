@@ -13,7 +13,7 @@ import main.Settings;
 
 public class OpenDoor implements Settings{
 	
-	private Handler handler;
+	private Handler handler;;
 	private ArrayList<Point> openableDoors;
 	private boolean chooseDoor;
 
@@ -26,7 +26,7 @@ public class OpenDoor implements Settings{
 	public void tick(){
 		getLockedDoors();
 		if(openableDoors.size() > 1){
-			System.out.println("More than one door to choose");
+//			System.out.println("More than one door to choose");
 			chooseDoor = true;
 			//if mouse click check if door was choosen
 			if(handler.getMouseManager().isLeftPressed()){
@@ -44,6 +44,9 @@ public class OpenDoor implements Settings{
 						System.out.println("try to open door at [" + (int) rec[i].getX()/TILESIZE + "][" + (int) rec[i].getY()/TILESIZE + "]");
 						chooseDoor = false;
 						openDoor(openableDoors.get(i));
+						Point p = openableDoors.get(i);
+						Point player_pos = handler.getGame().getGameState().getTurnPlayer().getTile();
+						handler.getGame().getGameState().getPathFinder().connectTiles(player_pos, p);
 					}
 				}
 			}
@@ -51,10 +54,12 @@ public class OpenDoor implements Settings{
 			System.out.println("no door found to open ");
 		}else{
 			Point p = openableDoors.get(0);
+			Point player_pos = handler.getGame().getGameState().getTurnPlayer().getTile();
 			System.out.println("open door at [" + p.getX() + "][" + p.getY() + "]");
 			openDoor(openableDoors.get(0));
+			handler.getGame().getGameState().getPathFinder().connectTiles(player_pos, p);
 		}
-		System.out.println("openable doors: " + openableDoors.size());
+//		System.out.println("openable doors: " + openableDoors.size());
 	}
 	
 	private void getLockedDoors(){

@@ -1,4 +1,4 @@
-package entities;
+package entities.spawn;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -22,8 +22,10 @@ public class Spawn implements Settings {
 	}
 	
 	public void tick(){
-		System.out.println("NIY - Spawn enemy zombies");
-		handler.getGame().getGameState().addZombies(tilex, tiley, 0);
+	}
+	
+	public void spawn(){
+		handler.getGame().getGameState().spawn(tilex, tiley);
 	}
 	
 	public void render(Graphics g){

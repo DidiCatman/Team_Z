@@ -96,7 +96,6 @@ public class World implements Settings{
 						rooms.add(new Room(handler, x, y, 1));
 					}
 					
-					
 					if(tiles[x][y] == 4){		//detect south room
 						rooms.add(new Room(handler, x, y, 4));
 						if((y+1) < height){
