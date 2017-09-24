@@ -39,20 +39,20 @@ public class HouseManager implements Settings{
 				int ty = houses.get(i).getRooms().get(r).getTiley();
 				
 				//detect east tile
-				if(tx + 1 < w.getWidth() && w.getTile(tx + 1, ty).getId() == TILE_ROAD){
+				if(tx + 1 < w.getWidth() && w.getTile(tx + 1, ty).getId() >= TILE_ROAD){
 					houses.get(i).setRoom(r);
 					houses.get(i).setDoor(1);
 				//detect west tile	
-				}else if(tx - 1 >= 0 && w.getTile(tx - 1, ty).getId() == TILE_ROAD){
+				}else if(tx - 1 >= 0 && w.getTile(tx - 1, ty).getId() >= TILE_ROAD){
 					houses.get(i).setRoom(r);
 					houses.get(i).setDoor(2);
 				//detect north tile
-				}else if(ty + 1 < w.getHeight() && w.getTile(tx, ty + 1).getId() == TILE_ROAD){
+				}else if(ty + 1 < w.getHeight() && w.getTile(tx, ty + 1).getId() >= TILE_ROAD){
 					houses.get(i).setRoom(r);
 					houses.get(i).setDoor(3);
 				}
 				//detect south tile
-				else if(ty - 1 >= 0 && w.getTile(tx, ty - 1).getId() == TILE_ROAD){
+				else if(ty - 1 >= 0 && w.getTile(tx, ty - 1).getId() >= TILE_ROAD){
 					houses.get(i).setRoom(r);
 					houses.get(i).setDoor(4);
 				}
