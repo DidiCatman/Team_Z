@@ -47,21 +47,21 @@ public class PathFinder implements Settings{
 			int y = i / width;
 			int id = handler.getWorld().getTile(x, y).getId();
 			//connect street tiles
-			if(id == TILE_ROAD){
+			if(id >= TILE_ROAD){
 				//east
-				if(i + 1 < (y + 1) * width && handler.getWorld().getTile(x + 1, y).getId() == TILE_ROAD){
+				if(i + 1 < (y + 1) * width && handler.getWorld().getTile(x + 1, y).getId() >= TILE_ROAD){
 					addEdgeToGraph(i, i + 1);
 				}
 				//south
-				if(i + width < width * height && handler.getWorld().getTile(x, y + 1).getId() == TILE_ROAD){
+				if(i + width < width * height && handler.getWorld().getTile(x, y + 1).getId() >= TILE_ROAD){
 					addEdgeToGraph(i, i + width);
 				}
 				//west
-				if(i - 1 >= y * width && handler.getWorld().getTile(x - 1, y).getId() == TILE_ROAD){
+				if(i - 1 >= y * width && handler.getWorld().getTile(x - 1, y).getId() >= TILE_ROAD){
 					addEdgeToGraph(i, i - 1);
 				}
 				//north
-				if(i - width >= 0 && handler.getWorld().getTile(x, y - 1).getId() == TILE_ROAD){
+				if(i - width >= 0 && handler.getWorld().getTile(x, y - 1).getId() >= TILE_ROAD){
 					addEdgeToGraph(i, i - width);
 				}
 			}
