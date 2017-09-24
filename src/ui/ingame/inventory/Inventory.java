@@ -60,7 +60,7 @@ public class Inventory implements Settings{
 				if(p.getTile().equals(p_temp.getTile())){
 					int id = i;
 					int xx = x;
-					trade_bounds.add(new UIImageButton(handler, 65 + x * 120, 380, Assets.trade_hero){
+					trade_bounds.add(new UIImageButton(handler, 65 + x * 130, 385, Assets.trade_hero){
 						@Override
 						public void initAction(){
 							if(handler.getGame().getGameState().isShowTradeInventory()){
@@ -95,12 +95,12 @@ public class Inventory implements Settings{
 	public void render(Graphics g){
 		if(handler.getGame().getGameState().isShowInventory()){
 			g.drawImage(Assets.inventar_background, 50, 50, null);
-			Text.drawString(g, "Inventory", 60, 78, false, Color.BLACK, Assets.font28);
+			Text.drawString(g, "Inventory", 60, 85, false, Color.BLACK, Assets.font28);
 			
 			for(int i = 0; i < trade_bounds.size(); i++){
 				trade_bounds.get(i).render(g);
 				Player p = trade_players.get(i);
-				Text.drawString(g, p.getHeroName(), 68 + i * 120, 380 + 18, false, Color.black, Assets.font18);
+				Text.drawString(g, p.getHeroName(), 68 + i * 130, 387 + 18, false, Color.black, Assets.font18);
 			}
 
 			if(handler.getGame().getGameState().isShowTradeInventory()){
