@@ -1,6 +1,5 @@
 package states;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Arrays;
@@ -16,7 +15,6 @@ import entities.buildings.HouseManager;
 import entities.items.ItemManager;
 import entities.player.Player;
 import gfx.Assets;
-import gfx.Text;
 import main.Handler;
 import main.Settings;
 import main.Translations;
@@ -95,6 +93,7 @@ public class GameState extends State implements Settings, Translations{
 //				number++;
 //			}
 //		}
+		gui.render(g);
 	}
 	
 	//set start values to the game
@@ -227,6 +226,8 @@ public class GameState extends State implements Settings, Translations{
 		showOpenDoors = false;
 		gui.getTaskMenu().getOpenDoors().setActive(false);
 		hasSearched = false;
+		
+		showInventory = false;
 	}
 
 	//GETTERS & SETTERS

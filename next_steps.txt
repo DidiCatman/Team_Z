@@ -3,6 +3,8 @@ bugs:
 
 next steps
 	- Open Doors with random probability of zombies
+	- inventory menu with dropdown items and trade menu with player on same tile 
+		for one action point
 	- finish player ui
 		-> player tooltip informations
 		-> setting game menu
@@ -22,6 +24,7 @@ next steps
 refactoring
 -> houses/rooms und tiles auflösung
 -> player movement klasse
+	- init doors with txt file or randon generator
 
 redesign
 -> new spawner gfx
